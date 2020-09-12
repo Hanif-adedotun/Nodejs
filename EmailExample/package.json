@@ -1,0 +1,14 @@
+{
+  "name": "emailexample",
+  "version": "1.0.0",
+  "description": "A small Email app with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Hanif Adedotun",
+  "license": "ISC",
+  "dependencies": {
+    "nodemailer": "^0.3.29"
+  }
+}
