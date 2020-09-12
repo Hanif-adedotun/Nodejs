@@ -1,1 +1,14 @@
 This is the info file
+
+
+Documentation for MERN application
+https://docs.npmjs.com/getting-started/publishing-npm-packages
+
+Add User with;
+>> npm adduser
+
+Then Log in with;
+>> npm login
+
+To publish the package;
+>>npm publish
