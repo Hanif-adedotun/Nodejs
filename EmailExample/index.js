@@ -1,27 +1,31 @@
 var nodemailer = require('nodemailer');
+var MailComposer = require("nodemailer/lib/mail-composer");
 
-var smtp = nodemailer.createTransport('SMTP', {
-    service: 'gmail',
-    auth:{
-        user: 'hanif.adedotun@gmail.com',
-        pass: ''
-    }
+var transporter = nodemailer.createTransport('SMTP', {
+  service: 'gmail',//smtp-mail.outlook.com
+  auth: {
+    user: 'hanif.adedotun@gmail.com',
+    pass: 'raphew3370'
+  },
+  authMethod:'NTLM',
+    secure:false,
+    tls: {rejectUnauthorized: false},
+    debug:true
 });
 
-var mailOptions= {
-    //email options
+var mailOptions = {
     from: 'hanif.adedotun@gmail.com',
-    to: 'hanifadedotun2k19@gmail.com, voltex.designs@outlook.com',
-    subject: 'Node.js Email Sender',
-    html: "<h1>Voltex with Node.js</h1><p>Welcome to Nde.js with Voltex Desgins</p>"
-};
+    to: 'voltex.designs@gmail.com',
+    subject: 'Sending Email using Node.js, and Voltex API',
+    html: '<h1>Welcome to Voltex</h1><p>That was easy!</p>'
+  };
 
-smtp.sendMailWithTransport(mailOptions, function(error, info){
-    if(error){
-        console.log(error);
-    }else{
-        console.log('Message Sent: '+ info.respose);
-    }
-
-// smtp.close();
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
 });
+
+var mail = new MailComposer(mailOptions);

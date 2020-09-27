@@ -1,0 +1,10 @@
+
+//Express Get method
+app.get('/', function(req, res){
+ 
+});
+
+//Express POST method
+app.post('/', function(req, res){
+ 
+});

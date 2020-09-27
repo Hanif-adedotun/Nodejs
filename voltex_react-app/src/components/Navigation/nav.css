@@ -1,0 +1,10 @@
+.nav{
+    margin: auto;
+    width: 50%;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.nav-justified{
+    width: inherit;
+}

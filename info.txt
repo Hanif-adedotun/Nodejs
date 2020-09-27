@@ -12,3 +12,19 @@ Then Log in with;
 
 To publish the package;
 >>npm publish
+
+
+//To act on a change immediately after the stage has been set 
+//it is asynchronous
+this.setState({name: 'Joe'}, function() {
+// called after state has been updated
+// and the component has been re-rendered
+});
+
+//Functional set state 
+this.setState((state, props) => {
+return {
+value: state.value + 1
+}
+});
+
