@@ -8,3 +8,26 @@
 .nav-justified{
     width: inherit;
 }
+.affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+  }
+
+  .affix + .container-fluid {
+    padding-top: 70px;
+  }
+  
+  .img-circle {
+    border-radius: 50%;
+    height: auto;
+    width: auto;
+}
+.nav-img-circle{
+    border-radius: 50%;
+    height: 30%;
+    width: 30%;
+}
+.glyphicon-user{
+  color: cornflowerblue;
+}

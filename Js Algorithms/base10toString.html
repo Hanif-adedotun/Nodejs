@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>
+        Base 10 to binary string
+    </title>
+</head>
+
+<body>
+    <form onsubmit="submitform(); return false">
+        <label>Input a base 10 number to convert to binary</label>
+        <input id='num' type="text" placeholder="Base 10 number" />
+        <input type="submit">Click to Submit</input>
+        <p id='res'></p>
+    </form>
+</body>
+<script>
+
+    function submitform(){
+        var num = document.getElementById('num').value;
+        var res = document.getElementById('res');
+        res.innerHTML = num + ' in base 2 is ' + convertbase10tostring(Number(num));
+    }
+
+    function convertbase10tostring(n) {
+        var binaryString = '';
+
+        function base10tostringhelper(n) {
+            if (n < 2) {
+                binaryString += n;
+                return;
+            } else {
+                base10tostringhelper(Math.floor(n / 2));
+                base10tostringhelper(n % 2);
+            }
+        }
+        base10tostringhelper(n);
+
+        return binaryString;
+
+    }
+</script>
+
+</html>

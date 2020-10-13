@@ -2,6 +2,9 @@ const express = require('express');
 let router = express.Router();
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
+var usersDB = require('./Database/database');
+const keys = require('../Routes/config/keys');
+const { json } = require('body-parser');
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());
@@ -9,9 +12,91 @@ router.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
 router.use(bodyParser.urlencoded({ extended: true }));
 
-//Include Google sign in authentication as a different file 
 
 // @params {Address} is /api/users
+
+var user = null;
+var userImage = null;
+var dbname = null;
+
+router.route('/login')
+
+.post((req, res) => {
+  console.log(req.body);
+  if(req.body){
+    user = req.body;
+    userImage = req.body.imageUrl;
+    dbname = req.body.googleId;
+    usersDB.createDatabse(dbname);
+   // createuserTable(databaseName, Tablename(req.body.googleId), req.body.name, req.body.email);
+  }else{
+    user = null;
+    userImage = null;
+  }  
+  // res.json(req.body);
+})
+  .get((req, res) => {
+  if(user){
+    res.status(200).json(user);
+  }else{
+    res.status(404).send('User not found');
+    // console.log(user);
+  }
+});
+
+router.get('/login/image', (req, res) => {//Get login image for navigation to show
+  if(userImage){
+    // console.log(userImage);
+    res.status(200).json(userImage);
+  }else{
+    res.status(404).send('Image not found');
+    // console.log(user);
+  }
+});
+
+router.get('/login/dashboard', (req, res) => {
+  var serverRes;
+  //get dashboard from its database
+  // var tableresult = usersDB.getfromtable(dbname);
+  const dummyTable = {
+    databse: keys.mysql.database,
+    table: keys.mysql.Table.tablename
+  }
+
+  usersDB.getfromtable(dummyTable.databse, dummyTable.table).then(function(dbResult){
+    
+    var tableresult = Object(dbResult);
+    const uniqueid = tableresult[0].uniqueid;
+    const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`
+    
+    if (!dummyTable.databse || !tableresult ){
+      serverRes = {
+        status: 400,
+        data: 'Log into databse'
+      }
+      res.status(404).json(serverRes);
+    }else{
+      serverRes = {
+        status: 200,
+        action_url: action_url,
+        data: tableresult
+      }
+      res.status(200).json(serverRes);
+    }
+    
+
+  }).catch(function(err){
+    console.log('Error' + err);
+
+    serverRes = {
+      status: 404,
+      data: 'Users Table is empty not found'
+    }
+    res.status(404).json(serverRes);
+  });
+  
+    
+});
 
 router.route('/generateId').post((req, res) => {
 
@@ -68,8 +153,10 @@ router.route('/createDB')
           
           return res.status(400).json({ errors: errors.array() , id: idnum});
         }else{
+          if(keys.mysql.database){
+            usersDB.addToUserTable(keys.mysql.database, req.body.htmlUrl, req.body.dbname, req.body.uniqueId);
+          }
           return res.json({errors: null});
-
         }
 });
   

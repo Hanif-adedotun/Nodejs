@@ -1,5 +1,8 @@
 import React from 'react';
 import './home.css';
+// import Signin from './google-login';
+
+
 //This function is to show the time, and it updates itself after every 15 seconds 
 function showTime() {
     var currentDate = new Date();
@@ -35,16 +38,21 @@ class Home extends React.Component{
         super();
         this.state = {
             time: showTime(),
+            user: []
         };
       }
 
       componentDidMount(){
         this.interval = setInterval(() => this.setState({time: showTime()}), 15000);
+        
       }
     
       componentWillUnmount(){
         clearInterval(this.interval);
       }
+
+     
+      
 
       render(){
           return(
@@ -55,8 +63,11 @@ class Home extends React.Component{
         </header> */}
             <h2>Home Page</h2>
             <p>Time is {this.state.time}</p>
+            
+            {/* <Signin/> */}
             </div>
           );
       }
 }
+
 export default Home;

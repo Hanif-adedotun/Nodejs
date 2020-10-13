@@ -28,7 +28,7 @@ class Emptydash extends React.Component{
     handleurl = (event) =>{//sets the state to input value
         let url = event.target.value;
         this.setState({htmlUrl: url})
-        let regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+        let regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
         if(regex.test(url)){
              console.log("Successful match"); 
         }else{ 
@@ -102,12 +102,16 @@ class Emptydash extends React.Component{
                     </div>
                 );
             }else{
+                window.location.reload();
                 return(
                     <div className='form-good'>
                         <p className='good'>All inputs are good!</p>
                     </div>
                 );
+                
             }
+            
+
         } 
     
 
@@ -118,11 +122,11 @@ class Emptydash extends React.Component{
               <p className='form-group'>
                 
               <label className='control-label'>Url of your html file</label>
-                  <input className='form-control' name='htmlUrl' type='text' value={this.state.htmlUrl} placeholder='Url of HTML page' onChange={this.handleurl}/>
+                  <input className='form-control' name='htmlUrl' type='text' value={this.state.htmlUrl} placeholder='Url of your HTML page' onChange={this.handleurl}/>
             </p>
             <p className='form-group'>
-                <label className='control-label'>Database Name</label>
-                  <input className='form-control' name='dbname' type='text' value={this.state.dbname} placeholder='Name of your Database' onChange={this.handledbname}/>
+                <label className='control-label'>Table Name</label>
+                  <input className='form-control' name='dbname' type='text' value={this.state.dbname} placeholder='Name to set table' onChange={this.handledbname}/>
             </p>
             <p className='form-group'>
                 <button className="btn btn-primary" onClick={this.generateID}>Click to generate unique key</button>
