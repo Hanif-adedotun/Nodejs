@@ -2,23 +2,25 @@ const express = require('express');
 let router = express.Router();
 const bodyParser = require('body-parser');
 const url = require('url');
+const util = require('util');
 // const querystring = require('querystring');
-const { body, validationResult } = require('express-validator');
+// const { body, validationResult } = require('express-validator');
 // const cors = require('cors');
 const keys = require('./config/keys');
 var DB = require('./Database/database');
 const { json } = require('body-parser');
 var path = require('path');
 const querystring = require('querystring');
+const formidableMiddleware = require('express-formidable');
+
 
 // support parsing of application/json type post data
-// router.use(bodyParser.json());
+router.use(bodyParser.json());
 
 
 
 //support parsing of application/x-www-form-urlencoded post data
 router.use(bodyParser.urlencoded({ extended: true }));
-
 
 
 // @params {Address} is /api/middlwear/backend
@@ -62,24 +64,57 @@ router.route('/:dbname/:key').get((req, res) =>{
 
             if(req.params.key === key && req.headers.origin === url){
                 res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
-                var client_data = req.body;
-                querystring.decode(client_data);
-
-                console.log(client_data);
-                var type= {
-                    text: false,
-                    number: false,
+                var tablres = {
+                    head: [],
+                    body: []
                 };
-                switch(client_data){
-                    case client_data.vm_text: type.text = true;
+                
+                switch(req.headers["content-type"]){
+                    default: parsedata(req.body);
                     break;
-                    case client_data.vm_num: type.number = true;
+                    case "application/x-www-form-urlencoded": parsedata(req.body, true);
+                    break;
+                    case "multipart/form-data": parsemult(req.body);
+                    break;
+                    case "text/plain": parsedata(req.body);//check for how to parse text/plain data
                     break;
                 }
-                console.log(type);
+
+                
+                function parsemult(){
+                    router.use(formidableMiddleware({
+                        encoding: 'utf-8',
+                        uploadDir: '/my/dir',
+                        multiples: true,
+                    }));
+                        console.log(req.fields);
+                        console.log(req.files);
+                        //after adding to databsse
+                        res.redirect('back');
+                }
+                
+
+                function parsedata(data, type){
+                    if(type){
+                        querystring.parse(data);
+                    }
+                    
+                    for (var field in data){
+                        if(field !== 'submit' || field !== 'Submit'){
+                            tablres.head += field;
+                            tablres.body += data[field];
+                        }
+                        console.log('Key: ' + field);
+                        console.log('Value: '+ data[field]);
+                    }
+                      //after adding to databsse
+                      
+                    //   res.redirect('http://localhost/Test/index.html');
+                }
+                
 
             }else{
-                res.status(404).send('<h1>404.</h1>Either Key is incorrect or this is not the expected Url, Try again or sign up our website. <p>Incorrect key: '+ +req.params.key+' Incorrect Url: '+req.headers.referer+'</p>');
+                res.status(404).send('<h1>404.</h1>Either Key is incorrect or this is not the expected Url, Try again or sign up our website. <p>Incorrect key: '+ +req.params.key+' Incorrect Url: '+JSON.stringify(req.headers.referer)+'</p>');
             }
 
     }).catch(function(err){

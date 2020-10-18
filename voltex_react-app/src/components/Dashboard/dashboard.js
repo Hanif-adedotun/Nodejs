@@ -25,9 +25,7 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
      }
 
      dashboard_content = () => {
-        //  Tablename: "HanifDb"
-        // uniqueid: "0043151041128226"
-        // url: "voltexdesigns.netlify.app/index.html"
+       
         const options ={
             name: this.state.dashboard.data[0].Tablename, 
             url: this.state.dashboard.data[0].url, 
@@ -35,7 +33,7 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
         };
         
         const action_url = this.state.dashboard.action_url;
-        console.log(action_url);
+        // console.log(action_url);
 
         this.changeIcon = () =>{
             var icon = document.getElementById('acc-arrow');
@@ -87,30 +85,6 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
             <h2>Dashboard</h2>
             {this.renderContent()}
 
-            {/* <table className='tables' >
-           
-                <thead className='tablehead'>
-                <tr>
-                {this.state.dashboard.map(value =>
-                    
-                    <td>{value.database}</td>
-                    
-                )}
-                </tr>
-                </thead>
-
-                
-                <tbody >
-                {this.state.dashboard.map(value => (
-                    <tr key={value.id}>
-                        <td key={1}>{value.id}</td>
-                        <td key={2}>{value.field1}</td>
-                        <td key={3}>{value.field2}</td>
-                    </tr>
-                ))}
-                </tbody>
-
-            </table> */}
             </div>
         );
       }

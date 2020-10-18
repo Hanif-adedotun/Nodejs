@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\Url checker npm"
 		}
 	],
 	"settings": {

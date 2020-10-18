@@ -20,6 +20,11 @@ module.exports = {
         clientSecret: "SuVfzF7J2bK2LwNX4FdwB_nv"
         // 'HoY2U5REcwG1ZkG1gXYXcbsI'
     },
+    mongodb:{
+        username: 'vm_admin',
+        password: '3gPHRTsfrHtnwkE',
+        url: 'mongodb://<vm_admin>:<3gPHRTsfrHtnwkE>@voltex-middlewear-shard-00-00.0qmeb.gcp.mongodb.net:27017,voltex-middlewear-shard-00-01.0qmeb.gcp.mongodb.net:27017,voltex-middlewear-shard-00-02.0qmeb.gcp.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-57hqa1-shard-0&authSource=admin&retryWrites=true&w=majority',
+    },
     session:{
         cookieKey: 'uuysysuhh17872'
     },

@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 const keys = require('../config/keys');
+// var {mongoClient} = require('mongodb');
 
 var DBdetails = {//connection details to the database
     host: keys.mysql.host,

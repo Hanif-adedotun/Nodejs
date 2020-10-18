@@ -1,7 +1,9 @@
 *{
     text-align: center;
 }
-
+.bold{
+    font-weight: bold;
+}
 /* #282c34
 #61dafb */
 .dashboard{
