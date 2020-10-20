@@ -3,9 +3,26 @@ import './dashboard.css';
 import PropTypes from 'prop-types';
 import '../css/bootstrap.min.css';
 
+//popup
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 var delete_button = () =>{  
         return(
-            <button className='btn btn-primary bold'>Delete</button>
+            <Popup className='popup' trigger={<button className='btn btn-primary bold'> Delete </button>} modal>
+                
+            {close=>(
+                <div className='popup'>
+                    
+                <button className="close" onClick={close}> &times;</button>
+                <div className="content">
+                <div>Are you sure you want to delete?</div>
+                </div>
+
+                </div>
+            )}
+                
+          </Popup>
         );
 }
 const _delete = (id) => {

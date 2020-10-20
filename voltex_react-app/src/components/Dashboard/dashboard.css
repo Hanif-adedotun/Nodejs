@@ -165,4 +165,23 @@
 }
 /* End of Form */
 
+/* Modal popup */
+.popup{
+    padding: none;
+    border-radius: 5px;
+}
+.popup .close{
+text-decoration: none;
+border: none;
+font-size: x-large;
+}
+.popup .content{
+ font-weight: bold;
+ font-size: large;
+ color:red;
+ margin: .5em auto;
+}
 
+
+
+/* End of popup */

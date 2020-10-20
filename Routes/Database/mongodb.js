@@ -1,10 +1,27 @@
 var MongoClient = require('mongodb').MongoClient;
+const { createConnection } = require('mysql');
 const keys = require('../config/keys'); 
 
+
 var uri = keys.mongodb.url;
-MongoClient.connect(uri, function(err, client) {
-  const collection = client.db("test").collection("devices");
-console.log('connected');
-  // perform actions on the collection object
-  client.close();
-});
+
+
+createcollection = () =>{
+  MongoClient.connect(uri, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(keys.mongodb.db.name);
+    dbo.createCollection(keys.mongodb.db.collection, function(err, res) {
+      if (err) throw err;
+      console.log("Collection created!");
+      db.close();
+    });
+  });
+
+}
+
+var mongo = {
+  createCollection: createConnection
+}
+
+
+module.exports = mongo;

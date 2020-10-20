@@ -6,6 +6,9 @@ var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
 const { json } = require('body-parser');
 
+//mongodb
+const mongos = require('./Database/mongoose');
+mongos();
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());
@@ -19,6 +22,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 var user = null;
 var userImage = null;
 var dbname = null;
+
 
 router.route('/login')
 
