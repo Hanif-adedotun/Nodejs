@@ -3,9 +3,7 @@ let router = express.Router();
 const bodyParser = require('body-parser');
 const url = require('url');
 const util = require('util');
-// const querystring = require('querystring');
-// const { body, validationResult } = require('express-validator');
-// const cors = require('cors');
+
 const keys = require('./config/keys');
 var DB = require('./Database/database');
 const { json } = require('body-parser');
@@ -13,6 +11,8 @@ var path = require('path');
 const querystring = require('querystring');
 const formidableMiddleware = require('express-formidable');
 
+//mongodb
+const mongoInsert = require('./Database/mongodb');
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());
@@ -23,7 +23,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 
-// @params {Address} is /api/middlwear/backend
+// @params {Address} is /api/middlewear/data
 var dummyTable = {
     databse: keys.mysql.database,
     table: keys.mysql.Table.tablename,
@@ -31,29 +31,13 @@ var dummyTable = {
     url: keys.mysql.Table.url
   }
 
+
+
 router.route('/:dbname/:key').get((req, res) =>{
     res.send('Hello database');
 }).post((req, res) =>{
     req.setMaxListeners(5);
-    // var data = {
-    //     referer: req.headers.referer,
-    //     origin: req.headers.origin,
-    //     rew: req.originalUrl,
-    //     body: req.body,
-    //     headers: req.headers,
-    //     url: req.url,
-    //     user: req.user,
-    //     xhr: req.xhr,
-    //     subdomains: req.subdomains,
-    //     secure: req.secure,
-    //     session: req.session,
-    //     options: req.sessionOptions,
-    //     path: req.path,
-    //     params: req.params,
-    //     ip: req.ip,
-    //     hostname: req.hostname
-    // };
-
+    
     const params = dummyTable.key+','+dummyTable.url;
     DB.getfromtable(req.params.dbname, dummyTable.table, params).then(
         function(result){
@@ -65,8 +49,8 @@ router.route('/:dbname/:key').get((req, res) =>{
             if(req.params.key === key && req.headers.origin === url){
                 res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
                 var tablres = {
-                    head: [],
-                    body: []
+                    key: key,
+                    db_values: []                    
                 };
                 
                 switch(req.headers["content-type"]){
@@ -89,8 +73,6 @@ router.route('/:dbname/:key').get((req, res) =>{
                     }));
                         console.log(req.fields);
                         console.log(req.files);
-                        //after adding to databsse
-                        res.redirect('back');
                 }
                 
 
@@ -98,17 +80,25 @@ router.route('/:dbname/:key').get((req, res) =>{
                     if(type){
                         querystring.parse(data);
                     }
-                    
-                    for (var field in data){
-                        if(field !== 'submit' || field !== 'Submit'){
-                            tablres.head += field;
-                            tablres.body += data[field];
+                   
+                    try{
+                        
+                        for (var field in data){
+                        
+                            if(field !== ('submit' || 'Submit' || 'send' || 'Send')){
+                               
+                            tablres.db_values[field] = data[field];
+                        
+                            //collection is the google id
+                            }              
                         }
-                        console.log('Key: ' + field);
-                        console.log('Value: '+ data[field]);
+                        console.log(tablres);
+                        mongoInsert(keys.mongodb.db.collection, tablres); 
+                           
+                    }catch(err){
+                        res.status(500).send('<h1>We are having problems right now! Please try again later. Thank you</h1>');
                     }
-                      //after adding to databsse
-                      
+                    
                     //   res.redirect('http://localhost/Test/index.html');
                 }
                 
@@ -122,9 +112,9 @@ router.route('/:dbname/:key').get((req, res) =>{
 
     var serverRes = {
       status: 404,
-      data: 'Unauthorized access!'
+      data: 'Internal server error!'
     }
-    res.status(401).send(JSON.stringify(serverRes.data));
+    res.status(500).send(JSON.stringify(serverRes.data));
     });
     
 });

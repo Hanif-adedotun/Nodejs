@@ -41,7 +41,9 @@ class Nav extends React.Component{
             <Router>
                 <div className='nav'>
                     <nav className="navbar navbar-default " data-spy="affix" data-offset-top="197">
+                    
                         <ul className='nav nav-pills nav-justified'>
+                            <li className='nav-list '><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></li>
                             <li className='nav-list'><Link to='/'>Home</Link></li>
                             <li className='nav-list'><Link to='/dashboard'>Dashboard</Link></li>
                             <li className='nav-list'><Link to='/profile'>{this.rendercontent()}</Link></li>

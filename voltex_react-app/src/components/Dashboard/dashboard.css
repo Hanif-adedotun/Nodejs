@@ -9,11 +9,11 @@
 .dashboard{
     font-size: medium;
     text-align: center;
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
     background-color: #282c34;
     color: white;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     padding: .5em;
 }
 
@@ -74,7 +74,7 @@
 /* Form to Configure the database */
 
 /* Accordion styles */
-.glyphicon{
+.small{
     font-size: small;
     color:  #444;
 }

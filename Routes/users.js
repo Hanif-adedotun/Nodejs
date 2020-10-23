@@ -6,9 +6,6 @@ var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
 const { json } = require('body-parser');
 
-//mongodb
-const mongos = require('./Database/mongoose');
-mongos();
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());
@@ -19,7 +16,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 // @params {Address} is /api/users
 
-var user = null;
+var users = null;
 var userImage = null;
 var dbname = null;
 
@@ -29,20 +26,20 @@ router.route('/login')
 .post((req, res) => {
   console.log(req.body);
   if(req.body){
-    user = req.body;
+    users = req.body;
     userImage = req.body.imageUrl;
     dbname = req.body.googleId;
     usersDB.createDatabse(dbname);
    // createuserTable(databaseName, Tablename(req.body.googleId), req.body.name, req.body.email);
   }else{
-    user = null;
+    users = null;
     userImage = null;
   }  
   // res.json(req.body);
 })
   .get((req, res) => {
-  if(user){
-    res.status(200).json(user);
+  if(users){
+    res.status(200).json(users);
   }else{
     res.status(404).send('User not found');
     // console.log(user);

@@ -37,8 +37,8 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
 
         this.changeIcon = () =>{
             var icon = document.getElementById('acc-arrow');
-            var icon_down = 'glyphicon glyphicon-chevron-down';
-            var icon_up = 'glyphicon glyphicon-chevron-up';
+            var icon_down = 'glyphicon glyphicon-chevron-down small';
+            var icon_up = 'glyphicon glyphicon-chevron-up small';
 
             if(icon.className === icon_down){
                 icon.className = icon_up;
@@ -66,6 +66,7 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
                 <p className='medium'>Your form action should be <span className='unique'>{action_url}</span></p>
                   
                 <Table tableName={this.state.dashboard.data[0].Tablename}/> {/*Table to display static file form*/}
+
             </div>
         );
      }
@@ -74,7 +75,7 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
         // console.log(this.state.dashboard.status);
          switch(this.state.dashboard.status){
              default:
-                 case 400:  return ('You need to Sign in to access dashboard, Sign in now!');
+                 case 400: return ('You need to Sign in to access dashboard, Sign in now!');
                  case 404: return <Emptydash />;
                  case 200: return this.dashboard_content();
          }

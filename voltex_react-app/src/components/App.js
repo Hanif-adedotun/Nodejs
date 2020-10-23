@@ -25,8 +25,6 @@ class App extends React.Component{
   render() {
     return (
       <div className="App">
-        <h1>Welcome to Voltex Middlewear</h1>
-        <p className='Tagline'>We create your backend for you</p>
         <Nav/>
       </div>
     );

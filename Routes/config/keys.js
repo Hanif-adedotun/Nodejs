@@ -23,7 +23,7 @@ module.exports = {
     mongodb:{
         username: 'vm_admin',
         password: '3gPHRTsfrHtnwkE',
-        url: 'mongodb://vm_admin:3gPHRTsfrHtnwkE@voltex-middlewear-shard-00-00.0qmeb.gcp.mongodb.net:27017,voltex-middlewear-shard-00-01.0qmeb.gcp.mongodb.net:27017,voltex-middlewear-shard-00-02.0qmeb.gcp.mongodb.net:27017/Vm_use>?ssl=true&replicaSet=atlas-57hqa1-shard-0&authSource=admin&retryWrites=true&w=majority',
+        url: 'mongodb://vm_admin:3gPHRTsfrHtnwkE@voltex-middlewear-shard-00-00.0qmeb.gcp.mongodb.net:27017,voltex-middlewear-shard-00-01.0qmeb.gcp.mongodb.net:27017,voltex-middlewear-shard-00-02.0qmeb.gcp.mongodb.net:27017/Vm_user>?ssl=true&replicaSet=atlas-57hqa1-shard-0&authSource=admin&retryWrites=true&w=majority',
         db:{
             name: "Vm_user",
             collection: 'Userdb'

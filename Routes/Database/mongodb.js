@@ -1,27 +1,30 @@
 var MongoClient = require('mongodb').MongoClient;
-const { createConnection } = require('mysql');
-const keys = require('../config/keys'); 
+const keys = require('../config/keys');
+const url = keys.mongodb.url;
 
+module.exports = connect_insert = (collection, data) =>{
+     
 
-var uri = keys.mongodb.url;
-
-
-createcollection = () =>{
-  MongoClient.connect(uri, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db(keys.mongodb.db.name);
-    dbo.createCollection(keys.mongodb.db.collection, function(err, res) {
-      if (err) throw err;
-      console.log("Collection created!");
-      db.close();
-    });
-  });
-
+     try{
+          MongoClient.connect(url,{
+               useNewUrlParser: true,
+               useUnifiedTopology: true,
+               // useFindAndModify: true,
+               // useCreateIndex: true
+             },function(err, db) {
+            if (err) throw err;
+            var dbo = db.db(keys.mongodb.db.name);
+            
+            dbo.collection(collection).insertOne(data, function(err, res) {
+              if (err) throw err;
+              console.log(`${data.key} is inserted`);
+              db.close();
+            });
+          });
+          return true;
+     }catch(err){
+          console.error(err);
+          return false;
+     }
 }
 
-var mongo = {
-  createCollection: createConnection
-}
-
-
-module.exports = mongo;
