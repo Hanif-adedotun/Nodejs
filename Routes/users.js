@@ -6,6 +6,10 @@ var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
 const { json } = require('body-parser');
 
+//MongoDB
+const mongo = require('./Database/mongodb')
+
+
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());
@@ -65,12 +69,18 @@ router.get('/login/dashboard', (req, res) => {
     table: keys.mysql.Table.tablename
   }
 
-  usersDB.getfromtable(dummyTable.databse, dummyTable.table).then(function(dbResult){
+  usersDB.getfromtable(dummyTable.databse, dummyTable.table).then(async function(dbResult){
     
     var tableresult = Object(dbResult);
     const uniqueid = tableresult[0].uniqueid;
-    const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`
+    const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`;
+
+    //In future the db is the unique id, then the collection is the uniqueId
     
+     const UserTable =  await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection);
+     console.log(UserTable);
+   
+
     if (!dummyTable.databse || !tableresult ){
       serverRes = {
         status: 400,
@@ -81,7 +91,8 @@ router.get('/login/dashboard', (req, res) => {
       serverRes = {
         status: 200,
         action_url: action_url,
-        data: tableresult
+        data: tableresult,
+        table: Object(UserTable)
       }
       res.status(200).json(serverRes);
     }

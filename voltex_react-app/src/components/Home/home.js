@@ -63,23 +63,23 @@ class Home extends React.Component{
             <p>Time is {this.state.time}</p>
             <div className='container-fluid'>
               <div className='row '>
-                <div class="col-md-6 hm left" >
+                <div className="col-md-6 hm left" >
                   
                 <h5>Simple and realiable back end provider</h5>
                 <p><span className='large glyphicon glyphicon-cloud '></span></p>
                 </div>
-                <div class="col-md-6 hm right">
+                <div className="col-md-6 hm right">
                   <h5>Column </h5>
                   <p><span className='large glyphicon glyphicon-tasks'></span></p>
                 </div>
               </div>
               <div className='row '>
-                <div class=" col-md-6 hm left" >
+                <div className=" col-md-6 hm left" >
                   
                 <h5>Just one step click to integrate</h5>
                 <p><span className='large glyphicon glyphicon-globe'></span></p>
                 </div>
-                <div class="col-md-6 hm right">
+                <div className="col-md-6 hm right">
                   <h5>Secure and safe software</h5>
                   <p><span className='large glyphicon glyphicon-lock'></span></p>
                 </div>

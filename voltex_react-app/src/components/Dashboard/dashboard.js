@@ -65,7 +65,7 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
                 </Accordion>
                 <p className='medium'>Your form action should be <span className='unique'>{action_url}</span></p>
                   
-                <Table tableName={this.state.dashboard.data[0].Tablename}/> {/*Table to display static file form*/}
+                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table[0]}/> {/*Table to display static file form*/}
 
             </div>
         );
@@ -85,7 +85,6 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
             <div className='dashboard'>
             <h2>Dashboard</h2>
             {this.renderContent()}
-
             </div>
         );
       }

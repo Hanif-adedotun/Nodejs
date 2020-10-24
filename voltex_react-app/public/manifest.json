@@ -3,19 +3,14 @@
   "name": "Backend plug",
   "icons": [
     {
-      "src": "logo.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "favicon-32x32.png",
+      "sizes": "32x32 24x24 16x16",
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "android-icon-36x36.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "36x36"
     }
   ],
   "start_url": ".",

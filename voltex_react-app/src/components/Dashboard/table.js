@@ -35,7 +35,7 @@ _delete.propTypes = {
 }
 
 
-const Table = ({tableName}) =>{
+const Table = ({tableName, table}) =>{
 
         return(
             <div className='formTable'>
@@ -62,7 +62,11 @@ const Table = ({tableName}) =>{
                                 <th>Field 2</th>
                                 <th id={2} >{delete_button()}</th>
                             </tr>
-                            
+                            <tr>
+                                <th>
+                                    The table data is {table}
+                                </th>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -70,7 +74,8 @@ const Table = ({tableName}) =>{
 }
 
 Table.propTypes = {
-    tableName: PropTypes.string.isRequired
+    tableName: PropTypes.string.isRequired,
+    table: PropTypes.object.isRequired
 }
 
 export default Table;
