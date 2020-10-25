@@ -1,0 +1,15 @@
+.code{
+     background-color: rgb(207, 206, 206);
+     color: rgb(104, 103, 103);
+     width: max-content;
+     margin: auto;
+     padding: .5em;
+     border-radius: 20px;
+}
+.end_header{
+     border-bottom: 2px solid cornflowerblue;
+}
+.code_container{
+     margin: 2em auto;
+     /* background-color: cadetblue; */
+}

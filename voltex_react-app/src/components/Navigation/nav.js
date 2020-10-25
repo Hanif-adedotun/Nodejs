@@ -5,6 +5,7 @@ import './nav.css';
 import Dashboard from '../Dashboard/dashboard';
 import Home from '../Home/home';
 import Profile from '../Profile/profile';
+import Docs from '../Docs/docs';
 
 class Nav extends React.Component{
     constructor(){
@@ -45,6 +46,7 @@ class Nav extends React.Component{
                         <ul className='nav nav-pills nav-justified'>
                             <li className='nav-list '><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></li>
                             <li className='nav-list'><Link to='/'>Home</Link></li>
+                            <li className='nav-list'><Link to='/docs'>Documentation</Link></li>
                             <li className='nav-list'><Link to='/dashboard'>Dashboard</Link></li>
                             <li className='nav-list'><Link to='/profile'>{this.rendercontent()}</Link></li>
                         </ul>
@@ -54,6 +56,7 @@ class Nav extends React.Component{
                     <Route path='/' exact component={Home}/>
                     <Route path='/dashboard' exact component={Dashboard}/>
                     <Route path='/profile' exact component={Profile}/>
+                    <Route path='/docs' exact component={Docs} />
                 </Switch>
             </Router>
         );
