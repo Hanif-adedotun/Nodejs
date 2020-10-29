@@ -17,7 +17,7 @@ class Nav extends React.Component{
     componentDidMount(){
         fetch('/api/auth/login/success')//fetch the data from our express server running on localhost:8080
         .then(res => res.json())//parse the data in json format
-        .then(response => this.setState({imageUrl: response.user.imageUrl}, () => {console.log('User Image updated'); this.rendercontent();}))
+        .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, () => {console.log('User Image updated'+JSON.stringify(response.user)); this.rendercontent();}))
         .catch((error) =>{console.error('Unable to get user image' + error);});
     }
         defaultimage = () =>{

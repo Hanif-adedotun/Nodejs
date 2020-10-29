@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.css';
 import '../css/bootstrap.min.css';
-// import Signin from './google-login';
+// import { text } from 'body-parser';
 
 
 //This function is to show the time, and it updates itself after every 15 seconds 
@@ -39,53 +39,67 @@ class Home extends React.Component{
         super();
         this.state = {
             time: showTime(),
-            user: []
+            user: [],
+            internet: 'true',
+
         };
       }
 
       componentDidMount(){
         this.interval = setInterval(() => this.setState({time: showTime()}), 15000);
         
+        this.interval = setInterval(() => function updateinternet(){
+          if(!navigator.onLine){
+            this.setState({internet: 'false'});
+            console.log('Internet is down '+ navigator.onLine);
+          }else{
+            console.log('Internet is online '+navigator.onLine);
+          }
+        }, 100);
       }
+
     
       componentWillUnmount(){
         clearInterval(this.interval);
       }
 
      
-      
 
       render(){
           return(
-              <div className='Home'>
+            <div className='Home'>
 
-            <h1 className='head'>Voltex Middlwear</h1>
-            <p>Time is {this.state.time}</p>
+            <header className='header'>
+                  <h1 className='head'>Voltex Middlwear</h1>
+                  <p>Time is <span className='time'>{this.state.time}</span></p>
+                  <p>Internet Status: {this.state.internet}</p>
+            </header>
+
             <div className='container-fluid'>
               <div className='row '>
                 <div className="col-md-6 hm left" >
                   
                 <h5>Simple and realiable back end provider</h5>
-                <p><span className='large glyphicon glyphicon-cloud '></span></p>
+                <p><span className='large color glyphicon glyphicon-cloud '></span></p>
                 </div>
                 <div className="col-md-6 hm right">
                   <h5>Column </h5>
-                  <p><span className='large glyphicon glyphicon-tasks'></span></p>
+                  <p><span className='large color glyphicon glyphicon-tasks'></span></p>
                 </div>
               </div>
               <div className='row '>
                 <div className=" col-md-6 hm left" >
                   
                 <h5>Just one step click to integrate</h5>
-                <p><span className='large glyphicon glyphicon-globe'></span></p>
+                <p><span className='large color glyphicon glyphicon-globe'></span></p>
                 </div>
                 <div className="col-md-6 hm right">
                   <h5>Secure and safe software</h5>
-                  <p><span className='large glyphicon glyphicon-lock'></span></p>
+                  <p><span className='large color glyphicon glyphicon-lock'></span></p>
                 </div>
               </div>
             </div>
-            {/* <Signin/> */}
+
             </div>
           );
       }

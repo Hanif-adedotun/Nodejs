@@ -1,8 +1,23 @@
 // import { request } from 'express';
 import React from 'react';
 import '../css/bootstrap.min.css';
+import './profile.css';
 // import Signin from '../Home/google-login';
 // import Signout from '../Home/google-logout';
+
+
+var gsign = (name, signin) =>{
+    return(
+        <div className='g-sign-in-button' {...(signin) ? 'signin': ''}>
+            <div className='content-wrapper'>
+                <span className='logo-wrapper'>
+                    <img alt='Google logo' src="https://img.icons8.com/color/40/000000/google-logo.png"></img>
+                </span>
+                <span className='text-container'> {name} </span>
+            </div>
+        </div>
+    );
+}
 
 class Profile extends React.Component{
     constructor(){
@@ -14,47 +29,35 @@ class Profile extends React.Component{
     }
 
     componentDidMount(){
-    (async ()=>{
-        const request = await fetch('http://localhost:8080/api/auth/login/success', {
-            method: 'GET',
-            credentials: 'include',
-            headers:{
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Credentials': true,
-            },
-        });
+        fetch('/api/auth/login/success')//fetch the data from our express server running on localhost:8080
+        .then(res => res.json())//parse the data in json format
+        .then(response => this.setState({user: response.user, authenticate: response.authenticate}, () => {console.log('Profile updated'); this.renderuser();}))
+        .catch((error) =>{console.error('Unable to get user image' + error);});
+    };
     
-     const res = await request.json();
-    if(request.statusCode === 200){
-        this.setState({user: res.user, authenticate: res.authenticate});
-        this.renderuser();
-    }else{
-        // console.error('Unable to authenticate user');
-    }
-    })();
-    
-    
-   }
-
+   
    handleusersignin = (e) =>{
     e.preventDefault();
     window.open('http://localhost:8080/api/auth/signin', '_self');
    }
 
+   handlesignout  = (e) =>{
+       e.preventDefault();
+       alert('Sign out');
+   }
+
     userprofile = () =>{
         return(
             <div>
-                <h1>Profile section</h1>
+                <h1>Hello {this.state.user.name.givenName}</h1>
                 <div className='user'>
-                    <p><img src={this.state.user.imageUrl} alt='User icon' className='img-circle' ></img></p>
+                    <p><img src={this.state.user.imageUrl} alt='User icon' className='img-circle'></img></p>
                     <p>Welcome {this.state.user.username}</p>
-                    <p>E-mail: {this.state.user.email}</p>
+                    <p>E-mail: {this.state.user.email[0].value}</p>
                     <p>Go to dashboard to access your tables</p>
                 </div>
-                <div>
-                    Click here to sign out:
-                  
+                <div onClick={this.handlesignout}>
+                    {gsign('Sign out')}
                 </div>
             </div>
         );
@@ -64,16 +67,20 @@ class Profile extends React.Component{
         return(
             <div>
                 <h2>Seems you are not signed in, sign in now!</h2>
-                <button onClick={this.handleusersignin}> Sign in </button>
+                <div onClick={this.handleusersignin}>
+                 {gsign('Sign in With Google')}
+                </div>
             </div>
         );
     }
 
     renderuser(){
+        // console.log(String(this.state.authenticate));
+        
         switch(String(this.state.authenticate)){
             default:
-                case false: return this.notsignedin();
-                case true: return this.userprofile();
+                case 'false': return this.notsignedin();
+                case 'true': return this.userprofile();
         }
     }
 
