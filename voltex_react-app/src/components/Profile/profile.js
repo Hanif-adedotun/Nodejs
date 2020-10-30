@@ -43,8 +43,16 @@ class Profile extends React.Component{
 
    handlesignout  = (e) =>{
        e.preventDefault();
-       alert('Sign out');
+    //    alert('Sign out');
+
+       fetch('/api/auth/logout')//fetch the data from our express server running on localhost:8080
+        .then(res => res.json())//parse the data in json format
+        .then(response => this.setState({authenticate: response.authenticate}, () => {console.log('User Signed out'); this.renderuser(); }))
+        .catch((error) =>{console.error('Unable to sign out' + error);});
+
+        window.location.reload();
    }
+
 
     userprofile = () =>{
         return(
@@ -56,7 +64,7 @@ class Profile extends React.Component{
                     <p>E-mail: {this.state.user.email[0].value}</p>
                     <p>Go to dashboard to access your tables</p>
                 </div>
-                <div onClick={this.handlesignout}>
+                <div className='gsign' onClick={this.handlesignout}>
                     {gsign('Sign out')}
                 </div>
             </div>
@@ -67,7 +75,7 @@ class Profile extends React.Component{
         return(
             <div>
                 <h2>Seems you are not signed in, sign in now!</h2>
-                <div onClick={this.handleusersignin}>
+                <div className='gsign' onClick={this.handleusersignin}>
                  {gsign('Sign in With Google')}
                 </div>
             </div>

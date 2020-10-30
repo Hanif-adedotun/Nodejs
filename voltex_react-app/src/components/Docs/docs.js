@@ -30,9 +30,9 @@ class Docs extends React.Component{
 
                     <header className='header'>
                     <h1>This is the documentation page</h1>
-                    <h5>How to incoperate voltex middlewear into your static website</h5>
+                    <h4>How to incoperate voltex middlewear into your static website</h4>
                     </header>
-                    
+
                     <div className='code_container'>
                          <p>Insert link to form action</p>
 

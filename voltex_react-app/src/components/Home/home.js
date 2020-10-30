@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.css';
 import '../css/bootstrap.min.css';
-// import { text } from 'body-parser';
+
 
 
 //This function is to show the time, and it updates itself after every 15 seconds 
@@ -40,22 +40,22 @@ class Home extends React.Component{
         this.state = {
             time: showTime(),
             user: [],
-            internet: 'true',
-
+            internet: 'false',
         };
       }
 
       componentDidMount(){
         this.interval = setInterval(() => this.setState({time: showTime()}), 15000);
         
-        this.interval = setInterval(() => function updateinternet(){
-          if(!navigator.onLine){
-            this.setState({internet: 'false'});
-            console.log('Internet is down '+ navigator.onLine);
-          }else{
-            console.log('Internet is online '+navigator.onLine);
-          }
-        }, 100);
+        fetch('https://www.google.com')//fetch the data from our express server running on localhost:8080
+        .then(res => {
+        if(res.ok) { // res.status >= 200 && res.status < 300
+          this.setState({internet: 'true'})
+          console.log('There is internet');
+        } else {
+          console.log('No internet');
+        }})//parse the data in json format
+       .catch((error) =>{console.error('Unable to get internet'+error)});
       }
 
     

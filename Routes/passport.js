@@ -57,7 +57,7 @@ router.get('/login/failure', (req, res)=>{
 
   router.get('/logout', (req, res) =>{
     req.logout();
-    res.send(req.user);
+    res.status(200).json({authenticate: false});
   });
   
   passport.serializeUser(function(user, done) {

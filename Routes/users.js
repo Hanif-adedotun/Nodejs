@@ -10,7 +10,6 @@ const { json } = require('body-parser');
 const mongo = require('./Database/mongodb')
 
 
-
 // support parsing of application/json type post data
 router.use(bodyParser.json());
 
@@ -111,6 +110,9 @@ router.get('/login/dashboard', (req, res) => {
     
 });
 
+
+
+//If the dashboard is empty
 router.route('/generateId').post((req, res) => {
 
     //This function is to generate a unique id and sends it to the user
@@ -173,6 +175,5 @@ router.route('/createDB')
         }
 });
   
-
 
 module.exports = router;
