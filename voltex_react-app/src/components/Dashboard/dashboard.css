@@ -8,7 +8,6 @@
 /* #282c34
 #61dafb */
 .dashboard{
-    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: medium;
     text-align: center;
     max-width: 99.9%;
@@ -184,6 +183,13 @@ font-size: x-large;
  margin: .5em auto;
 }
 
-
-
 /* End of popup */
+
+
+/* If a user is not signed in class */
+.signedout .s-text{
+    color:  #61dafb;
+}
+
+
+/* End of not signed in div */

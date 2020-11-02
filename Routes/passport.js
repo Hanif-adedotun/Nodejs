@@ -7,6 +7,9 @@ const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
 
+
+//nconf
+// var ncon = require('./config/nconfig');
 // @params {Address} is /api/auth
 
 passport.use(new GoogleStrategy({
@@ -23,6 +26,12 @@ passport.use(new GoogleStrategy({
     username: profile.displayName,
     imageUrl: profile.photos[0].value
    };
+
+  //  Solve the error here!!
+   keys.User.dbname = user.id;
+   keys.User.fulldetails = user;
+  //  ncon.save('user', user.id);
+
     return done(null, user);
   }));
   router.use(cookieSession({
@@ -42,7 +51,8 @@ router.get('/redirect', passport.authenticate('google', {
 router.get('/signin', passport.authenticate('google', {scope: ['profile', 'email']}));
   
 router.get('/login/success', (req, res)=>{
-  if(req.user){
+  if(req.user){   
+    keys.User.dbname = req.user.id;
     res.status(200).json({authenticate:true, user: req.user});
   }else{
     res.status(404).json({authenticate: false,user: null});

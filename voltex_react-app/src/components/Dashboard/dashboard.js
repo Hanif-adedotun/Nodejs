@@ -20,8 +20,8 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
      componentDidMount(){
          fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
          .then(res => res.json())//parse the data in json format
-         .then(dashboard => this.setState({dashboard}, () => console.log('Dashboard updated')))
-         .catch( (error) =>{console.error('Unable to get data from database' + error);});
+         .then(dashboard => this.setState({dashboard}, () => console.log('Dashboard updated'+JSON.stringify(dashboard))))
+         .catch((error) =>{console.error('Unable to get data from database' + error);});
      }
 
      dashboard_content = () => {
@@ -70,12 +70,19 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
             </div>
         );
      }
+     signedout = () =>{
+        return(
+            <div className='signedout'>
+                <div className='s-text'>You need to Sign in to access dashboard, Sign in now!</div>
+            </div>
+        )
+     }
 
      renderContent(){
-        // console.log(this.state.dashboard.status);
+        console.log('Status Server'+this.state.dashboard.status);
          switch(this.state.dashboard.status){
              default:
-                 case 400: return ('You need to Sign in to access dashboard, Sign in now!');
+                 case 400: return this.signedout();
                  case 404: return <Emptydash />;
                  case 200: return this.dashboard_content();
          }

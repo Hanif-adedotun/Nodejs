@@ -13,6 +13,10 @@ module.exports = {
             uniqueID : 'uniqueid'
         }
     },
+    User:{
+        dbname: null,
+        fulldetails: []
+    },
     google:{
         
         clientID: "135774644582-1etfavodc0ic3a8nqhj919o29gco6utj.apps.googleusercontent.com",

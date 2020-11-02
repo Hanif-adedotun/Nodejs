@@ -59,54 +59,66 @@ router.get('/login/image', (req, res) => {//Get login image for navigation to sh
   }
 });
 
-router.get('/login/dashboard', (req, res) => {
+router.get('/login/dashboard', async (req, res) => {
   var serverRes;
   //get dashboard from its database
-  // var tableresult = usersDB.getfromtable(dbname);
+  
   const dummyTable = {
-    databse: keys.mysql.database,
+    databse:  keys.User.dbname,
     table: keys.mysql.Table.tablename
   }
+  console.log('User id'+ keys.User.dbname);
+  // console.log('User'+JSON.stringify(keys.User.fulldetails));
 
-  usersDB.getfromtable(dummyTable.databse, dummyTable.table).then(async function(dbResult){
-    
-    var tableresult = Object(dbResult);
-    const uniqueid = tableresult[0].uniqueid;
-    const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`;
-
-    //In future the db is the unique id, then the collection is the uniqueId
-    
-     const UserTable =  await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection);
-     console.log(UserTable);
-   
-
-    if (!dummyTable.databse || !tableresult ){
-      serverRes = {
-        status: 400,
-        data: 'Log into databse'
-      }
-      res.status(404).json(serverRes);
-    }else{
-      serverRes = {
-        status: 200,
-        action_url: action_url,
-        data: tableresult,
-        table: Object(UserTable)
-      }
-      res.status(200).json(serverRes);
-    }
-    
-
-  }).catch(function(err){
-    console.log('Error' + err);
-
+  if (!dummyTable.databse){
     serverRes = {
-      status: 404,
-      data: 'Users Table is empty not found'
+      status: 400,
+      data: 'Log into databse'
     }
     res.status(404).json(serverRes);
-  });
+    return;
+  }
+  try{
+    usersDB.getfromtable(dummyTable.databse, dummyTable.table).then(async function(dbResult){
+      
+      var tableresult = Object(dbResult);
+      const uniqueid = tableresult[0].uniqueid;
+      const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`;
+
+      //In future the db is the unique id, then the collection is the uniqueId
+      
+      const UserTable =  await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection);
+      console.log(UserTable);
+    
+        serverRes = {
+          status: 200,
+          action_url: action_url,
+          data: tableresult,
+          table: Object(UserTable)
+        }
+        res.status(200).json(serverRes);
+      // }
+      
+
+    }).catch(function(err){
+      console.log('Error' + err);
+
+      serverRes = {
+        status: 404,
+        data: 'Users Table is empty not found'
+      }
+      res.status(404).json(serverRes);
+    });    
+  }catch(err){
+    console.error(err);
   
+        serverRes = {
+          status: 404,
+          data: 'Empty database'
+        }
+        res.status(404).json(serverRes);
+      
+  }
     
 });
 

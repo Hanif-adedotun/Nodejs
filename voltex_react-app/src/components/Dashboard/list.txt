@@ -1,0 +1,31 @@
+->> check if a list has a loop
+//For a singly linked list
+hasloop = function(head){
+       var nodes = new Set();
+       var current = head;
+       
+       do{
+           if(nodes.has(current)){
+               return true;
+           }
+           nodes.add(current);
+           current = current.next;
+       }while(current);
+       return false;
+   }
+//For a doubly linked  list
+hasloopd = function(head){
+     var current = head;
+     var previous = null;
+     do{
+          if(previous && current.previous !== undefined && previous !== current.previous){
+               return true;
+          }
+          if(current.previous === undefined){
+               current.previous = previous;
+          }
+          previous = current;
+          current = current.next;
+     }while(current);
+     return false;
+};

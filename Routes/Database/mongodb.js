@@ -26,7 +26,7 @@ var connect_insert = (database, collection, data) =>{
           return false;
      }
 }
-var connect_find = (database, collection) =>{
+var connect_find = async (database, collection) =>{
      var res;
      MongoClient.connect(url, {
           useNewUrlParser: true,
@@ -37,11 +37,11 @@ var connect_find = (database, collection) =>{
           var query = {key: '1077891518327029'};
           await dbo.collection(collection).find(query).toArray(function(err, result) {
             if (err) throw err;
-            console.log('Mongodb: '+result);
             res = result;
             db.close();
           });
         });
+        await console.log('Mongodb: '+JSON.stringify(res));
         return res;
 }
 var mongo ={

@@ -10,6 +10,10 @@
     font-weight: bold;
     color: #282c34;
 }
+.time{
+    color: rgb(54, 123, 252);
+    font-weight: bold;
+}
 
 .hm {
     border-radius: 10px;
