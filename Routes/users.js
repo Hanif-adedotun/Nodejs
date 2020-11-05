@@ -9,6 +9,8 @@ const { json } = require('body-parser');
 //MongoDB
 const mongo = require('./Database/mongodb')
 
+//Test save to config
+const ncon = require('./config/nconfig');
 
 // support parsing of application/json type post data
 router.use(bodyParser.json());
@@ -24,51 +26,16 @@ var userImage = null;
 var dbname = null;
 
 
-router.route('/login')
-
-.post((req, res) => {
-  console.log(req.body);
-  if(req.body){
-    users = req.body;
-    userImage = req.body.imageUrl;
-    dbname = req.body.googleId;
-    usersDB.createDatabse(dbname);
-   // createuserTable(databaseName, Tablename(req.body.googleId), req.body.name, req.body.email);
-  }else{
-    users = null;
-    userImage = null;
-  }  
-  // res.json(req.body);
-})
-  .get((req, res) => {
-  if(users){
-    res.status(200).json(users);
-  }else{
-    res.status(404).send('User not found');
-    // console.log(user);
-  }
-});
-
-router.get('/login/image', (req, res) => {//Get login image for navigation to show
-  if(userImage){
-    // console.log(userImage);
-    res.status(200).json(userImage);
-  }else{
-    res.status(404).send('Image not found');
-    // console.log(user);
-  }
-});
-
 router.get('/login/dashboard', async (req, res) => {
   var serverRes;
   //get dashboard from its database
-  
+
+  var usekey = await ncon.readFile();
   const dummyTable = {
-    databse:  keys.User.dbname,
+    databse:  usekey.id,
     table: keys.mysql.Table.tablename
   }
-  console.log('User id'+ keys.User.dbname);
-  // console.log('User'+JSON.stringify(keys.User.fulldetails));
+  console.log('User id '+ dummyTable.databse);
 
   if (!dummyTable.databse){
     serverRes = {
@@ -110,7 +77,7 @@ router.get('/login/dashboard', async (req, res) => {
       res.status(404).json(serverRes);
     });    
   }catch(err){
-    console.error(err);
+    console.error('Error file catch'+ err);
   
         serverRes = {
           status: 404,

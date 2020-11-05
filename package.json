@@ -36,7 +36,8 @@
     "react": "^16.13.1",
     "react-admin": "^3.9.4",
     "react-google-login": "^5.1.21",
-    "react-syntax-highlighter": "^15.2.1"
+    "react-syntax-highlighter": "^15.2.1",
+    "tailwindcss": "^1.9.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

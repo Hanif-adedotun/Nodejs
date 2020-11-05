@@ -1,1 +1,7 @@
-GET  http://localhost:8080/api/users/login/dashboard
+GET   http://localhost:8080/api/users/refresh
+# content-type: application/json
+
+# {
+#     "username": "Hanif Adedotun",
+#     "key": "1234543"
+# }

@@ -112,7 +112,7 @@ var getfromtable = (dbname, table, params) =>{
     
             con.query(sql, function(err, result){
                 if (err) {
-                    console.log(err);
+                    console.log('Error getting to db'+err);
                     reject(con);
                 }
                 console.log('All selected fields selected!');

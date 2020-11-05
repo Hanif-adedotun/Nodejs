@@ -9,7 +9,7 @@ const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
 
 
 //nconf
-// var ncon = require('./config/nconfig');
+const ncon = require('./config/nconfig');
 // @params {Address} is /api/auth
 
 passport.use(new GoogleStrategy({
@@ -17,7 +17,7 @@ passport.use(new GoogleStrategy({
     clientSecret: keys.google.clientSecret,
     callbackURL: '/api/auth/redirect',
     passReqToCallback: true
-  }, function(request, accessToken, refreshToken, profile, done){
+  }, async function(request, accessToken, refreshToken, profile, done){
     // var User = usersDB.createTable(profile.id);
     var user = {
     id: profile.id,
@@ -30,7 +30,8 @@ passport.use(new GoogleStrategy({
   //  Solve the error here!!
    keys.User.dbname = user.id;
    keys.User.fulldetails = user;
-  //  ncon.save('user', user.id);
+   
+   await ncon.writeFile(user);
 
     return done(null, user);
   }));
@@ -52,13 +53,11 @@ router.get('/signin', passport.authenticate('google', {scope: ['profile', 'email
   
 router.get('/login/success', (req, res)=>{
   if(req.user){   
-    keys.User.dbname = req.user.id;
     res.status(200).json({authenticate:true, user: req.user});
   }else{
     res.status(404).json({authenticate: false,user: null});
   }
 });
-
 
 
 router.get('/login/failure', (req, res)=>{
@@ -67,6 +66,7 @@ router.get('/login/failure', (req, res)=>{
 
   router.get('/logout', (req, res) =>{
     req.logout();
+    ncon.refresh();
     res.status(200).json({authenticate: false});
   });
   
