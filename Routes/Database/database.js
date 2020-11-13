@@ -98,8 +98,9 @@ var getfromtable = (dbname, table, params) =>{
     
            con.connect(function(err, results){
             if (err) {
-                console.error(err);
-                return false;
+                console.error('Connection Error: '+err);
+                dbResults = null;
+                reject(con);
             }
             console.log('Connected');
     
@@ -113,6 +114,7 @@ var getfromtable = (dbname, table, params) =>{
             con.query(sql, function(err, result){
                 if (err) {
                     console.log('Error getting to db'+err);
+                    dbResults = null;
                     reject(con);
                 }
                 console.log('All selected fields selected!');

@@ -5,6 +5,9 @@ import Emptydash from './EmptyDash';
 import Table from './table';
 import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';
 
+//Loader
+import Load from '../objects/loading';
+
 
 
  class Dashboard extends React.Component {
@@ -79,9 +82,9 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
      }
 
      renderContent(){
-        console.log('Status Server'+this.state.dashboard.status);
+        console.log('Status Server '+this.state.dashboard.status);
          switch(this.state.dashboard.status){
-             default:
+             default: return <Load/>;
                  case 400: return this.signedout();
                  case 404: return <Emptydash />;
                  case 200: return this.dashboard_content();

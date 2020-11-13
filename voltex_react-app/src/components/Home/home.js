@@ -33,6 +33,11 @@ function showTime() {
     // console.log(Totaltime);
     return Totaltime;
   }
+ 
+function tim () {
+  console.log('online: '+navigator.onLine)
+  return String(navigator.onLine);
+};
 
 class Home extends React.Component{
     constructor(){
@@ -40,24 +45,17 @@ class Home extends React.Component{
         this.state = {
             time: showTime(),
             user: [],
-            internet: 'false',
+            internet: tim(),
         };
       }
 
       componentDidMount(){
-        this.interval = setInterval(() => this.setState({time: showTime()}), 15000);
+        this.interval = setInterval(() => {
+          this.setState({time: showTime()});
+          this.setState({internet: tim()});
+        }, 15000);
         
-        fetch('https://www.google.com')//fetch the data from our express server running on localhost:8080
-        .then(res => {
-        if(res.ok) { // res.status >= 200 && res.status < 300
-          this.setState({internet: 'true'})
-          console.log('There is internet');
-        } else {
-          console.log('No internet');
-        }})//parse the data in json format
-       .catch((error) =>{console.error('Unable to get internet'+error)});
       }
-
     
       componentWillUnmount(){
         clearInterval(this.interval);

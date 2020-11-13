@@ -6,6 +6,7 @@ async function writeFile(dataSent){
   var data = JSON.stringify(dataSent);
   
 await fs.writeFile(file, data, function (err) {
+  
   if (err) {
     console.log('There has been an error saving your configuration data.');
     console.log(err.message);
@@ -16,10 +17,14 @@ await fs.writeFile(file, data, function (err) {
 }
 // console.log(nconf.get('dessert'));
 async function readfil(){
-   var data = await fs.readFileSync(file),
-    myObj;
-
+   
   try {
+    if(!fs.existsSync(file)){
+      return null;
+    }
+    
+    var data = await fs.readFileSync(file), myObj;
+
     myObj = JSON.parse(data);
     // console.dir(myObj);
     return myObj;

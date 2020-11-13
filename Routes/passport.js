@@ -55,6 +55,7 @@ router.get('/login/success', (req, res)=>{
   if(req.user){   
     res.status(200).json({authenticate:true, user: req.user});
   }else{
+    ncon.refresh();
     res.status(404).json({authenticate: false,user: null});
   }
 });
@@ -66,7 +67,7 @@ router.get('/login/failure', (req, res)=>{
 
   router.get('/logout', (req, res) =>{
     req.logout();
-    ncon.refresh();
+    ncon.refresh(); //delete the user profile
     res.status(200).json({authenticate: false});
   });
   

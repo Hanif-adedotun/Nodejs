@@ -5,7 +5,8 @@ import './profile.css';
 // import Signin from '../Home/google-login';
 // import Signout from '../Home/google-logout';
 
-
+//Loader
+import Load from '../objects/loading';
 var gsign = (name, signin) =>{
     return(
         <div className='g-sign-in-button' {...(signin) ? 'signin': ''}>
@@ -86,7 +87,7 @@ class Profile extends React.Component{
         // console.log(String(this.state.authenticate));
         
         switch(String(this.state.authenticate)){
-            default:
+            default: return <Load/>
                 case 'false': return this.notsignedin();
                 case 'true': return this.userprofile();
         }

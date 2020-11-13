@@ -36,7 +36,6 @@ class Emptydash extends React.Component{
         }
      }
 
-     
     handledbname = (event) =>{
         let dbname = event.target.value;
         this.setState({dbname: dbname})
@@ -141,7 +140,7 @@ class Emptydash extends React.Component{
     renderContent(){
         switch(this.state.configuredatabase){
             default:
-                case []: return (<div><p>Your Dashboard is empty.</p> 
+                case []: return (<div><p>Your Dashboard is empty!</p> 
                                 <button className='btn btn-primary' onClick={this.openConfigDB}>Click to configure your database</button>
                                 </div>);
                 case  'showForm'  : return this.configureDatabase();
