@@ -13,6 +13,7 @@ module.exports = {
             uniqueID : 'uniqueid'
         }
     },
+    
     User:{
         dbname: null,
         fulldetails: []

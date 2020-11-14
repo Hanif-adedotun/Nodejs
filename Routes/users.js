@@ -109,7 +109,7 @@ router.route('/generateId').post((req, res) => {
 //Form validation
 router.route('/createDB')
   .post([
-    body('htmlUrl', 'Invalid Url').isURL({require_host: false, allow_underscores: true, require_valid_protocol: false}),
+    body('htmlUrl', 'Invalid Url').isString(),//isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false})
     body('dbname', 'Enter a valid Name, must be less than 10 characters').isString().isLength({ max: 10, min: 1}),
     body('uniqueId', 'Id is not a string').isAlphanumeric().isLength({ max: 16, min: 1})
       
@@ -129,10 +129,24 @@ router.route('/createDB')
           
           return res.status(400).json({ errors: errors.array() , id: idnum});
         }else{
-          if(keys.mysql.database){
-            usersDB.addToUserTable(keys.mysql.database, req.body.htmlUrl, req.body.dbname, req.body.uniqueId);
+          try {
+
+            var usekey = ncon.readFile();
+            const Table = {
+              databse: (usekey) ? usekey.id : null
+            }
+            if(Table.databse){
+              usersDB.addToUserTable(keys.mysql.database, req.body.htmlUrl, req.body.dbname, req.body.uniqueId);
+            }
+            return res.json({errors: null});
+
+          } catch (error) {
+
+            console.log('Error adding to database:'+error);
+            return res.status(500).json(null);
+
           }
-          return res.json({errors: null});
+         
         }
 });
   
