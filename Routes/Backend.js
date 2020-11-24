@@ -94,7 +94,6 @@ router.route('/:dbname/:key').get((req, res) =>{
                         }
                         console.log(tablres);
                         mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, tablres)
-                        
                            
                     }catch(err){
                         res.status(500).send('<h1>We are having problems right now! Please try again later. Thank you</h1>');

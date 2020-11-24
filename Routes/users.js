@@ -50,7 +50,7 @@ router.get('/login/dashboard', async (req, res) => {
     return;
   }
  
-    usersDB.getfromtable(dummyTable.databse, dummyTable.table).then(async function(dbResult){
+    usersDB.getfromtable(keys.mysql.database, dummyTable.table,` WHERE ${keys.mysql.Table.userID} ='${dummyTable.databse}'`).then(async function(dbResult){
       
       var tableresult = Object(dbResult);
       const uniqueid = tableresult[0].uniqueid;
@@ -58,8 +58,8 @@ router.get('/login/dashboard', async (req, res) => {
 
       //In future the db is the unique id, then the collection is the uniqueId
       
-      const UserTable =  await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection);
-      console.log(UserTable);
+      // const UserTable =  await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection);
+      // console.log(UserTable);
       
       if(!tableresult){
         console.error('User file not available'+ err);
@@ -75,7 +75,20 @@ router.get('/login/dashboard', async (req, res) => {
           status: 200,
           action_url: action_url,
           data: tableresult,
-          table: Object(UserTable)
+          table: [
+            {
+              name: 'Database result 1', status: 'Database result 2'
+            },
+            {
+              name: 'Database result 1.2', status: 'Database result 2.2'
+            },
+            {
+              name: 'Database result 1.3', status: 'Database result 2.3'
+            },
+            {
+              name: 'Database result 1.4', status: 'Database result 2.4'
+            }
+        ]
         }
         res.status(200).json(serverRes);
       }
@@ -113,7 +126,7 @@ router.route('/createDB')
     body('dbname', 'Enter a valid Name, must be less than 10 characters').isString().isLength({ max: 10, min: 1}),
     body('uniqueId', 'Id is not a string').isAlphanumeric().isLength({ max: 16, min: 1})
       
-    ],function(req, res){
+    ],async function(req, res){
   
       // console.log(req.body.htmlUrl);
   
@@ -131,12 +144,12 @@ router.route('/createDB')
         }else{
           try {
 
-            var usekey = ncon.readFile();
+            var usekey = await ncon.readFile();
             const Table = {
               databse: (usekey) ? usekey.id : null
             }
             if(Table.databse){
-              usersDB.addToUserTable(keys.mysql.database, req.body.htmlUrl, req.body.dbname, req.body.uniqueId);
+              usersDB.addToUserTable(keys.mysql.database, req.body.htmlUrl, req.body.dbname, req.body.uniqueId, Table.databse);
             }
             return res.json({errors: null});
 

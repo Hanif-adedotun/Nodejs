@@ -36,7 +36,8 @@ var createDatabse = (databaseName) =>{
         tablename: keys.mysql.Table.tablename,
         url: keys.mysql.Table.url,
         nameoftable: keys.mysql.Table.nameoftable,
-        uniqueID : keys.mysql.Table.uniqueID
+        uniqueID : keys.mysql.Table.uniqueID,
+        userid: keys.mysql.Table.userID
     };
 
 var createUserTable = (dbname)=>{
@@ -49,7 +50,7 @@ var createUserTable = (dbname)=>{
     con.connect(function(err){
         if(err) {console.error(err); return false;};
         console.log('connected');
-        var sql = `CREATE TABLE ${Table.tablename} (${Table.url} VARCHAR(255), ${Table.nameoftable} VARCHAR(255), ${Table.uniqueID} VARCHAR(255))`;
+        var sql = `CREATE TABLE ${Table.tablename} (${Table.url} VARCHAR(255), ${Table.nameoftable} VARCHAR(255), ${Table.uniqueID} VARCHAR(255), ${Table.userid}  VARCHAR(128) NOT NULL)`;
         con.query(sql, function(err, result){
             if(err) {console.error(err); return false;};
             console.log('Table created');
@@ -58,7 +59,7 @@ var createUserTable = (dbname)=>{
     });
 }
 
-var addToUserTable = (dbname, url, name, id) =>{
+var addToUserTable = (dbname, url, name, id, userid) =>{
     var con = mysql.createConnection({
         host: DBdetails.host,
         user: DBdetails.username,
@@ -72,9 +73,9 @@ var addToUserTable = (dbname, url, name, id) =>{
           } 
           console.log('Connected');
           var records = [
-              [url, name, id]
+              [url, name, id, userid]
           ];
-          var sql = `INSERT INTO ${Table.tablename} (${Table.url}, ${Table.nameoftable}, ${Table.uniqueID}) VALUES ?`;
+          var sql = `INSERT INTO ${Table.tablename} (${Table.url}, ${Table.nameoftable}, ${Table.uniqueID}, ${Table.userid}) VALUES ?`;
           con.query(sql, [records], function(err, result){
               if (err) {
                   console.error(err);
@@ -105,7 +106,8 @@ var getfromtable = (dbname, table, params) =>{
             console.log('Connected');
     
             if(params){
-                var sql = `SELECT ${params} FROM  ${table}`;
+                var sql = `SELECT * FROM  ${table} ${params}`;
+                //  `SELECT * FROM  ${table} ${params}` ;
             }else{
                 var sql = `SELECT * FROM  ${table}`;
             }
@@ -113,11 +115,11 @@ var getfromtable = (dbname, table, params) =>{
     
             con.query(sql, function(err, result){
                 if (err) {
-                    console.log('Error getting to db'+err);
+                    console.log('Error getting to db: '+err);
                     dbResults = null;
                     reject(con);
                 }
-                console.log('All selected fields selected!');
+                console.log('Fields are selected!');
                 dbResults =  result;
                 resolve(dbResults);
             });

@@ -33,6 +33,7 @@ import Load from '../objects/loading';
             name: this.state.dashboard.data[0].Tablename, 
             url: this.state.dashboard.data[0].url, 
             id: this.state.dashboard.data[0].uniqueid
+
         };
         
         const action_url = this.state.dashboard.action_url;
@@ -68,7 +69,7 @@ import Load from '../objects/loading';
                 </Accordion>
                 <p className='medium'>Your form action should be <span className='unique'>{action_url}</span></p>
                   
-                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table[0]}/> {/*Table to display static file form*/}
+                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table}/> {/*Table to display static file form*/}
 
             </div>
         );

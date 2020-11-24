@@ -7,14 +7,14 @@ import '../css/bootstrap.min.css';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-var delete_button = () =>{  
+var delete_button = (i) =>{  
         return(
             <Popup className='popup' trigger={<button className='btn btn-primary bold'> Delete </button>} modal>
                 
             {close=>(
                 <div className='popup'>
                     
-                <button className="close" onClick={close}> &times;</button>
+                <button className="close" id={i} onClick={close}> &times;</button>
                 <div className="content">
                 <div>Are you sure you want to delete?</div>
                 </div>
@@ -34,39 +34,48 @@ _delete.propTypes = {
     id: PropTypes.string.isRequired
 }
 
-
 const Table = ({tableName, table}) =>{
-
+  
+    console.log();
+    var head = Object.keys(table[0]);
         return(
             <div className='formTable'>
                     <h3>{(tableName) ? tableName: 'Table'}</h3>
                     <table className='table '>
                         <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Head 1</th>
-                            <th>Head 2</th>
-                            <th></th>
+                        <th>S/N</th>{
+                            head.map((key, index)=>
+                                 <th key={index}>{key.toUpperCase()}</th>
+                            )
+                            }
+                            <th></th> {/* for the delete row*/}
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            {
+                                table.map((item, index) =>
+                                <tr key={index}> 
+                                    <th>{index+1}</th>
+                                    <th>{item.name}</th>
+                                    <th>{item.status}</th>
+                                    <th id={index} >{delete_button(index)}</th>
+                                </tr>
+                                )
+                            }
+                            {/* <tr>
                                 <th>1</th>
                                 <th>Field 1</th>
                                 <th>Field 2</th>
-                                <th id={1} >{delete_button()}</th>
+                                <th id={4} >{delete_button()}</th>
                             </tr>
                             <tr>
                                 <th>2</th>
                                 <th>Field 1</th>
                                 <th>Field 2</th>
-                                <th id={2} >{delete_button()}</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    The table data is {table}
-                                </th>
-                            </tr>
+                                <th id={5} >{delete_button()}</th>
+                            </tr> */}
+                            
                         </tbody>
                     </table>
                 </div>

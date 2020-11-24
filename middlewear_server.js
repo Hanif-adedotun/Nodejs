@@ -18,4 +18,4 @@ app.get('/', function(req, res){
     res.status(403).send("Access Denied");
 });
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => console.log(`Voltex Middlewear on http://localhost:${port}`));

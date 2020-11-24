@@ -10,7 +10,8 @@ module.exports = {
             tablename: 'userTable',
             url: 'url',
             nameoftable: 'Tablename',
-            uniqueID : 'uniqueid'
+            uniqueID : 'uniqueid',
+            userID: 'UserID'
         }
     },
     
