@@ -29,8 +29,8 @@ class Docs extends React.Component{
                <div className='docs'>
 
                     <header className='header'>
-                    <h1>This is the documentation page</h1>
-                    <h4>How to incoperate voltex middlewear into your static website</h4>
+                    {/* <h1>This is the documentation page</h1> */}
+                    <h3>How to incoperate voltex middlewear into your static website</h3>
                     </header>
 
                     <div className='code_container'>

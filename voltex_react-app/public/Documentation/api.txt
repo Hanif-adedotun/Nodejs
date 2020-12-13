@@ -1,0 +1,22 @@
+This is the API documentation for Voltex Middlwear
+Written by Hanif Adedotun 2020
+
+
+|| Main server ||
+Frameworks: Node.js, express
+
+>> Node js/middlwear_server.js 
+-- The server file sets up the server 
+
+  || Routes||
+
+--  '/api' to the router file, that processes all reqests from the frontend
+--  '/' leads to access denied 
+
+
+|| Router ||
+>> Node js/Routes/router.js
+-- '/users'  leads to all the front end activities and processes (validating form for a new table, storing table details to database, receiving table information,
+-- '/auth'  this is the authentication, log in and log out of user from the Google accounts signin,
+-- '/middlwear/data' processes the form fields sent by the user through the form fields set up by the user and saves them to mongodb.
+

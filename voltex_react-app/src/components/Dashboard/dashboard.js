@@ -8,15 +8,19 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
 //Loader
 import Load from '../objects/loading';
 
+//tooltip
+import Reactooltip from 'react-tooltip';
 
 
  class Dashboard extends React.Component {
      constructor(){
          super();
+         
          this.state = {
              dashboard: [],
              activeDashboard: ''
          };
+         
         //  this.handleSubmit = this.handleSubmit.bind(this);
      }
 
@@ -50,6 +54,15 @@ import Load from '../objects/loading';
                icon.className = icon_down;
             }
         }
+
+        function copyUrl(text){
+            navigator.clipboard.writeText(text).then(function(){
+                console.log('Copied: '+ text);
+                alert('Copied');
+            }, function(err){
+                console.error('Unable to copy to clipboard');
+            });
+        }
         return(
             
             <div className='dashboard_content'>
@@ -67,17 +80,27 @@ import Load from '../objects/loading';
                         </AccordionItemPanel>
                     </AccordionItem>
                 </Accordion>
-                <p className='medium'>Your form action should be <span className='unique'>{action_url}</span></p>
+                <p className='Faction'>Your form action should be <span className='unique' id='copyurl'>{action_url}</span>
+                <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> Copy</button></p>
+                <Reactooltip place="right" id="copytool" type="success" event="click" effect="solid" delayHide={2000}><span>Copied!</span> </Reactooltip>
+                </p>
+
+   
                   
                 <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table}/> {/*Table to display static file form*/}
-
+                <div>
+                    <button className='btn export'>
+                        <span className='glyphicon glyphicon-export'></span>
+                        <span> Export table</span>
+                    </button>
+                </div>
             </div>
         );
      }
      signedout = () =>{
         return(
             <div className='signedout'>
-                <div className='s-text'>You need to Sign in to access dashboard, Sign in now!</div>
+                <div className='s-text'>You need to Sign in to access dashboard, Go to profile to sign in now!</div>
             </div>
         )
      }

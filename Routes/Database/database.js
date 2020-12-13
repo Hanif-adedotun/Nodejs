@@ -18,7 +18,7 @@ var createDatabse = (databaseName) =>{
       });
         con.connect(function(err){
             if(err) throw err;
-            console.log('Connected');
+            console.log('Mysql: Connected');
 
             con.query('CREATE DATABASE '+ databaseName, function(err, result){
                 if(err) {
@@ -49,7 +49,7 @@ var createUserTable = (dbname)=>{
       });
     con.connect(function(err){
         if(err) {console.error(err); return false;};
-        console.log('connected');
+        console.log('Mysql: Connected');
         var sql = `CREATE TABLE ${Table.tablename} (${Table.url} VARCHAR(255), ${Table.nameoftable} VARCHAR(255), ${Table.uniqueID} VARCHAR(255), ${Table.userid}  VARCHAR(128) NOT NULL)`;
         con.query(sql, function(err, result){
             if(err) {console.error(err); return false;};
@@ -71,7 +71,7 @@ var addToUserTable = (dbname, url, name, id, userid) =>{
             console.error(err);
             return false ;
           } 
-          console.log('Connected');
+          console.log('Mysql: Connected');
           var records = [
               [url, name, id, userid]
           ];
@@ -103,7 +103,7 @@ var getfromtable = (dbname, table, params) =>{
                 dbResults = null;
                 reject(con);
             }
-            console.log('Connected');
+            console.log('Mysql: Connected');
     
             if(params){
                 var sql = `SELECT * FROM  ${table} ${params}`;
@@ -119,7 +119,7 @@ var getfromtable = (dbname, table, params) =>{
                     dbResults = null;
                     reject(con);
                 }
-                console.log('Fields are selected!');
+                console.log('Mysql: Fields are selected!');
                 dbResults =  result;
                 resolve(dbResults);
             });

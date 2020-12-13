@@ -1,3 +1,4 @@
+//This is the file that contains all the databse details and secret keys to mongodb
 module.exports = {
     mysql:{
         host: 'localhost',
@@ -20,11 +21,10 @@ module.exports = {
         fulldetails: []
     },
     google:{
-        
         clientID: "135774644582-1etfavodc0ic3a8nqhj919o29gco6utj.apps.googleusercontent.com",
-        // '135774644582-r6a0dsdvqlmpgt86vohomiim9sq9dfhi.apps.googleusercontent.com',
+       
         clientSecret: "SuVfzF7J2bK2LwNX4FdwB_nv"
-        // 'HoY2U5REcwG1ZkG1gXYXcbsI'
+   
     },
     mongodb:{
         username: 'vm_admin',

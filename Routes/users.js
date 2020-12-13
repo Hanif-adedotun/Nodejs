@@ -56,10 +56,14 @@ router.get('/login/dashboard', async (req, res) => {
       const uniqueid = tableresult[0].uniqueid;
       const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`;
 
-      //In future the db is the unique id, then the collection is the uniqueId
+
+      // Temporary key value to test the retrieval of data from atlas
+      const tempkey = '1077891518327029';
       
-      // const UserTable =  await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection);
-      // console.log(UserTable);
+      var UserTable = await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, tempkey).then(db_res => {    
+        
+      console.log('Testing data from users.js :'+db_res[0].key);
+     
       
       if(!tableresult){
         console.error('User file not available'+ err);
@@ -75,24 +79,25 @@ router.get('/login/dashboard', async (req, res) => {
           status: 200,
           action_url: action_url,
           data: tableresult,
-          table: [
-            {
-              name: 'Database result 1', status: 'Database result 2'
-            },
-            {
-              name: 'Database result 1.2', status: 'Database result 2.2'
-            },
-            {
-              name: 'Database result 1.3', status: 'Database result 2.3'
-            },
-            {
-              name: 'Database result 1.4', status: 'Database result 2.4'
-            }
-        ]
+          table: db_res
+          //[
+        //     {
+        //       name: 'Database result 1', status: 'Database result 2'
+        //     },
+        //     {
+        //       name: 'Database result 1.2', status: 'Database result 2.2'
+        //     },
+        //     {
+        //       name: 'Database result 1.3', status: 'Database result 2.3'
+        //     },
+        //     {
+        //       name: 'Database result 1.4', status: 'Database result 2.4'
+        //     }
+        // ]
         }
         res.status(200).json(serverRes);
       }
-              
+    });          
 
     }).catch(function(err){
       console.log('Fetch retrieval error ' + err);

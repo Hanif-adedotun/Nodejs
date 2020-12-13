@@ -36,8 +36,9 @@ _delete.propTypes = {
 
 const Table = ({tableName, table}) =>{
   
-    console.log();
-    var head = Object.keys(table[0]);
+    console.log(JSON.stringify(table));
+    //[{"_id":"5f99c6e0c5afd22dd482b3bc","key":"1077891518327029","db_values":[]},{"_id":"5fd530ae3e9cd468a0efa562","key":"1077891518327029","db_values":[]}]
+    var head = Object.keys(table[0].db_values);
         return(
             <div className='formTable'>
                     <h3>{(tableName) ? tableName: 'Table'}</h3>
@@ -57,8 +58,7 @@ const Table = ({tableName, table}) =>{
                                 table.map((item, index) =>
                                 <tr key={index}> 
                                     <th>{index+1}</th>
-                                    <th>{item.name}</th>
-                                    <th>{item.status}</th>
+                                    <th>{toString(item.db_values)}</th>
                                     <th id={index} >{delete_button(index)}</th>
                                 </tr>
                                 )

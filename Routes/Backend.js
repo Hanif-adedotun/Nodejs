@@ -32,24 +32,28 @@ var dummyTable = {
   }
 
 
-
+//To post the results to the database from the users form backend_page
+//@params(dbname) is the 
 router.route('/:dbname/:key').get((req, res) =>{
-    res.send('Hello database');
+    // res.send('Hello database');
 }).post((req, res) =>{
     req.setMaxListeners(5);
     
-    const params = dummyTable.key+','+dummyTable.url;
-    DB.getfromtable(req.params.dbname, dummyTable.table, params).then(
+    const params = ` WHERE ${keys.mysql.Table.userID} ='${req.params.dbname}'`
+    DB.getfromtable(dummyTable.databse, dummyTable.table, params).then(
         function(result){
 
             const key = result[0].uniqueid;
             const url = result[0].url;
            
-
-            if(req.params.key === key && req.headers.origin === url){
+            // console.log('Expected inputs were: ' + key + ' ' + url);
+            // console.log('Given inputs were: ' + req.params.key + ' ' + req.headers.origin);
+            if(req.params.key === key && req.headers.referer === url){
+                //if the query parameters are safe and confirmed send a page to show loading 
                 res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
                 var tablres = {
-                    key: key,
+                    // Temporary key to test the mongodb function
+                    key:  '1077891518327029', //key,
                     db_values: []                    
                 };
                 
@@ -64,7 +68,7 @@ router.route('/:dbname/:key').get((req, res) =>{
                     break;
                 }
 
-                
+                //If files are included in the data sent use a different middleware
                 function parsemult(){
                     router.use(formidableMiddleware({
                         encoding: 'utf-8',
@@ -75,8 +79,8 @@ router.route('/:dbname/:key').get((req, res) =>{
                         console.log(req.files);
                 }
                 
-
-                function parsedata(data, type){
+                //If it is just plain text use a normal data
+                async function parsedata(data, type){
                     if(type){
                         querystring.parse(data);
                     }
@@ -93,7 +97,13 @@ router.route('/:dbname/:key').get((req, res) =>{
                             }              
                         }
                         console.log(tablres);
-                        mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, tablres)
+
+                        //Insert the data into the database
+                        //mongo.insert(name of database, name of collection, data to insert)
+                        await mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, tablres);
+                        
+                        var backURL = req.header('Referer') || '/';
+                        res.redirect(backURL);
                            
                     }catch(err){
                         res.status(500).send('<h1>We are having problems right now! Please try again later. Thank you</h1>');
@@ -102,9 +112,8 @@ router.route('/:dbname/:key').get((req, res) =>{
                     //   res.redirect('http://localhost/Test/index.html');
                 }
                 
-
             }else{
-                res.status(404).send('<h1>404.</h1>Either Key is incorrect or this is not the expected Url, Try again or sign up our website. <p>Incorrect key: '+ +req.params.key+' Incorrect Url: '+JSON.stringify(req.headers.referer)+'</p>');
+                res.status(404).send('<h1>404.</h1>Either Key is incorrect or this is not the expected Url, Try again or sign up our <a href="http://localhost:3000/profile">website</a>. <p>Incorrect key: '+ +req.params.key+' Incorrect Url: '+JSON.stringify(req.headers.referer)+'</p>');
             }
 
     }).catch(function(err){

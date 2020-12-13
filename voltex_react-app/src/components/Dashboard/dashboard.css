@@ -77,7 +77,7 @@
 /* Accordion styles */
 .small{
     font-size: small;
-    color:  #444;
+    /* color:  #444; */
 }
 .acc{
     background-color: white;
@@ -107,6 +107,9 @@
 }
 .medium{
     font-size: medium;
+}
+.small{
+    font-size: small;
 }
 .unique{
     color: #61dafb;
@@ -185,11 +188,26 @@ font-size: x-large;
 
 /* End of popup */
 
+/* Form action */
+.Faction{
+margin: 1em auto;
+font-size: auto;
+}
+/* End of form action */
+
+/* Export button */
+.export{
+    background-color: #61dafbd3;
+    color: black;
+    margin: 1em auto;
+}
+.export:hover{
+    color: whitesmoke;
+}
+/* End of export button */
 
 /* If a user is not signed in class */
 .signedout .s-text{
     color:  #61dafb;
 }
-
-
 /* End of not signed in div */

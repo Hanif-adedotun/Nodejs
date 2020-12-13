@@ -3,6 +3,10 @@ const keys = require('../config/keys');
 const url = keys.mongodb.url;
 
 
+//function (connect_insert): insert a data into the mongodb atlas database
+//@params (database) the name of the database to insert into
+//@params (collection) the table to insert data into
+//@params (data) the form data to be inserted
 var connect_insert = (database, collection, data) =>{
      try{
           MongoClient.connect(url,{
@@ -26,23 +30,30 @@ var connect_insert = (database, collection, data) =>{
           return false;
      }
 }
-var connect_find = async (database, collection) =>{
+
+ //function (connect_insert): get a data into the mongodb atlas database
+//@params (database) the name of the database to get data from
+//@params (collection) the table to get data from
+
+var connect_find = async (database, collection, keyVal) =>{
      var res;
+     return new Promise(function(resolve, reject){
      MongoClient.connect(url, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
      },async function(err, db) {
-          if (err) throw err;
+          if (err) { reject(MongoClient); throw err;}
           var dbo = db.db(database);
-          var query = {key: '1077891518327029'};
-          await dbo.collection(collection).find(query).toArray(function(err, result) {
-            if (err) throw err;
+          var query = {key: String(keyVal)};
+          await dbo.collection(collection).find(query).toArray(async function(err, result) {
+            if (err) {reject(MongoClient); throw err; };
             res = result;
+            console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
             db.close();
+            resolve(result);
           });
         });
-        await console.log('Mongodb: '+JSON.stringify(res));
-        return res;
+     });      
 }
 var mongo ={
      insert : connect_insert,
