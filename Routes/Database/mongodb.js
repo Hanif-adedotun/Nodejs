@@ -8,27 +8,26 @@ const url = keys.mongodb.url;
 //@params (collection) the table to insert data into
 //@params (data) the form data to be inserted
 var connect_insert = (database, collection, data) =>{
-     try{
+     return new Promise(function(resolve, reject){
           MongoClient.connect(url,{
                useNewUrlParser: true,
                useUnifiedTopology: true,
                // useFindAndModify: true,
                // useCreateIndex: true
-             },function(err, db) {
+             },async function(err, db) {
             if (err) throw err;
             var dbo = db.db(database);
             
-            dbo.collection(collection).insertOne(data, function(err, res) {
-              if (err) throw err;
+            await dbo.collection(collection).insertOne(data, function(err, res) {
+              if (err) {reject(false);};
               console.log(`${data.key} is inserted`);
               db.close();
+              resolve(true);
+             
             });
           });
-          return true;
-     }catch(err){
-          console.error(err);
-          return false;
-     }
+     });
+     
 }
 
  //function (connect_insert): get a data into the mongodb atlas database
@@ -48,15 +47,34 @@ var connect_find = async (database, collection, keyVal) =>{
           await dbo.collection(collection).find(query).toArray(async function(err, result) {
             if (err) {reject(MongoClient); throw err; };
             res = result;
-            console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
+          //   console.log('Mongodb data from mongodb.js: '+JSON.stringify(result));
             db.close();
             resolve(result);
           });
         });
      });      
 }
-var mongo ={
+var delete_data = async (database, collection, id)=>{
+     var res = false;
+     return new Promise(function(resolve, reject){
+          MongoClient.connect(url, async function(err, db) {
+
+          if (err) { reject(MongoClient); throw err;}
+          var dbo = db.db(database);
+          var myquery = { _id: id };
+
+          await dbo.collection(collection).deleteOne(myquery, function(err, obj) {
+               if (err) { reject(MongoClient); throw err;}
+               res = true;
+               db.close();
+               resolve(res);
+               });
+          });
+     });
+}
+const mongo ={
      insert : connect_insert,
-     find: connect_find
+     find: connect_find,
+     delete: delete_data
 }
 module.exports = mongo;

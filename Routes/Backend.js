@@ -50,13 +50,15 @@ router.route('/:dbname/:key').get((req, res) =>{
             // console.log('Given inputs were: ' + req.params.key + ' ' + req.headers.origin);
             if(req.params.key === key && req.headers.referer === url){
                 //if the query parameters are safe and confirmed send a page to show loading 
-                res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
+                
+                
                 var tablres = {
-                    // Temporary key to test the mongodb function
-                    key:  '1077891518327029', //key,
-                    db_values: []                    
+                    key:  key, //key,
+                    db_values: {}    
+
                 };
                 
+                //reconfigure the parsing and sending of data 
                 switch(req.headers["content-type"]){
                     default: parsedata(req.body);
                     break;
@@ -85,35 +87,43 @@ router.route('/:dbname/:key').get((req, res) =>{
                         querystring.parse(data);
                     }
                    
-                    try{
-                        
+                    
                         for (var field in data){
-                        
-                            if(field !== ('submit' || 'Submit' || 'send' || 'Send')){
-                               
+                            
+                            //To avoid sending a send button value to the database
+                            if(field !== ('Submit' || 'submit' || 'send' || 'Send' || 'done')){
+                              
                             tablres.db_values[field] = data[field];
-                        
-                            //collection is the google id
+
                             }              
                         }
-                        console.log(tablres);
+                        
+                        console.log(Object(tablres));
+                        // console.log(key);
 
                         //Insert the data into the database
                         //mongo.insert(name of database, name of collection, data to insert)
-                        await mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, tablres);
-                        
-                        var backURL = req.header('Referer') || '/';
-                        res.redirect(backURL);
+                        if(tablres.db_values){
+                            
+                            await mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, Object(tablres)).then(function(respon){
+                                if(respon){
+                                    // console.log(respon);
+                                    // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
+                                    res.redirect(req.header('Origin'));
+                                }
+                            }).catch(function(err){
+                                console.log('Could not add: ' + err)
+                                res.status(500).send('<h1>Could not add to databse, check your connection and try again</h1>');
+                            });
+                            
                            
-                    }catch(err){
-                        res.status(500).send('<h1>We are having problems right now! Please try again later. Thank you</h1>');
-                    }
-                    
-                    //   res.redirect('http://localhost/Test/index.html');
+                        }
+                                          
                 }
                 
             }else{
-                res.status(404).send('<h1>404.</h1>Either Key is incorrect or this is not the expected Url, Try again or sign up our <a href="http://localhost:3000/profile">website</a>. <p>Incorrect key: '+ +req.params.key+' Incorrect Url: '+JSON.stringify(req.headers.referer)+'</p>');
+                res.status(404).sendFile(path.join(__dirname +'/config/404page.html'));
+               
             }
 
     }).catch(function(err){

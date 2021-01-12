@@ -2,8 +2,7 @@
 import React from 'react';
 import '../css/bootstrap.min.css';
 import './profile.css';
-// import Signin from '../Home/google-login';
-// import Signout from '../Home/google-logout';
+
 
 //Loader
 import Load from '../objects/loading';

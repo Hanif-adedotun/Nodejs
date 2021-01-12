@@ -5,6 +5,7 @@
 .bold{
     font-weight: bold;
 }
+
 /* #282c34
 #61dafb */
 .dashboard{
@@ -17,7 +18,9 @@
     /* border-radius: 20px; */
     padding: .5em;
 }
-
+.dashboard h2{
+    text-shadow: 2px 2px 4px #000000;
+}
 /* Div When the Dashboard is empty */
 .emptyDash{
     font-size: medium;
@@ -171,22 +174,31 @@
 
 /* Modal popup */
 .popup{
-    padding: none;
-    border-radius: 5px;
+    padding: 1em;
+    background-color: white;
+    border-radius: 10px;
+    width: max-content;
+    height: max-content;
 }
 .popup .close{
 text-decoration: none;
 border: none;
 font-size: x-large;
+color: red;
 }
 .popup .content{
  font-weight: bold;
  font-size: large;
- color:red;
  margin: .5em auto;
 }
 
+.del_button{
+    margin: 1em  1em;
+    text-shadow: 2px 2px 4px #000000;
+    /* box-shadow:  4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) */
+}
 /* End of popup */
+
 
 /* Form action */
 .Faction{
@@ -211,3 +223,19 @@ font-size: auto;
     color:  #61dafb;
 }
 /* End of not signed in div */
+
+/* Loading text in dashboard */
+.loader{
+    margin: auto;
+}
+.space{
+    margin: 1em auto;
+}
+/* End of Loading text in dashboard  */
+
+/* Server Error text */
+.serverErr{
+    color: red;
+    margin: 1em auto;
+}
+/* End of server Error text */

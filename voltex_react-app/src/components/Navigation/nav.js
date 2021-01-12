@@ -1,7 +1,8 @@
 import React from 'react';
-import {Link, Switch, Route, BrowserRouter as Router} from 'react-router-dom';
-import '../css/bootstrap.min.css';
+import {Switch, Route, BrowserRouter as Router, NavLink} from 'react-router-dom';
+
 import './nav.css';
+import '../css/bootstrap.min.css';
 import Dashboard from '../Dashboard/dashboard';
 import Home from '../Home/home';
 import Profile from '../Profile/profile';
@@ -42,14 +43,22 @@ class Nav extends React.Component{
             <Router>
                 <div className='nav'>
                     <nav className="navbar navbar-default " data-spy="affix" data-offset-top="197">
-                    
+                    <div className="navbar-header">
+                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div className='collapse navbar-collapse'>
                         <ul className='nav nav-pills nav-justified'>
-                            <li className='nav-list '><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></li>
-                            <li className='nav-list'><Link to='/'>Home</Link></li>
-                            <li className='nav-list'><Link to='/docs'>Documentation</Link></li>
-                            <li className='nav-list'><Link to='/dashboard'>Dashboard</Link></li>
-                            <li className='nav-list'><Link to='/profile'>{this.rendercontent()}</Link></li>
+                            <li ><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></li>
+                            <li className='Navlin' ><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></li>
+                            <li className='Navlin' ><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></li>
+                            <li className='Navlin' ><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></li>
+                            <li  className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.rendercontent()}</NavLink></li>
                         </ul>
+                    </div>
                     </nav>
                 </div>
                 <Switch>

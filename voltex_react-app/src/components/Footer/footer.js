@@ -2,6 +2,7 @@ import React from 'react';
 import './footer.css';
 import image from '../images/voltex.png';
 
+var year = new Date().getFullYear();
 class footer extends React.Component{
     render(){
         return(
@@ -9,7 +10,7 @@ class footer extends React.Component{
                 <span>
                     <img className='footimg' src={image} alt='Voltex logo'></img>   
                 </span>
-                <p className='footext'>&copy; Copyright Voltex Designs 2020</p>
+                <p className='footext'>&copy; Copyright Voltex Designs {year}</p>
                 
             </div>
         )

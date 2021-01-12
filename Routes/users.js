@@ -58,10 +58,11 @@ router.get('/login/dashboard', async (req, res) => {
 
 
       // Temporary key value to test the retrieval of data from atlas
-      const tempkey = '1077891518327029';
+      // const tempkey = '1077891518327029';
+
       
-      var UserTable = await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, tempkey).then(db_res => {    
-        
+      await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, uniqueid).then(db_res => {    
+      // console.log(uniqueid);
       console.log('Testing data from users.js :'+db_res[0].key);
      
       
@@ -80,20 +81,7 @@ router.get('/login/dashboard', async (req, res) => {
           action_url: action_url,
           data: tableresult,
           table: db_res
-          //[
-        //     {
-        //       name: 'Database result 1', status: 'Database result 2'
-        //     },
-        //     {
-        //       name: 'Database result 1.2', status: 'Database result 2.2'
-        //     },
-        //     {
-        //       name: 'Database result 1.3', status: 'Database result 2.3'
-        //     },
-        //     {
-        //       name: 'Database result 1.4', status: 'Database result 2.4'
-        //     }
-        // ]
+        
         }
         res.status(200).json(serverRes);
       }
@@ -103,14 +91,38 @@ router.get('/login/dashboard', async (req, res) => {
       console.log('Fetch retrieval error ' + err);
 
       serverRes = {
-        status: 404,
-        data: 'Users Table is empty not found'
+        status: 500,
+        data: 'Server Error'
       }
-      res.status(404).json(serverRes);
+      res.status(500).json(serverRes);
     });    
     
 });
 
+// To delete a field from the table
+router.route('/delete/:id').delete( async (req, res) =>{
+//delete the user 
+var resp;
+    await mongo.delete(keys.mongodb.db.name, keys.mongodb.db.collection, req.params.id).then(del => {
+      resp = {
+        code: 200,
+        deleted: res,
+      }
+    }).catch(function(err){
+      resp = {
+        code: 500,
+        deleted: 'Internal Server Error',
+      }
+      res.status(500).json(serverRes);
+    })
+        var resp = {
+          code: 200,
+          message: `You tried to delete data `+req.params.id,
+        }
+          if(resp.code){
+            res.status(200).json(resp);
+          }
+})
 
 
 //If the dashboard is empty
@@ -124,7 +136,7 @@ router.route('/generateId').post((req, res) => {
     res.json(Generate());
 });
 
-//Form validation
+//Form validation when creating a new table
 router.route('/createDB')
   .post([
     body('htmlUrl', 'Invalid Url').isString(),//isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false})
@@ -167,6 +179,7 @@ router.route('/createDB')
          
         }
 });
+
   
 
 module.exports = router;
