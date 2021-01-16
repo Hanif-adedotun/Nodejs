@@ -5,7 +5,10 @@
 .bold{
     font-weight: bold;
 }
-
+.inline{
+    display: inline-block;
+  
+}
 /* #282c34
 #61dafb */
 .dashboard{
@@ -61,7 +64,7 @@
     width: 50%;
 }
 .readonly{
-    background-color: #444;
+    background-color: #2f6d7e70;
     border: none;
     border-radius: 4px;
     margin: 1em;

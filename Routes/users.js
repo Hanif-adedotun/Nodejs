@@ -35,56 +35,53 @@ router.get('/login/dashboard', async (req, res) => {
 
     usekey = await ncon.readFile();
 
-  const dummyTable = {
-    databse: (usekey) ? usekey.id : null,
-    table: keys.mysql.Table.tablename
-  }
-  console.log('User id '+ dummyTable.databse);
-
-  if (!dummyTable.databse){
-    serverRes = {
-      status: 400,
-      data: 'Log into databse'
+    const dummyTable = {
+      databse: (usekey) ? usekey.id : null,
+      table: keys.mysql.Table.tablename
     }
-    res.status(404).json(serverRes);
-    return;
-  }
+  
+    if(!dummyTable.databse){
+      console.log('User id '+ dummyTable.databse);
+      serverRes = {
+        status: 400,
+        data: 'Log into databse'
+      }
+      res.status(404).json(serverRes)
+    }
+
  
     usersDB.getfromtable(keys.mysql.database, dummyTable.table,` WHERE ${keys.mysql.Table.userID} ='${dummyTable.databse}'`).then(async function(dbResult){
       
-      var tableresult = Object(dbResult);
-      const uniqueid = tableresult[0].uniqueid;
-      const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`;
-
-
-      // Temporary key value to test the retrieval of data from atlas
-      // const tempkey = '1077891518327029';
-
+      var tableresult = await Object(dbResult);
       
-      await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, uniqueid).then(db_res => {    
-      // console.log(uniqueid);
-      console.log('Testing data from users.js :'+db_res[0].key);
-     
-      
-      if(!tableresult){
-        console.error('User file not available'+ err);
+      console.log('Test table '+JSON.stringify(tableresult));
+
+      if(!tableresult[0]){
+        console.error('User file not available');
   
         serverRes = {
           status: 404,
           data: 'Empty database'
         }
-        res.status(200).json(serverRes);
+        res.status(404).json(serverRes);
+      return;
+      }
+
+      const uniqueid = tableresult[0].uniqueid;
+      const action_url = `${keys.backend.path}/${dummyTable.databse}/${uniqueid}`;
+
       
-      }else{
+      await mongo.find(keys.mongodb.db.name, keys.mongodb.db.collection, uniqueid).then(db_res => {    
+      // console.log(uniqueid);
+      // console.log('Testing data from users.js :'+db_res[0].key);
+     
         serverRes = {
           status: 200,
           action_url: action_url,
           data: tableresult,
           table: db_res
-        
         }
         res.status(200).json(serverRes);
-      }
     });          
 
     }).catch(function(err){
@@ -106,22 +103,19 @@ var resp;
     await mongo.delete(keys.mongodb.db.name, keys.mongodb.db.collection, req.params.id).then(del => {
       resp = {
         code: 200,
-        deleted: res,
+        deleted: true,
       }
+      res.status(200).json(resp);
+
     }).catch(function(err){
       resp = {
         code: 500,
-        deleted: 'Internal Server Error',
+        deleted: false,
       }
-      res.status(500).json(serverRes);
+      console.log(err);
+      res.status(500).json(resp);
     })
-        var resp = {
-          code: 200,
-          message: `You tried to delete data `+req.params.id,
-        }
-          if(resp.code){
-            res.status(200).json(resp);
-          }
+        
 })
 
 

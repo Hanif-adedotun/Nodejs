@@ -1,9 +1,11 @@
+const path = require('path');
 const https = require("https");
 const express = require('express');
 const app = express();
 const router = require('./Routes/router');
 const port = process.env.port || 8080;
 const cors = require('cors');
+// const publicPath = path.join(__dirname, '..', 'public');
 
 app.use(cors({
   origin: "http://localhost:3000", // allow to server to accept request from different origin
@@ -13,6 +15,11 @@ app.use(cors({
 
 app.use('/api', router);//Go to my router file to fetch inputs
 
+// app.use(express.static(publicPath));
+
+// app.get('*', (req, res) => {
+//    res.sendFile(path.join(publicPath, 'index.html'));
+// });
 
 app.get('/', function(req, res){
     res.status(403).send("Access Denied");

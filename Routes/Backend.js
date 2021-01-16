@@ -17,7 +17,9 @@ const mongo = require('./Database/mongodb');
 // support parsing of application/json type post data
 router.use(bodyParser.json());
 
-
+//Views using pug
+const pug = require('pug');
+const compileView = pug.compileFile(path.join(__dirname +'/config/backend.pug'));
 
 //support parsing of application/x-www-form-urlencoded post data
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -86,10 +88,8 @@ router.route('/:dbname/:key').get((req, res) =>{
                     if(type){
                         querystring.parse(data);
                     }
-                   
-                    
-                        for (var field in data){
-                            
+
+                        for (var field in data){ 
                             //To avoid sending a send button value to the database
                             if(field !== ('Submit' || 'submit' || 'send' || 'Send' || 'done')){
                               
@@ -100,23 +100,26 @@ router.route('/:dbname/:key').get((req, res) =>{
                         
                         console.log(Object(tablres));
                         // console.log(key);
-
+                        
                         //Insert the data into the database
                         //mongo.insert(name of database, name of collection, data to insert)
                         if(tablres.db_values){
-                            
                             await mongo.insert(keys.mongodb.db.name, keys.mongodb.db.collection, Object(tablres)).then(function(respon){
                                 if(respon){
                                     // console.log(respon);
                                     // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
-                                    res.redirect(req.header('Origin'));
+                                   
+                                    res.status(200).send(compileView({
+                                        pageTitle: 'Voltex Middlewear',
+                                        test: 'Successfully added to database, you will be redirected soon...'
+                                      }))
                                 }
+
                             }).catch(function(err){
                                 console.log('Could not add: ' + err)
                                 res.status(500).send('<h1>Could not add to databse, check your connection and try again</h1>');
                             });
-                            
-                           
+                             
                         }
                                           
                 }

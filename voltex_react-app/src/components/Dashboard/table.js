@@ -37,7 +37,6 @@ delete_button.propTypes = {
 
 
 const Table = ({tableName, table, delval, delText}) =>{
-
     var head = Object.keys(table[0].db_values);
   
         return(
@@ -71,7 +70,14 @@ const Table = ({tableName, table, delval, delText}) =>{
                             }
                             
                         </tbody>
+
                     </table>
+                    {/* this.setState({error: true},
+  () => this.setTimeout(
+     this.setState({error: false}), 5000
+  )
+) */}
+                    <p className='unique'>{(delText) ? this.setTimeout( 'A row has been deleted', 2000): ''}</p>
                 </div>
         );
 }

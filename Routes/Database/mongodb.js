@@ -1,6 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 const keys = require('../config/keys');
 const url = keys.mongodb.url;
+const ObjectId = require('mongodb').ObjectId;
 
 
 //function (connect_insert): insert a data into the mongodb atlas database
@@ -57,14 +58,18 @@ var connect_find = async (database, collection, keyVal) =>{
 var delete_data = async (database, collection, id)=>{
      var res = false;
      return new Promise(function(resolve, reject){
-          MongoClient.connect(url, async function(err, db) {
+          MongoClient.connect(url, {
+               useUnifiedTopology: true,
+               useNewUrlParser: true
+          },async function(err, db) {
 
           if (err) { reject(MongoClient); throw err;}
           var dbo = db.db(database);
-          var myquery = { _id: id };
+          var myquery = { _id: new ObjectId(id) };
 
           await dbo.collection(collection).deleteOne(myquery, function(err, obj) {
-               if (err) { reject(MongoClient); throw err;}
+               if (err) { reject(MongoClient); throw err;};
+               console.log('Deleted data: '+id+' from MongoDB');
                res = true;
                db.close();
                resolve(res);

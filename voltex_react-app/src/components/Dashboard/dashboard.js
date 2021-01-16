@@ -20,20 +20,23 @@ import Reactooltip from 'react-tooltip';
              dashboard: [],
              activeDashboard: '',
              //Table.js 
-             delres: [],
-             delText: null
+             delres: false,
          };
          
-        //  this.handleSubmit = this.handleSubmit.bind(this);
      }
 
-     componentDidMount(){
-         fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
+     //Load the databse values from the MongoDB
+     loadDatabase = () => {
+        fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
          .then(res => res.json())//parse the data in json format
          .then(dashboard => this.setState({dashboard}, () => console.log('Dashboard updated'+JSON.stringify(dashboard))))
          .catch((error) =>{console.error('Unable to get data from database' + error);});
      }
 
+     componentDidMount(){
+         this.loadDatabase();
+     }
+    
      dashboard_content = () => {
        
         const options ={
@@ -63,11 +66,10 @@ import Reactooltip from 'react-tooltip';
                 console.log('Copied: '+ text);
                 alert('Copied');
             }, function(err){
-                console.error('Unable to copy to clipboard');
+                console.error('Unable to copy to clipboard '+err);
             });
         }
         return(
-            
             <div className='dashboard_content'>
                 <Accordion allowZeroExpanded={true} className='acc' onChange={this.changeIcon}>
                     <AccordionItem>
@@ -83,12 +85,13 @@ import Reactooltip from 'react-tooltip';
                         </AccordionItemPanel>
                     </AccordionItem>
                 </Accordion>
+                <div className='inline' ><button className='btn export medium' onClick={()=> this.loadDatabase()}><span className='glyphicon glyphicon-refresh '></span></button></div>
                 <p className='Faction'>Your form action should be <span className='unique' id='copyurl'>{String(action_url)}</span>
                 <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> Copy</button></p>
                 <Reactooltip place="right" id="copytool" type="success" event="click" effect="solid" delayHide={2000}><span>Copied to clipboard!</span> </Reactooltip>
                 </p>
- 
-                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delText} /> {/*Table to display static file form*/}
+               
+                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} /> {/*Table to display static file form*/}
                 <div>
                     <button className='btn export'>
                         <span className='glyphicon glyphicon-export'></span>
@@ -100,22 +103,21 @@ import Reactooltip from 'react-tooltip';
      }
 
      //Functions for child element Table.js
-     tableDelete = (val) =>{
-         console.log('Deleting....');
+     tableDelete = async (val) =>{
+         
          this.setState({delText: 'Deleting...'});
 
-        fetch(`/api/users/delete/${val}`, {
+        await fetch(`/api/users/delete/${val}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
                },
-               //mode: 'cors',
             })
             .then(resp => resp.json()) // or res.json()
-            .then(delres => {this.setState({delres}); this.setState({delText: null});})
+            .then(delres => {this.setState({delres: delres.deleted}); this.setState({delText: null}); console.log('Deleted document: '+ val);})
             .catch((error) =>{console.error('Unable to delete data in database' + error); this.setState({delText: 'Unable to delete'}) });
-    // Note that add effect of delete button loading when delete is pressed
-    
+        // Note that add effect of delete button loading when delete is pressed
+        this.loadDatabase();
     }
 
      signedout = () =>{
@@ -140,7 +142,6 @@ import Reactooltip from 'react-tooltip';
              </div>
          )
      }
-     
 
      renderContent(){
         // console.log('Status Server '+this.state.dashboard.status);
