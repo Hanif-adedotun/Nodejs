@@ -4,7 +4,7 @@ html(lang="en")
     title= pageTitle
     link(rel="icon", href="https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c")
     style(type="text/css").
-     body{
+        body{
           font-family: Azonix, 'Courier New', Courier, monospace;
           background-color: whitesmoke;
           color: #444444;
@@ -20,10 +20,17 @@ html(lang="en")
           height: 20%;
           width: 10%;
         }
+        .error{
+          color: red;
+        }
   body
     p
      img(src="https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c", alt="Voltex Middlwear logo", class="logo")
     h1 Voltex middlewer
-    p.
-     #{text}
+    if error 
+      p.error #{text}
+    else
+      p #{text}
+
+
     

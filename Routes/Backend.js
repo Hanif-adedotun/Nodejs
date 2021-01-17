@@ -52,8 +52,6 @@ router.route('/:dbname/:key').get((req, res) =>{
             // console.log('Given inputs were: ' + req.params.key + ' ' + req.headers.origin);
             if(req.params.key === key && req.headers.referer === url){
                 //if the query parameters are safe and confirmed send a page to show loading 
-                
-                
                 var tablres = {
                     key:  key, //key,
                     db_values: {}    
@@ -108,16 +106,20 @@ router.route('/:dbname/:key').get((req, res) =>{
                                 if(respon){
                                     // console.log(respon);
                                     // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
-                                   
                                     res.status(200).send(compileView({
                                         pageTitle: 'Voltex Middlewear',
-                                        test: 'Successfully added to database, you will be redirected soon...'
+                                        // error: false,
+                                        text: 'Successfully added to database, you will be redirected soon...'
                                       }))
                                 }
 
                             }).catch(function(err){
-                                console.log('Could not add: ' + err)
-                                res.status(500).send('<h1>Could not add to databse, check your connection and try again</h1>');
+                                console.log('Could not add, Error: ' + err)
+                                res.status(500).send(compileView({
+                                    pageTitle: 'Voltex Middlewear',
+                                    error: true,
+                                    text: 'could not add to database',
+                                  }))
                             });
                              
                         }
