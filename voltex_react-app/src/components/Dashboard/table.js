@@ -77,7 +77,8 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
      this.setState({error: false}), 5000
   )
 ) */}
-                    <p className='unique'>{(delText) ? this.setTimeout( 'A row has been deleted', 2000): ''}</p>
+                <p className='unique'>{(delText) ? setTimeout( 'A row has been deleted', 2000): ''}</p>
+                {/* Attend to this error */}
                 </div>
         );
 }

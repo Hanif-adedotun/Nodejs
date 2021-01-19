@@ -210,10 +210,12 @@ font-size: auto;
 /* End of form action */
 
 /* Export button */
+.table_details .btn{
+    margin: 1em 1em;
+}
 .export{
     background-color: #61dafbd3;
     color: black;
-    margin: 1em 1em;
 }
 .export:hover{
     color: whitesmoke;

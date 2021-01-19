@@ -33,11 +33,6 @@ var dummyTable = {
     url: keys.mysql.Table.url
   }
 
-//To redirect the page to home
-function redirectToHome(home, res){
-    return res.status(200).redirect(home+'/Test/index.html');
-    //It would be changed in the production code, to origin alone
-}
 
 //To post the results to the database from the users form backend_page
 //@params(dbname) is the 
@@ -45,17 +40,17 @@ router.route('/:dbname/:key').get((req, res) =>{
     // res.send('Hello database');
 }).post((req, res) =>{
     req.setMaxListeners(5);
-    
+
     const params = ` WHERE ${keys.mysql.Table.userID} ='${req.params.dbname}'`
     DB.getfromtable(dummyTable.databse, dummyTable.table, params).then(
         function(result){
 
             const key = result[0].uniqueid;
-            const url = result[0].url;
+            const page_url = result[0].url;
            
-            // console.log('Expected inputs were: ' + key + ' ' + url);
+            // console.log('Expected inputs were: ' + key + ' ' + page_url);
             // console.log('Given inputs were: ' + req.params.key + ' ' + req.headers.origin);
-            if(req.params.key === key && req.headers.referer === url){
+            if(req.params.key === key && req.headers.referer === page_url){
                 //if the query parameters are safe and confirmed send a page to show loading 
                 var tablres = {
                     key:  key, //key,
@@ -91,10 +86,11 @@ router.route('/:dbname/:key').get((req, res) =>{
                     if(type){
                         querystring.parse(data);
                     }
-
                         for (var field in data){ 
+                            field = field.toLowerCase();
+                            var forbidden = ['done', 'user-url', 'submit', 'send' ];
                             //To avoid sending a send button value to the database
-                            if(field !== ('Submit' || 'submit' || 'send' || 'Send' || 'done')){
+                            if(!forbidden.includes(field)){
                               
                             tablres.db_values[field] = data[field];
 
@@ -102,11 +98,12 @@ router.route('/:dbname/:key').get((req, res) =>{
                         }
                         
                         console.log(Object(tablres));
-                        // console.log(key);
-                        res.status(200).send(compileView({
-                            pageTitle: 'Voltex Middlewear',
-                            text: 'Adding to database, you will be redirected soon...'
-                          }))
+                        
+                        // res.status(200).send(compileView({
+                        //     pageTitle: 'Voltex Middlewear',
+                        //     text: 'Adding to database, you will be redirected soon...'
+                        //   }))
+                          
                         //Insert the data into the database
                         //mongo.insert(name of database, name of collection, data to insert)
                         if(tablres.db_values){
@@ -114,8 +111,8 @@ router.route('/:dbname/:key').get((req, res) =>{
                                 if(respon){
                                     // console.log(respon);
                                     // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
-                                   redirectToHome(req.headers["origin"], res);
-                                   //There is an error here, check it again
+                                     res.status(200).redirect(req.body['user-url']);
+                            
                                 }
 
                             }).catch(function(err){

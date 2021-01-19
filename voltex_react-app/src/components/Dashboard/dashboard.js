@@ -91,17 +91,17 @@ import Reactooltip from 'react-tooltip';
                 </p>
                {/* The table data */}
                 <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> {/*Table to display static file form*/}
-                <div>
-                    <button className='btn btn-success '>
+                <div className='table_details'>
+                    <button className='btn export '>
                         <span className='glyphicon glyphicon-export'></span>
                         <span> Export table</span>
                     </button>
-                    <button className='btn export' id='custom_email'>
+                    <button className='btn btn-success' id='custom_email'>
                         <span className='glyphicon glyphicon-envelope'></span>
                         <span> Send Cutom email</span>
                     </button>
                     <button className='btn btn-danger' >
-                        <span className='glyphicon glyphicon-envelope'></span>
+                        <span className='glyphicon glyphicon-remove'></span>
                         <span> Drop table</span>
                     </button>
                 </div>
