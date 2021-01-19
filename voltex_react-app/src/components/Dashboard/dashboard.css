@@ -6,8 +6,7 @@
     font-weight: bold;
 }
 .inline{
-    display: inline-block;
-  
+    display: inline;
 }
 /* #282c34
 #61dafb */
@@ -214,7 +213,7 @@ font-size: auto;
 .export{
     background-color: #61dafbd3;
     color: black;
-    margin: 1em auto;
+    margin: 1em 1em;
 }
 .export:hover{
     color: whitesmoke;

@@ -36,12 +36,12 @@ delete_button.propTypes = {
 }
 
 
-const Table = ({tableName, table, delval, delText}) =>{
+const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
     var head = Object.keys(table[0].db_values);
   
         return(
             <div className='formTable'>
-                    <h3>{(tableName) ? tableName: 'Table'}</h3>
+                    <h3>{(tableName) ? tableName+' Table': 'Table'}</h3>
                     <table className='table table-responsive table-bodered'>
                         <thead>
                         <tr>
@@ -50,7 +50,7 @@ const Table = ({tableName, table, delval, delText}) =>{
                                  <th key={index}>{key.toUpperCase()}</th>
                             )
                             }
-                            <th></th> {/* for the delete row*/}
+                            <th><button className='btn btn-primary medium' onClick={loadDatabase}><span className='glyphicon glyphicon-refresh '></span></button></th> {/* for the delete row*/}
                         </tr>
                         </thead>
                         <tbody>

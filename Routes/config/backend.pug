@@ -22,15 +22,24 @@ html(lang="en")
         }
         .error{
           color: red;
+          font-size: large;
+        }
+        .four{
+          margin:auto;
+          font-weight: bold;
+          font-size: 900%;
         }
   body
     p
      img(src="https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c", alt="Voltex Middlwear logo", class="logo")
     h1 Voltex middlewer
+    if four
+      p.four #{four}
     if error 
       p.error #{text}
     else
       p #{text}
+
 
 
     

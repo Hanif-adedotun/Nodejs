@@ -33,6 +33,11 @@ var dummyTable = {
     url: keys.mysql.Table.url
   }
 
+//To redirect the page to home
+function redirectToHome(home, res){
+    return res.status(200).redirect(home+'/Test/index.html');
+    //It would be changed in the production code, to origin alone
+}
 
 //To post the results to the database from the users form backend_page
 //@params(dbname) is the 
@@ -98,7 +103,10 @@ router.route('/:dbname/:key').get((req, res) =>{
                         
                         console.log(Object(tablres));
                         // console.log(key);
-                        
+                        res.status(200).send(compileView({
+                            pageTitle: 'Voltex Middlewear',
+                            text: 'Adding to database, you will be redirected soon...'
+                          }))
                         //Insert the data into the database
                         //mongo.insert(name of database, name of collection, data to insert)
                         if(tablres.db_values){
@@ -106,11 +114,8 @@ router.route('/:dbname/:key').get((req, res) =>{
                                 if(respon){
                                     // console.log(respon);
                                     // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
-                                    res.status(200).send(compileView({
-                                        pageTitle: 'Voltex Middlewear',
-                                        // error: false,
-                                        text: 'Successfully added to database, you will be redirected soon...'
-                                      }))
+                                   redirectToHome(req.headers["origin"], res);
+                                   //There is an error here, check it again
                                 }
 
                             }).catch(function(err){
@@ -127,17 +132,28 @@ router.route('/:dbname/:key').get((req, res) =>{
                 }
                 
             }else{
-                res.status(404).sendFile(path.join(__dirname +'/config/404page.html'));
-               
+                res.status(404).send(compileView({
+                    pageTitle: '404-Not found',
+                    error: true,
+                    four: '404',
+                    text: 'You are not authorized to view this page, please check your parameters and try again.'
+                }));
             }
 
     }).catch(function(err){
     console.log('Error: ' + err);
 
+
     var serverRes = {
       status: 404,
       data: 'Internal server error!'
     }
+    // res.status(404).send(compileView({
+    //     pageTitle: '404',
+    //     error: true,
+    //     four: '404',
+    //     text: 'You are not authorized to view this page, please check your parameters and try again.'
+    // }));
     res.status(500).send(JSON.stringify(serverRes.data));
     });
     

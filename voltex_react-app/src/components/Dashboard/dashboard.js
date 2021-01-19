@@ -24,7 +24,6 @@ import Reactooltip from 'react-tooltip';
          };
          
      }
-
      //Load the databse values from the MongoDB
      loadDatabase = () => {
         fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
@@ -68,6 +67,7 @@ import Reactooltip from 'react-tooltip';
             }, function(err){
                 console.error('Unable to copy to clipboard '+err);
             });
+            document.getElementById('custom_email').disabled = true;
         }
         return(
             <div className='dashboard_content'>
@@ -85,19 +85,30 @@ import Reactooltip from 'react-tooltip';
                         </AccordionItemPanel>
                     </AccordionItem>
                 </Accordion>
-                <div className='inline' ><button className='btn export medium' onClick={()=> this.loadDatabase()}><span className='glyphicon glyphicon-refresh '></span></button></div>
                 <p className='Faction'>Your form action should be <span className='unique' id='copyurl'>{String(action_url)}</span>
                 <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> Copy</button></p>
                 <Reactooltip place="right" id="copytool" type="success" event="click" effect="solid" delayHide={2000}><span>Copied to clipboard!</span> </Reactooltip>
                 </p>
-               
-                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} /> {/*Table to display static file form*/}
+               {/* The table data */}
+                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> {/*Table to display static file form*/}
                 <div>
-                    <button className='btn export'>
+                    <button className='btn btn-success '>
                         <span className='glyphicon glyphicon-export'></span>
                         <span> Export table</span>
                     </button>
+                    <button className='btn export' id='custom_email'>
+                        <span className='glyphicon glyphicon-envelope'></span>
+                        <span> Send Cutom email</span>
+                    </button>
+                    <button className='btn btn-danger' >
+                        <span className='glyphicon glyphicon-envelope'></span>
+                        <span> Drop table</span>
+                    </button>
                 </div>
+                {/* <div class="alert alert-success alert-dismissible fade in">
+                <a href='#' class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> Indicates a successful or positive action.
+                </div> */}
             </div>
         );
      }
