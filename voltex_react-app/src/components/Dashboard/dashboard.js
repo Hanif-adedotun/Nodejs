@@ -11,7 +11,8 @@ import Load from '../objects/loading';
 //tooltip
 import Reactooltip from 'react-tooltip';
 
-
+//Export to CSV 
+import { CSVLink } from "react-csv";
  class Dashboard extends React.Component {
      constructor(){
          super();
@@ -35,6 +36,8 @@ import Reactooltip from 'react-tooltip';
      componentDidMount(){
          this.loadDatabase();
      }
+
+     
     
      dashboard_content = () => {
        
@@ -59,7 +62,7 @@ import Reactooltip from 'react-tooltip';
                icon.className = icon_down;
             }
         }
-
+        
         function copyUrl(text){
             navigator.clipboard.writeText(text).then(function(){
                 console.log('Copied: '+ text);
@@ -69,6 +72,7 @@ import Reactooltip from 'react-tooltip';
             });
             document.getElementById('custom_email').disabled = true;
         }
+
         return(
             <div className='dashboard_content'>
                 <Accordion allowZeroExpanded={true} className='acc' onChange={this.changeIcon}>
@@ -92,11 +96,16 @@ import Reactooltip from 'react-tooltip';
                {/* The table data */}
                 <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> {/*Table to display static file form*/}
                 <div className='table_details'>
-                    <button className='btn export '>
+                    {/* target="_blank" */}
+                <CSVLink headers={Object.keys(this.state.dashboard.table[0].db_values)} data={JSON.stringify(this.state.dashboard.table)} filename={this.state.dashboard.data[0].Tablename+".csv"} className="btn export" >
                         <span className='glyphicon glyphicon-export'></span>
                         <span> Export table</span>
-                    </button>
-                    <button className='btn btn-success' id='custom_email'>
+                </CSVLink>
+                    {/* <button className='btn export '>
+                        <span className='glyphicon glyphicon-export'></span>
+                        <span> Export table</span>
+                    </button> */}
+                    <button className='btn btn-success disabled ' id='custom_email' disabled>
                         <span className='glyphicon glyphicon-envelope'></span>
                         <span> Send Cutom email</span>
                     </button>

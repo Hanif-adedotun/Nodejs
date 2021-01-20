@@ -50,7 +50,7 @@ router.route('/:dbname/:key').get((req, res) =>{
            
             // console.log('Expected inputs were: ' + key + ' ' + page_url);
             // console.log('Given inputs were: ' + req.params.key + ' ' + req.headers.origin);
-            if(req.params.key === key && req.headers.referer === page_url){
+            if(req.params.key === key && req.body['user-url']  === page_url){
                 //if the query parameters are safe and confirmed send a page to show loading 
                 var tablres = {
                     key:  key, //key,
