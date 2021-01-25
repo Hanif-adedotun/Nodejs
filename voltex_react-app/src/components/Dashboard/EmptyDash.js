@@ -55,7 +55,7 @@ class Emptydash extends React.Component{
         })
         .then((result) => result.json())
         .then((responseid) => {this.setState({uniqueId: responseid}) })
-        .catch( (error) =>{
+        .catch((error) =>{
             this.setState({uniqueId: 'Unable to generate id'});
             document.getElementById('uniqueId').style.color = 'red';
             console.error('Unable to validate error ' + error);
@@ -90,7 +90,7 @@ class Emptydash extends React.Component{
 
         serverResponse = () =>{
             if(this.state.serverRes){
-                console.log(this.state.serverRes);
+                // console.log(this.state.serverRes);
                 return(
                     <div >
                         <ul className='form-error'>
@@ -140,7 +140,8 @@ class Emptydash extends React.Component{
     renderContent(){
         switch(this.state.configuredatabase){
             default:
-                case []: return (<div><p>Your Dashboard is empty!</p> 
+                case []: return (<div>
+                                <p>Your Dashboard is empty!</p> 
                                 <button className='btn btn-primary' onClick={this.openConfigDB}>Click to configure your database</button>
                                 </div>);
                 case  'showForm'  : return this.configureDatabase();

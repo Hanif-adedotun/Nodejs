@@ -133,9 +133,9 @@ router.route('/generateId').post((req, res) => {
 //Form validation when creating a new table
 router.route('/createDB')
   .post([
-    body('htmlUrl', 'Invalid Url').isString(),//isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false})
+    body('htmlUrl', 'Invalid Url').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false}),
     body('dbname', 'Enter a valid Name, must be less than 10 characters').isString().isLength({ max: 10, min: 1}),
-    body('uniqueId', 'Id is not a string').isAlphanumeric().isLength({ max: 16, min: 1})
+    body('uniqueId', 'Id is not alphanumeric').isAlphanumeric().isLength({ max: 16, min: 1})
       
     ],async function(req, res){
   

@@ -39,6 +39,7 @@
     "react-admin": "^3.9.4",
     "react-csv": "^2.0.3",
     "react-google-login": "^5.1.21",
+    "react-highlight.js": "^1.0.7",
     "react-loading": "^2.0.3",
     "react-syntax-highlighter": "^15.2.1",
     "react-tooltip": "^4.2.11",

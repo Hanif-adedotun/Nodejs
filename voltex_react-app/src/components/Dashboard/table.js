@@ -7,6 +7,8 @@ import '../css/bootstrap.min.css';
 import Popup from 'reactjs-popup';
 // import 'reactjs-popup/dist/index.css';
 
+//Void SVG Logo
+import VoidLogo from '../images/empty_green.svg';
 //loader
 // import Loader from '../objects/loading';
 
@@ -37,8 +39,20 @@ delete_button.propTypes = {
 
 
 const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
+    
+    if(!table[0]){
+        return(
+            <div>
+                <p className="App">
+                <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
+                </p>
+                <p>No user has used your form yet, paste your unique link and start using, thank you</p>
+                <p>If you want learn more about how to integrate us with your website, <span className="unique">Go to documentations</span></p>
+            </div>
+        )
+    }
     var head = Object.keys(table[0].db_values);
-  
+
         return(
             <div className='formTable'>
                     <h3>{(tableName) ? tableName+' Table': 'Table'}</h3>
@@ -61,7 +75,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
                                     {/* <th>{item._id}</th> */}
                                     {/* <th>{item.key}</th> */}
                                     {Object.values(item.db_values).map((val, ind)=>
-                                         <th key={ind}>{val}</th>
+                                        <th key={ind}>{val}</th>
                                     )
                                     }                                    
                                     <th id={index}>{delete_button(index, item._id, delval)}</th>
@@ -70,15 +84,8 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
                             }
                             
                         </tbody>
-
+                        <p className='Tunique'>{(delText) ? delText: ''}</p>
                     </table>
-                    {/* this.setState({error: true},
-  () => this.setTimeout(
-     this.setState({error: false}), 5000
-  )
-) */}
-                <p className='unique'>{(delText) ? setTimeout( 'A row has been deleted', 2000): ''}</p>
-                {/* Attend to this error */}
                 </div>
         );
 }

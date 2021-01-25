@@ -6,6 +6,7 @@ import Footer from './components/Footer/footer';
 import * as serviceWorker from './serviceWorker';
 
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

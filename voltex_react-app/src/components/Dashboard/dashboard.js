@@ -8,8 +8,7 @@ import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Acc
 //Loader
 import Load from '../objects/loading';
 
-//tooltip
-import Reactooltip from 'react-tooltip';
+
 
 //Export to CSV 
 import { CSVLink } from "react-csv";
@@ -22,6 +21,7 @@ import { CSVLink } from "react-csv";
              activeDashboard: '',
              //Table.js 
              delres: false,
+             delText: null
          };
          
      }
@@ -37,6 +37,16 @@ import { CSVLink } from "react-csv";
          this.loadDatabase();
      }
 
+     //To copy the form name 
+      copyUrl = (text) => {
+        navigator.clipboard.writeText(text).then(function(){
+            console.log('Copied: '+ text);
+            alert('Copied');
+        }, function(err){
+            console.error('Unable to copy to clipboard '+err);
+        });
+        // document.getElementById('custom_email').disabled = true;
+    }
      
     
      dashboard_content = () => {
@@ -63,15 +73,6 @@ import { CSVLink } from "react-csv";
             }
         }
         
-        function copyUrl(text){
-            navigator.clipboard.writeText(text).then(function(){
-                console.log('Copied: '+ text);
-                alert('Copied');
-            }, function(err){
-                console.error('Unable to copy to clipboard '+err);
-            });
-            document.getElementById('custom_email').disabled = true;
-        }
 
         return(
             <div className='dashboard_content'>
@@ -89,30 +90,34 @@ import { CSVLink } from "react-csv";
                         </AccordionItemPanel>
                     </AccordionItem>
                 </Accordion>
-                <p className='Faction'>Your form action should be <span className='unique' id='copyurl'>{String(action_url)}</span>
-                <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> Copy</button></p>
-                <Reactooltip place="right" id="copytool" type="success" event="click" effect="solid" delayHide={2000}><span>Copied to clipboard!</span> </Reactooltip>
-                </p>
+                <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(action_url)}</span>
+                <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> Copy</button></p>
+
+                {/* <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Success!</strong> Copied to clipboard.
+                </div> */}
+                
+                {/* <Reactooltip place="right" id="copytool" type="success" event="click" effect="solid" delayHide={1000}><span>Copied to clipboard!</span> </Reactooltip> */}
+                </div>
                {/* The table data */}
                 <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> {/*Table to display static file form*/}
                 <div className='table_details'>
-                    {/* target="_blank" */}
-                <CSVLink headers={Object.keys(this.state.dashboard.table[0].db_values)} data={JSON.stringify(this.state.dashboard.table)} filename={this.state.dashboard.data[0].Tablename+".csv"} className="btn export" >
-                        <span className='glyphicon glyphicon-export'></span>
-                        <span> Export table</span>
-                </CSVLink>
-                    {/* <button className='btn export '>
-                        <span className='glyphicon glyphicon-export'></span>
-                        <span> Export table</span>
-                    </button> */}
-                    <button className='btn btn-success disabled ' id='custom_email' disabled>
-                        <span className='glyphicon glyphicon-envelope'></span>
-                        <span> Send Cutom email</span>
-                    </button>
-                    <button className='btn btn-danger' >
-                        <span className='glyphicon glyphicon-remove'></span>
-                        <span> Drop table</span>
-                    </button>
+                    {/* target="_blank" headers={Object.keys(this.state.dashboard.table[0].db_values)} */}
+                    {(this.state.dashboard.table[0])?  <div>
+                        <CSVLink  data={(JSON.stringify(this.state.dashboard.table[0]))} filename={this.state.dashboard.data[0].Tablename+".csv"} className="btn export" >
+                                <span className='glyphicon glyphicon-export'></span>
+                                <span> Export table</span>
+                        </CSVLink>
+                            <button className='btn btn-success disabled ' id='custom_email' disabled>
+                                <span className='glyphicon glyphicon-envelope'></span>
+                                <span> Send Cutom email</span>
+                            </button>
+                            <button className='btn btn-danger' >
+                                <span className='glyphicon glyphicon-remove'></span>
+                                <span> Drop table</span>
+                            </button> </div>: ''}
+                       
                 </div>
                 {/* <div class="alert alert-success alert-dismissible fade in">
                 <a href='#' class="close" data-dismiss="alert" aria-label="close">&times;</a>

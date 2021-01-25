@@ -1,18 +1,36 @@
-.code{
-     background-color: rgb(207, 206, 206);
-     color: rgb(104, 103, 103);
-     width: max-content;
-     margin: auto;
-     padding: .5em;
-     border-radius: 20px;
-}
+
 .header{
      border-bottom: 2px solid cornflowerblue;
+     text-shadow: .5px .5px 1px #000000de;
 }
+
+/* The main code wrapper for all codes */
 .code_container{
      margin: 1em auto;
      border: none;
      border-radius: 30px;
      /* background-color: cadetblue; */
      width: max-content;
+}
+/* Each code wrapper to give uniqness to eeach code container */
+.code-tab{
+     margin-top: 3em;
+}
+.code-tab h4{
+     color: cornflowerblue;
+     text-shadow: .1px .1px 1px #000000de;
+}
+.code-tab .code-explained{
+     display: flex;
+     max-width: fit-content;
+}
+
+/* The code itself, to beautify it */
+.code{
+     width: max-content;
+     max-width: min-content;
+     margin: 2em auto;
+     padding: .2em;
+     border-radius: 20px;
+     text-align: center;
 }

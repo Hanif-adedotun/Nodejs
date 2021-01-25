@@ -24,6 +24,10 @@
     text-shadow: 2px 2px 4px #000000;
 }
 /* Div When the Dashboard is empty */
+#empty_logo{
+    height: 40%;
+    width: 40%;
+}
 .emptyDash{
     font-size: medium;
 }
@@ -116,18 +120,30 @@
 .small{
     font-size: small;
 }
+/* Style for the unique url button */
+.url{
+    display: flex;
+    max-width: fit-content;
+}
 .unique{
     color: #61dafb;
+    margin: auto;
 }
 /* End of Accordion styles */
 
 /*Table styles  */
-
+.Tunique{
+    color: #61dafb;
+    margin: auto;
+    text-align: center;
+}
 .formTable{
-    display: block;
+    display: inline-block;
     margin:  1em auto ;
     text-align: center;
-    width: max-content;
+    width: fit-content;
+    max-width: fit-content;
+    overflow: visible;
 }
 .table-dropdown{
     width: auto;

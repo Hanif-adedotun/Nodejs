@@ -11,6 +11,20 @@ var path = require('path');
 const querystring = require('querystring');
 const formidableMiddleware = require('express-formidable');
 
+//To parse images
+const mul = require('multer');
+// const helpers = require('./helpers');
+const storage = mul.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'uploads/');
+        //uploads url can bring an error, confirm it
+    },
+    filename: function(req, file, cb){
+        cb(null, file.filename+'-'+Date.now()+ path.extname(file.originalname));
+
+    }
+
+})
 //mongodb
 const mongo = require('./Database/mongodb');
 
@@ -69,16 +83,26 @@ router.route('/:dbname/:key').get((req, res) =>{
                     case "text/plain": parsedata(req.body);//check for how to parse text/plain data
                     break;
                 }
-
+//passport
                 //If files are included in the data sent use a different middleware
                 function parsemult(){
-                    router.use(formidableMiddleware({
-                        encoding: 'utf-8',
-                        uploadDir: '/my/dir',
-                        multiples: true,
-                    }));
-                        console.log(req.fields);
-                        console.log(req.files);
+                    // let upload = mul({storage: storage, fileFilter: helpers.imageFilter}).single('passport');
+                    // upload(req, res, function(err){
+                    //     if (req.fileValidationError) {
+                    //         throw err(req.fileValidationError);
+                    //     }
+                    //     else if (!req.file) {
+                    //         return console.log('Please select an image to upload');
+                    //     }
+                    //     else if (err instanceof multer.MulterError) {
+                    //         return res.send(err);
+                    //     }
+                    //     else if (err) {
+                    //         return res.send(err);
+                    //     }
+                       
+                    // })
+                    res.send('This function is still in progress')
                 }
                 
                 //If it is just plain text use a normal data
@@ -103,7 +127,18 @@ router.route('/:dbname/:key').get((req, res) =>{
                         //     pageTitle: 'Voltex Middlewear',
                         //     text: 'Adding to database, you will be redirected soon...'
                         //   }))
-                          
+                        // res.status(200).send(compileView({
+                        //     pageTitle: 'Voltex Middlewear',
+                        //     text: 'Adding to database, you will be redirected soon...'
+                        //   }))
+
+                        // String newFileName = "my-image";
+                        // File imageFile = new File("/users/victor/images/image.png");
+                        // GridFS gfsPhoto = new GridFS(db, "photo");
+                        // GridFSInputFile gfsFile = gfsPhoto.createFile(imageFile);
+                        // gfsFile.setFilename(newFileName);
+                        // gfsFile.save();
+
                         //Insert the data into the database
                         //mongo.insert(name of database, name of collection, data to insert)
                         if(tablres.db_values){
@@ -112,7 +147,6 @@ router.route('/:dbname/:key').get((req, res) =>{
                                     // console.log(respon);
                                     // res.status(200).sendFile(path.join(__dirname +'/config/backend_page.html'));
                                      res.status(200).redirect(req.body['user-url']);
-                            
                                 }
 
                             }).catch(function(err){
