@@ -1,6 +1,7 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter as Router, NavLink} from 'react-router-dom';
 
+
 import './nav.css';
 import '../css/bootstrap.min.css';
 import Dashboard from '../Dashboard/dashboard';
@@ -8,7 +9,12 @@ import Home from '../Home/home';
 import Profile from '../Profile/profile';
 import Docs from '../Docs/docs';
 
-class Nav extends React.Component{
+//NavBar for react
+import { Navbar, Nav } from 'react-bootstrap';
+
+
+class navigation extends React.Component{
+    
     constructor(){
         super();
         this.state = {
@@ -16,6 +22,7 @@ class Nav extends React.Component{
         };
     }
     componentDidMount(){
+
         fetch('/api/auth/login/success')//fetch the data from our express server running on localhost:8080
         .then(res => res.json())//parse the data in json format
         .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, () => {console.log('User Image updated'+JSON.stringify(response.user)); this.rendercontent();}))
@@ -41,6 +48,19 @@ class Nav extends React.Component{
     render(){
         return(
             <Router>
+                {/* <Navbar>
+                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
+                    <Navbar.Collapse id='basic-navbar-nav'>
+                        <Nav className='mr-auto' justify='true' variant='pills' fill>
+                            <Nav.Item><Nav.Link className='Navlin' ><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.rendercontent()}</NavLink></Nav.Link></Nav.Item>
+                        </Nav>
+                    </Navbar.Collapse> 
+                </Navbar> */}
+              
                 <div className='nav'>
                     <nav className="navbar navbar-default " data-spy="affix" data-offset-top="197">
                     <div className="navbar-header">
@@ -72,4 +92,4 @@ class Nav extends React.Component{
     }
 }
 
-export default Nav;
+export default navigation;

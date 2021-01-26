@@ -2,6 +2,7 @@ import React from 'react';
 import './dashboard.css';
 import PropTypes from 'prop-types';
 import '../css/bootstrap.min.css';
+import {Link } from "react-router-dom";
 
 //popup
 import Popup from 'reactjs-popup';
@@ -47,7 +48,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
                 <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
                 </p>
                 <p>No user has used your form yet, paste your unique link and start using, thank you</p>
-                <p>If you want learn more about how to integrate us with your website, <span className="unique">Go to documentations</span></p>
+                <p>If you want learn more about how to integrate us with your website, <Link to='/docs'><span className="unique">Go to documentations</span></Link></p>
             </div>
         )
     }

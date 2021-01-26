@@ -5,6 +5,9 @@ import Emptydash from './EmptyDash';
 import Table from './table';
 import {Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel} from 'react-accessible-accordion';
 
+//Link
+import {Link } from "react-router-dom";
+
 //Loader
 import Load from '../objects/loading';
 
@@ -148,7 +151,7 @@ import { CSVLink } from "react-csv";
      signedout = () =>{
         return(
             <div className='signedout'>
-                <div className='s-text'>You need to Sign in to access dashboard, Go to profile to sign in now!</div>
+                <div className='s-text'>You need to Sign in to access dashboard, Go to <Link to='/dashboard'><span>profile</span></Link> to sign in now!</div>
             </div>
         )
      }
