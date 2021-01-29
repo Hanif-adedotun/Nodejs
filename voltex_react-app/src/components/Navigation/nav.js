@@ -9,8 +9,8 @@ import Home from '../Home/home';
 import Profile from '../Profile/profile';
 import Docs from '../Docs/docs';
 
-//NavBar for react
-import { Navbar, Nav } from 'react-bootstrap';
+//Logo
+// import logo from '../images/logo.png';
 
 
 class navigation extends React.Component{
@@ -48,18 +48,18 @@ class navigation extends React.Component{
     render(){
         return(
             <Router>
-                {/* <Navbar>
+             {/* <Navbar>
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
-                    <Navbar.Collapse id='basic-navbar-nav'>
+                   <Navbar.Collapse id='basic-navbar-nav'>
                         <Nav className='mr-auto' justify='true' variant='pills' fill>
-                            <Nav.Item><Nav.Link className='Navlin' ><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></Nav.Link></Nav.Item>
+                             <Nav.Item><Nav.Link className='Navlin' ><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></Nav.Link></Nav.Item>
+                             <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></Nav.Link></Nav.Item>
                             <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></Nav.Link></Nav.Item>
                             <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></Nav.Link></Nav.Item>
-                            <Nav.Item><Nav.Link className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.rendercontent()}</NavLink></Nav.Link></Nav.Item>
+                             <Nav.Item><Nav.Link className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.rendercontent()}</NavLink></Nav.Link></Nav.Item>
                         </Nav>
-                    </Navbar.Collapse> 
-                </Navbar> */}
+                     </Navbar.Collapse> 
+                 </Navbar>  */}
               
                 <div className='nav'>
                     <nav className="navbar navbar-default " data-spy="affix" data-offset-top="197">
@@ -73,6 +73,7 @@ class navigation extends React.Component{
                     <div className='collapse navbar-collapse'>
                         <ul className='nav nav-pills nav-justified'>
                             <li ><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></li>
+                             {/* <li ><img src={logo} alt="Voltex Middlwear logo" className='logo'/></li>  */}
                             <li className='Navlin' ><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></li>
                             <li className='Navlin' ><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></li>
                             <li className='Navlin' ><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></li>
@@ -87,7 +88,7 @@ class navigation extends React.Component{
                     <Route path='/profile' exact component={Profile}/>
                     <Route path='/docs' exact component={Docs} />
                 </Switch>
-            </Router>
+            </Router> 
         );
     }
 }

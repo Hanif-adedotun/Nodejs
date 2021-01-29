@@ -1,4 +1,6 @@
-
+.App{
+max-width: fit-content;
+}
 .links{
   text-decoration: none;
   color: #61dafb;
