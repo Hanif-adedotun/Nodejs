@@ -9,6 +9,7 @@
     width: 100%;
     font: small;
     height: 20vh;
+    height: fit-content;
 }
 /* Voltex logo */
 .footimg{
@@ -23,21 +24,26 @@
     opacity: 60%;
 }
 /* Dic for contact links */
-#contactLinks{
-    background: none;
-    margin: 1em 1em;
-}
-#contactLinks label{
+
+.foot label{
     font-size: medium;
     font-weight: bold;
 }
-#contactLinks ul{
-    display: inline;
+#contactLinks ul li{
+    margin-bottom: .5em;
+    cursor: pointer;
     list-style-type: none;
 }
-#contactLinks ul li{
-    display: inline;
-    margin-right: .5em;
+#contactLinks ul li a{
+    text-decoration: none;
+}
+/* The container for the private policies */
+#policies ul{
+    list-style-type: none;
+}
+#policies ul li{
     cursor: pointer;
 }
-
+#policies ul li a{
+    text-decoration: none;
+}
