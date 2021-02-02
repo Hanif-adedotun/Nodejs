@@ -151,7 +151,7 @@ import { CSVLink } from "react-csv";
      signedout = () =>{
         return(
             <div className='signedout'>
-                <div className='s-text'>You need to Sign in to access dashboard, Go to <Link to='/dashboard'><span>profile</span></Link> to sign in now!</div>
+                <div className='s-text'>You need to Sign in to access dashboard, Go to <Link to='/profile'><span>profile</span></Link> to sign in now!</div>
             </div>
         )
      }

@@ -14,11 +14,14 @@
 }
 /* Each code wrapper to give uniqness to eeach code container */
 .code-tab{
+     margin: 1em auto;
      margin-top: 3em;
+     
 }
 .code-tab h4{
      color: cornflowerblue;
      text-shadow: .1px .1px 1px #000000de;
+     border-bottom: 2px solid cornflowerblue;
 }
 .code-tab .code-explained{
      display: flex;
@@ -27,10 +30,12 @@
 
 /* The code itself, to beautify it */
 .code{
-     width: max-content;
-     max-width: min-content;
+     width: auto;
      margin: 2em auto;
      padding: .2em;
      border-radius: 20px;
      text-align: center;
+     -webkit-box-shadow: 1px 1px 10px 0px rgba(50, 50, 50, 0.65);
+     -moz-box-shadow:    1px 1px 10px 0px rgba(50, 50, 50, 0.65);
+     box-shadow:         1px 1px 10px 0px rgba(50, 50, 50, 0.65);
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Switch, Route, BrowserRouter as Router, NavLink} from 'react-router-dom';
 
+ 
 
 import './nav.css';
 import '../css/bootstrap.min.css';
@@ -72,7 +73,7 @@ class navigation extends React.Component{
                     </div>
                     <div className='collapse navbar-collapse'>
                         <ul className='nav nav-pills nav-justified'>
-                            <li ><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></li>
+                            <li ><NavLink exact to='/'><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></NavLink></li>
                              {/* <li ><img src={logo} alt="Voltex Middlwear logo" className='logo'/></li>  */}
                             <li className='Navlin' ><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></li>
                             <li className='Navlin' ><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></li>

@@ -10,6 +10,15 @@ class footer extends React.Component{
                 <span>
                     <img className='footimg' src={image} alt='Voltex logo'></img>   
                 </span>
+                <div id='contactLinks'>
+                    <label>Contact US</label>
+                    <ul>
+                        <li><a href="#">Github</a></li>
+                        <li><a href="#">twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">E-mail</a></li>
+                    </ul>
+                </div>
                 <p className='footext'>&copy; Copyright Voltex Designs {year}</p>
                 
             </div>

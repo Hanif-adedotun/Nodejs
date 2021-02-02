@@ -1,5 +1,6 @@
 .App{
-max-width: fit-content;
+max-width: 100%;
+min-height: 80vh;
 }
 .links{
   text-decoration: none;
