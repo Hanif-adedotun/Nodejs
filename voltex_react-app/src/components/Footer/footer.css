@@ -2,14 +2,20 @@
 .footer{
     margin: 0;
     margin-top: 1em;
-    background-color: whitesmoke;
+    background-color: #282c34;
+    border-radius: 10px 10px 0 0;
     color: rgb(139, 136, 136);
     position: relative;
     bottom: 0;
     width: 100%;
     font: small;
-    height: 20vh;
     height: fit-content;
+    overflow-x: hidden;
+
+    /* The box shadow to raise a part */
+    box-shadow: 4px -9px 6px 0px rgba(191,191,191,0.68);
+-webkit-box-shadow: 4px -9px 6px 0px rgba(191,191,191,0.68);
+-moz-box-shadow: 4px -9px 6px 0px rgba(191,191,191,0.68);
 }
 /* Voltex logo */
 .footimg{
@@ -23,27 +29,28 @@
     margin-bottom: 0;
     opacity: 60%;
 }
-/* Dic for contact links */
-
+/* Div for contact links */
+.foot{
+    margin: 2em auto;
+    /* text-align: left; */
+}
 .foot label{
     font-size: medium;
     font-weight: bold;
+    
 }
-#contactLinks ul li{
-    margin-bottom: .5em;
+.foot ul{
+    text-align: center;
+    margin: auto;
+}
+.foot ul li{
     cursor: pointer;
     list-style-type: none;
+    text-align: left;
+    
 }
-#contactLinks ul li a{
+.foot ul li a{
     text-decoration: none;
 }
 /* The container for the private policies */
-#policies ul{
-    list-style-type: none;
-}
-#policies ul li{
-    cursor: pointer;
-}
-#policies ul li a{
-    text-decoration: none;
-}
+

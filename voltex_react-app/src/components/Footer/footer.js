@@ -14,7 +14,7 @@ class footer extends React.Component{
                     <img className='footimg' src={logo} alt='Voltex logo'></img>   
                 </span>
                 <div className='row'>
-                <div className='col-md-6 foot' id='contactLinks'>
+                <div className='col-md-4 foot' id='contactLinks'>
                     <label>Contact US</label>
                     <ul>
                         <li><a >Github</a></li>
@@ -23,11 +23,18 @@ class footer extends React.Component{
                         <li><a >E-mail</a></li>
                     </ul>
                 </div>
-                <div className='col-md-6 foot' id='policies'>
+                <div className='col-md-4 foot' id='policies'>
                 <label>Policies</label>
                     <ul>
                         <li><a>Private policies</a></li>
                         <li><a>Lincense</a></li>
+                    </ul>
+                </div>
+                <div className='col-md-4 foot' id='site'>
+                <label>Links</label>
+                    <ul>
+                        <li><a>Sitemap</a></li>
+                        <li><a>Report problem</a></li>
                     </ul>
                 </div>
                 </div>

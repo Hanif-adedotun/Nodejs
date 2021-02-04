@@ -22,6 +22,7 @@ import { CSVLink } from "react-csv";
          this.state = {
              dashboard: [],
              activeDashboard: '',
+             copyText: 'copy',
              //Table.js 
              delres: false,
              delText: null
@@ -44,10 +45,20 @@ import { CSVLink } from "react-csv";
       copyUrl = (text) => {
         navigator.clipboard.writeText(text).then(function(){
             console.log('Copied: '+ text);
-            alert('Copied');
         }, function(err){
             console.error('Unable to copy to clipboard '+err);
         });
+        //change the text of the copy button to copied
+        this.setState({copyText: 'Copied to clipboard!'})
+
+        //set the copied text back to copy , the original text
+    //     setTimeout(function(){
+    //         this.setState({copyText:'Copied'});
+    //    }.bind(this),1000);
+
+    this.interval = setInterval(() => {
+        this.setState({copyText: 'Copy'});
+      }, 200);
         // document.getElementById('custom_email').disabled = true;
     }
      
@@ -94,7 +105,7 @@ import { CSVLink } from "react-csv";
                     </AccordionItem>
                 </Accordion>
                 <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(action_url)}</span>
-                <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> Copy</button></p>
+                <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> {this.state.copyText}</button></p>
 
                 {/* <div class="alert alert-success alert-dismissible">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
