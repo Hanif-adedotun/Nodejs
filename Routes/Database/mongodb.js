@@ -34,7 +34,6 @@ var connect_insert = (database, collection, data) =>{
  //function (connect_insert): get a data into the mongodb atlas database
 //@params (database) the name of the database to get data from
 //@params (collection) the table to get data from
-
 var connect_find = async (database, collection, keyVal) =>{
      var res;
      return new Promise(function(resolve, reject){
@@ -55,6 +54,11 @@ var connect_find = async (database, collection, keyVal) =>{
         });
      });      
 }
+
+ //function (delete_data): get a data into the mongodb atlas database
+//@params (database) the name of the database to get data from
+//@params (collection) the table to get data from
+//@params (id) the unique id of the data you want to delete
 var delete_data = async (database, collection, id)=>{
      var res = false;
      return new Promise(function(resolve, reject){

@@ -14,3 +14,5 @@ const connectdb = async () => {
 }
 
 module.exports = connectdb;
+// Warning!!!!!!!
+// This module is depreciated

@@ -40,5 +40,8 @@ module.exports = {
     },
     backend:{
         path: 'http://localhost:8080/api/middlewear/data'
+    },
+    email:{
+        //comming soon v2
     }
 };

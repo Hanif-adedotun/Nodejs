@@ -1,10 +1,38 @@
+/* To import style links to use */
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+
 .Home{
     margin: auto;
     font-size: medium;
+    background: transparent;
 }
-.header{
-    border-bottom: 2px solid cornflowerblue;
+.headGlass{
+    z-index: 99;
+    /* position: absolute;
+    top: 20vh;
+    left: 30vw; */
+    width: fit-content;
+    margin: 1em auto;
+    padding: 0.5em;
+    color: #282c34;
+
+    /* The code for glasssmorphorsm */
+    background: rgba(255, 255, 255, 0.1);
+    /* background: transparent; */
+    box-shadow: 0 8px 32px 0 rgba(85, 89, 145, 0.37);
+    backdrop-filter: blur( 20.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    border-radius: 10px;
 }
+
+.headGlass-head{
+    font-size: xx-large;
+    font-weight: bold;
+    color: cornflowerblue;
+}
+/* .tagline{
+    font-family:  Montserrat, 'Italianno', cursive;
+} */
 .head{
     font-size: xx-large;
     font-weight: bold;
@@ -29,6 +57,7 @@
 .hm {
     border-radius: 10px;
     margin: 2em auto;
+    background: white;
     /* -webkit-box-shadow: 3px 3px 5px 6px #ccc;  
     -moz-box-shadow: 3px 3px 5px 6px #ccc;  */
     /* box-shadow: 1px 3px 5px 1px rgb(128, 166, 238);  */

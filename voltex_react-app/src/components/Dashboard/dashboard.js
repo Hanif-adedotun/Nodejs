@@ -29,7 +29,7 @@ import { CSVLink } from "react-csv";
          };
          
      }
-     //Load the databse values from the MongoDB
+     //Load the database values from the MongoDB
      loadDatabase = () => {
         fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
          .then(res => res.json())//parse the data in json format
@@ -51,14 +51,10 @@ import { CSVLink } from "react-csv";
         //change the text of the copy button to copied
         this.setState({copyText: 'Copied to clipboard!'})
 
-        //set the copied text back to copy , the original text
-    //     setTimeout(function(){
-    //         this.setState({copyText:'Copied'});
-    //    }.bind(this),1000);
-
+ 
     this.interval = setInterval(() => {
         this.setState({copyText: 'Copy'});
-      }, 200);
+      }, 2000);
         // document.getElementById('custom_email').disabled = true;
     }
      
@@ -99,7 +95,7 @@ import { CSVLink } from "react-csv";
                         </AccordionItemHeading>
                         <AccordionItemPanel className='acc-body'>
                             <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                            <p><span className='acc-body-label'>Static page:</span> {options.url}</p>
+                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a></p>
                             <p><span className='acc-body-label'>Key:</span> {options.id}</p>
                         </AccordionItemPanel>
                     </AccordionItem>

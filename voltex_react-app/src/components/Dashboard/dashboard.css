@@ -114,6 +114,13 @@
     font-weight: bold;
     color: #1ea5ca;
 }
+.acc-body p a{
+    text-decoration: none;
+    color: #1ea5ca;
+}
+.acc-body p a:hover{
+    opacity: .7;
+}
 .medium{
     font-size: medium;
 }

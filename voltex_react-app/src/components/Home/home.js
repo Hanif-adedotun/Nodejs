@@ -98,11 +98,11 @@ class Home extends React.Component{
           return(
             <div className='Home'>
 
-            <header className='header'>
-                  <h1 className='head'>Voltex Middlwear</h1>
+            <header className='headGlass'>
+                  <h1 className='headGlass-head'>Voltex Middlwear</h1>
+                  <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
-                  {this.offlineText()}
-                  
+                  {this.offlineText()}    
             </header>
 
             <div className='container-fluid'>

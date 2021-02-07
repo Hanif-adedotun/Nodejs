@@ -19,6 +19,7 @@
     width: max-content;
     padding: .2em;
    font-weight: bold;
+   background-color: white;
 }
 .g-sign-in-button:hover{
     background-color: cornflowerblue;

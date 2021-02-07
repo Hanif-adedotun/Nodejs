@@ -13,6 +13,7 @@ const mongo = require('./Database/mongodb')
 const ncon = require('./config/nconfig');
 
 //Random number generator
+//Using the cryptocurrence hashing method
 const crypto = require('crypto');
 
 // support parsing of application/json type post data
@@ -24,15 +25,15 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 // @params {Address} is /api/users
 
-var users = null;
-var userImage = null;
-var dbname = null;
+//create empty variables for the users options
+var users = null, userImage = null, dbname = null;
 
-
+//Router (GET method)
+//
 router.get('/login/dashboard', async (req, res) => {
   var serverRes, usekey;
   //get dashboard from its database
-
+  console.log('Testing user properties from user.js file: \n'+req.user)
     usekey = await ncon.readFile();
 
     const dummyTable = {

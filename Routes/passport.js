@@ -7,9 +7,10 @@ const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
 
-
 //nconf
 const ncon = require('./config/nconfig');
+
+
 // @params {Address} is /api/auth
 
 passport.use(new GoogleStrategy({
@@ -44,14 +45,17 @@ passport.use(new GoogleStrategy({
   router.use(passport.initialize());
   router.use(passport.session());
   
+//(api/auth/redirect) Google api will query this url to get the success redirect link or failure link
 router.get('/redirect', passport.authenticate('google', {
   successRedirect: CLIENT_PROFILE_URL,
   failureRedirect: 'api/auth/login/failure'
 }));
 
-
+//(api/auth/signin) is called by the front-end to use google api to sign in
 router.get('/signin', passport.authenticate('google', {scope: ['profile', 'email']}));
-  
+
+//(api/auth/login/success)
+//if the user is signed in, give the user properties to 
 router.get('/login/success', (req, res)=>{
   if(req.user){   
     res.status(200).json({authenticate:true, user: req.user});
@@ -63,14 +67,14 @@ router.get('/login/success', (req, res)=>{
 
 
 router.get('/login/failure', (req, res)=>{
-  res.send('Failed to authenticate, try again');
+  res.status(500).send('Failed to authenticate, try again');
 })
 
-  router.get('/logout', (req, res) =>{
+router.get('/logout', (req, res) =>{
     req.logout();
     ncon.refresh(); //delete the user profile
     res.status(200).json({authenticate: false});
-  });
+});
   
   passport.serializeUser(function(user, done) {
     done(null, user);

@@ -1,7 +1,20 @@
 var fs = require('fs');
+
+//(file) is where the file will be saved to
 var file = './config.json';
+//A file to save the current user signed in 
+//Used by Passport servive Google Strategy
 
 
+// function (writeFile) used to insert the current user property to the file,  so as to always keep the user file and render easily
+//@param {dataSent} {
+//   id: profile.id,
+//   email: profile.emails,
+//   name: profile.name,
+//   username: profile.displayName,
+//   imageUrl: profile.photos[0].value
+//  };
+//@return doesn't return anything
 async function writeFile(dataSent){
   var data = JSON.stringify(dataSent);
   
@@ -15,7 +28,10 @@ await fs.writeFile(file, data, function (err) {
   console.log('Configuration saved successfully.')
 });
 }
-// console.log(nconf.get('dessert'));
+
+// function (readfil) used to get the properties of the current user 
+//@param {} no inputs
+//@return user properties and converts them to an object
 async function readfil(){
    
   try {
@@ -30,24 +46,26 @@ async function readfil(){
     return myObj;
   }
   catch (err) {
-    console.log('There has been an error parsing your JSON.')
+    console.log('There has been an error parsing your JSON')
     console.log(err);
     return null;
   }
 }
 
+// function (refreshfile) used to delete the user file, when when no user is connected
+//@param {} no inputs
+//@return null
 async function refreshfile(){
   await fs.unlink(file, (err) => {
     if (err) {
-      console.error(err);
+      // console.error(err);
       return;
     }
   });
-  console.log('Deleted the file');
+  console.log('Deleted the file: No User signed in');
 }
 
 var ncon ={
-    //  save: save,
      fs: {
       writeFile: writeFile,
       readFile: readfil,
@@ -58,4 +76,4 @@ var ncon ={
 
 module.exports = ncon.fs;
 
-// Clean up and learn how to use this package
+

@@ -1,14 +1,28 @@
 var mysql = require('mysql');
 const keys = require('../config/keys');
 
-
-var DBdetails = {//connection details to the database
+//connection details to the database
+//@param {host} is the server hosting mysql 
+//@param {username} username of client 
+//@param {password} password of client 
+var DBdetails = {
     host: keys.mysql.host,
     username: keys.mysql.username,
     password: keys.mysql.password
 };
 
 
+//The default table field names, for creation and retreival of values
+var Table= {
+    tablename: keys.mysql.Table.tablename,
+    url: keys.mysql.Table.url,
+    nameoftable: keys.mysql.Table.nameoftable,
+    uniqueID : keys.mysql.Table.uniqueID,
+    userid: keys.mysql.Table.userID
+};
+
+//function (createDatabse) create database on mySql with name given beforeRetry
+//@param {databaseName} the name given to the function to create a database with
 var createDatabse = (databaseName) =>{
       String(databaseName);
       var con = mysql.createConnection({
@@ -18,7 +32,7 @@ var createDatabse = (databaseName) =>{
       });
         con.connect(function(err){
             if(err) throw err;
-            console.log('Mysql: Connected');
+            console.log('Mysql databse: Connected');
 
             con.query('CREATE DATABASE '+ databaseName, function(err, result){
                 if(err) {
@@ -30,16 +44,10 @@ var createDatabse = (databaseName) =>{
                 return true;
             });
         });
-     }
-      //Form table of the dashboard
-    var Table= {
-        tablename: keys.mysql.Table.tablename,
-        url: keys.mysql.Table.url,
-        nameoftable: keys.mysql.Table.nameoftable,
-        uniqueID : keys.mysql.Table.uniqueID,
-        userid: keys.mysql.Table.userID
-    };
-
+}
+    
+//function (createUserTable) create user table to store the name and other related values to the database for easy retreival
+//@param {dbname} the name of the databse already created
 var createUserTable = (dbname)=>{
     var con = mysql.createConnection({
         host: DBdetails.host,
@@ -58,6 +66,13 @@ var createUserTable = (dbname)=>{
         });
     });
 }
+
+//function (addToUserTable) to add a new user to the table with its important details_
+// @param {dbname} name of the database
+// @param {url} url of the client's static page
+// @param {name} table name of the user table
+// @param {id} 16 letters unique id used to identify and secure a table
+// @param {userid} user id used to register, e.x google id
 
 var addToUserTable = (dbname, url, name, id, userid) =>{
     var con = mysql.createConnection({
@@ -87,6 +102,12 @@ var addToUserTable = (dbname, url, name, id, userid) =>{
       });
 }
 
+//function (addToUserTable) to add a new user to the table with its important details_
+// @param {dbname} name of the database
+// @param {url} url of the client's static page
+// @param {name} table name of the user table
+// @param {id} 16 letters unique id used to identify and secure a table
+// @param {userid} user id used to register, e.x google id
 var getfromtable = (dbname, table, params) =>{
     var dbResults;
     return new Promise(function(resolve, reject){
@@ -105,13 +126,10 @@ var getfromtable = (dbname, table, params) =>{
             }
             console.log('Mysql: Connected');
     
-            if(params){
-                var sql = `SELECT * FROM  ${table} ${params}`;
-                //  `SELECT * FROM  ${table} ${params}` ;
-            }else{
-                var sql = `SELECT * FROM  ${table}`;
-            }
-           
+            // 
+            var sql = (params) ? `SELECT * FROM  ${table} ${params}` :  `SELECT * FROM  ${table}`;
+            //  `SELECT * FROM  ${table} ${params}` ;
+       
     
             con.query(sql, function(err, result){
                 if (err) {
@@ -128,14 +146,10 @@ var getfromtable = (dbname, table, params) =>{
     })
 
 }
-var sayhello = (message) =>{
-        return message;
-     }
-
+//An object to export the functions 
 var Datadase = {
     createDatabse: createDatabse,
     createUserTable: createUserTable,
-    sayhello: sayhello,
     addToUserTable: addToUserTable,
     getfromtable: getfromtable
 };

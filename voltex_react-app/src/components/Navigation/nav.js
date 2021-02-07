@@ -11,7 +11,7 @@ import Profile from '../Profile/profile';
 import Docs from '../Docs/docs';
 
 //Logo
-// import logo from '../images/logo.png';
+import logo from '../images/logo.png';
 
 
 class navigation extends React.Component{
@@ -73,8 +73,8 @@ class navigation extends React.Component{
                     </div> */}
                     {/* <div className='collapse navbar-collapse'> */}
                         <ul className='nav nav-pills nav-justified'>
-                            <li ><NavLink exact to='/'><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></NavLink></li>
-                             {/* <li ><img src={logo} alt="Voltex Middlwear logo" className='logo'/></li>  */}
+                            {/* <li ><NavLink exact to='/'><img src='https://drive.google.com/thumbnail?id=1Jz5p-jH2Lv8VzqNJPhKQLYcPnzeZWS4c' alt="Voltex Middlwear logo" className='logo'/></NavLink></li> */}
+                             <li ><NavLink exact to='/'><img src={logo} alt="Voltex Middlwear logo" className='logo'/></NavLink></li> 
                             <li className='Navlin' ><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></li>
                             <li className='Navlin' ><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></li>
                             <li className='Navlin' ><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></li>
