@@ -26,14 +26,13 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // @params {Address} is /api/users
 
 //create empty variables for the users options
-var users = null, userImage = null, dbname = null;
+// var users = null, userImage = null, dbname = null;
 
 //Router (GET method)
 //
 router.get('/login/dashboard', async (req, res) => {
   var serverRes, usekey;
   //get dashboard from its database
-  console.log('Testing user properties from user.js file: \n'+req.user)
     usekey = await ncon.readFile();
 
     const dummyTable = {

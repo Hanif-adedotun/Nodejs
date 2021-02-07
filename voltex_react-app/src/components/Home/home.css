@@ -15,10 +15,10 @@
     margin: 1em auto;
     padding: 0.5em;
     color: #282c34;
-
+   
     /* The code for glasssmorphorsm */
     background: rgba(255, 255, 255, 0.1);
-    /* background: transparent; */
+    /* background: #282c34; */
     box-shadow: 0 8px 32px 0 rgba(85, 89, 145, 0.37);
     backdrop-filter: blur( 20.0px );
     -webkit-backdrop-filter: blur( 4.0px );
