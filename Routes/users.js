@@ -28,8 +28,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 //create empty variables for the users options
 // var users = null, userImage = null, dbname = null;
 
-//Router (GET method)
-//
+//Router (GET method) {/api/users/login/dashboard}
+// To get both the current user details and the user stored form in the mongodb if any
 router.get('/login/dashboard', async (req, res) => {
   var serverRes, usekey;
   //get dashboard from its database
@@ -96,9 +96,11 @@ router.get('/login/dashboard', async (req, res) => {
     
 });
 
-// To delete a field from the table
+//Router (GET method) {/api/users/delete/:id}
+//:id is the id of the file to delete form mongodb
+// To delete a field from the table in Mongodb 
 router.route('/delete/:id').delete( async (req, res) =>{
-//delete the user 
+
 var resp;
     await mongo.delete(keys.mongodb.db.name, keys.mongodb.db.collection, req.params.id).then(del => {
       resp = {
@@ -119,10 +121,11 @@ var resp;
 })
 
 
-//If the dashboard is empty
-router.route('/generateId').post((req, res) => {
-
+//Router (GET method) {/api/users/generateId}
+// To generate a 8 character string  containing number and letters to whcich whill be used in the unique link to secure the frontend form
+router.route('/generateId').get((req, res) => {
     //This function is to generate a unique id and sends it to the user
+    //{return} num as a string
     function Generate(){
         let num = crypto.randomBytes(8).toString('hex');
         return num;
@@ -130,7 +133,10 @@ router.route('/generateId').post((req, res) => {
     res.json(Generate());
 });
 
-//Form validation when creating a new table
+//Router (POST method) {/api/users/createDB}
+//This api is to parse the data of the form when creating a new table 
+//Using the express validator package
+//Returns a list of errors if there are errors or null if they are not
 router.route('/createDB')
   .post([
     body('htmlUrl', 'Invalid Url').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false}),
@@ -162,7 +168,7 @@ router.route('/createDB')
             if(Table.databse){
               usersDB.addToUserTable(keys.mysql.database, req.body.htmlUrl, req.body.dbname, req.body.uniqueId, Table.databse);
             }
-            return res.json({errors: null});
+            return res.status(200).json({errors: null});
 
           } catch (error) {
 

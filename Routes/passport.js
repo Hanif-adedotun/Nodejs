@@ -65,21 +65,26 @@ router.get('/login/success', (req, res)=>{
   }
 });
 
-
+//(api/auth/login/failure)
+//if Google couldnt verify or login user, it calls this api 
 router.get('/login/failure', (req, res)=>{
   res.status(500).send('Failed to authenticate, try again');
 })
 
+//(api/auth/login/logout)
+//This api is called to logout the user and delete the user file from the req.user
 router.get('/logout', (req, res) =>{
     req.logout();
     ncon.refresh(); //delete the user profile
     res.status(200).json({authenticate: false});
 });
   
+//To save the user properties, to the req.session.user 
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
   
+//To retreive the user properties, to the req.session.user 
   passport.deserializeUser(function(user, done) {
     done(null, user);
   });

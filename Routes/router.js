@@ -9,10 +9,9 @@ var passport = require('./passport');
 // @params {Address} is /api
 
 
-router.use('/users', users);//Go to my router file to fetch inputs
-router.use('/auth', passport);
-router.use('/middlewear/data', backend);//Go to my router file to fetch inputs
-
+router.use('/users', users);//Go to users file for any request from the frontend
+router.use('/auth', passport);//To either sign in or sign out user using passport
+router.use('/middlewear/data', backend);//Go to the backend file for any form post request
 
 
 module.exports = router;

@@ -31,7 +31,7 @@ const mongo = require('./Database/mongodb');
 // support parsing of application/json type post data
 router.use(bodyParser.json());
 
-//Views using pug
+//Different static page views using pug
 const pug = require('pug');
 const compileView = pug.compileFile(path.join(__dirname +'/config/backend.pug'));
 
@@ -40,20 +40,29 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 
 // @params {Address} is /api/middlewear/data
+
+
+//Create the table names so as to access them easily throughout the file
 var dummyTable = {
     databse: keys.mysql.database,
     table: keys.mysql.Table.tablename,
     key: keys.mysql.Table.uniqueID,
     url: keys.mysql.Table.url
-  }
+}
 
 
+//Router (POST method) {/api/middlewear/data/}
 //To post the results to the database from the users form backend_page
-//@params(dbname) is the 
+//@params(dbname) is the name of the user id from Google
+//@params(key) is the unique 8 character key given to the user
 router.route('/:dbname/:key').get((req, res) =>{
-    // res.send('Hello database');
+    res.status(401).send(compileView({
+        pageTitle: 'Unauthorized access',
+        error: true,
+        text: 'Check your method used to send data',
+      }))
 }).post((req, res) =>{
-    req.setMaxListeners(5);
+    req.setMaxListeners(10);//This sets the maximum api requests at once to 10 requests
 
     const params = ` WHERE ${keys.mysql.Table.userID} ='${req.params.dbname}'`
     DB.getfromtable(dummyTable.databse, dummyTable.table, params).then(
@@ -65,11 +74,11 @@ router.route('/:dbname/:key').get((req, res) =>{
             // console.log('Expected inputs were: ' + key + ' ' + page_url);
             // console.log('Given inputs were: ' + req.params.key + ' ' + req.headers.origin);
             if(req.params.key === key && req.body['user-url']  === page_url){
+                //This is a security feature, where after gettin the user id, it has to have the same unique key and it must come from the expected page url
                 //if the query parameters are safe and confirmed send a page to show loading 
                 var tablres = {
                     key:  key, //key,
                     db_values: {}    
-
                 };
                 
                 //reconfigure the parsing and sending of data 
@@ -105,6 +114,9 @@ router.route('/:dbname/:key').get((req, res) =>{
                     res.send('This function is still in progress')
                 }
                 
+                //function (parsedata) to parse the user form data and add it to mongodb database
+                //@param (data) this is the body of the form sent to the api
+                //@param (type) if set to true it parse the data not used for plain text
                 //If it is just plain text use a normal data
                 async function parsedata(data, type){
                     if(type){
@@ -115,22 +127,13 @@ router.route('/:dbname/:key').get((req, res) =>{
                             var forbidden = ['done', 'user-url', 'submit', 'send' ];
                             //To avoid sending a send button value to the database
                             if(!forbidden.includes(field)){
-                              
                             tablres.db_values[field] = data[field];
 
                             }              
                         }
                         
                         console.log(Object(tablres));
-                        
-                        // res.status(200).send(compileView({
-                        //     pageTitle: 'Voltex Middlewear',
-                        //     text: 'Adding to database, you will be redirected soon...'
-                        //   }))
-                        // res.status(200).send(compileView({
-                        //     pageTitle: 'Voltex Middlewear',
-                        //     text: 'Adding to database, you will be redirected soon...'
-                        //   }))
+                                            
 
                         // String newFileName = "my-image";
                         // File imageFile = new File("/users/victor/images/image.png");
@@ -154,7 +157,7 @@ router.route('/:dbname/:key').get((req, res) =>{
                                 res.status(500).send(compileView({
                                     pageTitle: 'Voltex Middlewear',
                                     error: true,
-                                    text: 'could not add to database',
+                                    text: 'Could not add to database',
                                   }))
                             });
                              
@@ -179,12 +182,7 @@ router.route('/:dbname/:key').get((req, res) =>{
       status: 404,
       data: 'Internal server error!'
     }
-    // res.status(404).send(compileView({
-    //     pageTitle: '404',
-    //     error: true,
-    //     four: '404',
-    //     text: 'You are not authorized to view this page, please check your parameters and try again.'
-    // }));
+
     res.status(500).send(JSON.stringify(serverRes.data));
     });
     

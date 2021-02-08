@@ -24,7 +24,7 @@ class Emptydash extends React.Component{
        this.setState({configuredatabase : 'showForm'})
     }
 
-    // Handle all the inputs of the form
+    // Handle the url input, check it if its a valid url on the frontend
     handleurl = (event) =>{//sets the state to input value
         let url = event.target.value;
         this.setState({htmlUrl: url})
@@ -51,7 +51,7 @@ class Emptydash extends React.Component{
         this.setState({uniqueId: 'Generating...'});
         //uses the fetch api to generate a unique id from our server
         fetch('/api/users/generateId', {
-            method: 'POST'
+            method: 'GET'
         })
         .then((result) => result.json())
         .then((responseid) => {this.setState({uniqueId: responseid}) })
