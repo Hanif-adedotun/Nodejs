@@ -41,6 +41,8 @@ import { CSVLink } from "react-csv";
          this.loadDatabase();
      }
 
+     //function (copyUrl) to copy the unique url to clipboard
+     //@param {text} the text to copy to clipboard
      //To copy the form name 
       copyUrl = (text) => {
         navigator.clipboard.writeText(text).then(function(){
@@ -51,26 +53,28 @@ import { CSVLink } from "react-csv";
         //change the text of the copy button to copied
         this.setState({copyText: 'Copied to clipboard!'})
 
- 
     this.interval = setInterval(() => {
         this.setState({copyText: 'Copy'});
       }, 2000);
         // document.getElementById('custom_email').disabled = true;
     }
      
-    
+    //function (dashboard_content) to render the dashboard view to the user, with different components
      dashboard_content = () => {
        
+        //table names
         const options ={
             name: this.state.dashboard.data[0].Tablename, 
             url: this.state.dashboard.data[0].url, 
             id: this.state.dashboard.data[0].uniqueid
 
         };
-        
+
+        //url to put in user form action
         const action_url = this.state.dashboard.action_url;
         // console.log(action_url);
 
+        //Changes the icons to up and down when needed
         this.changeIcon = () =>{
             var icon = document.getElementById('acc-arrow');
             var icon_down = 'glyphicon glyphicon-chevron-down small';
@@ -85,6 +89,7 @@ import { CSVLink } from "react-csv";
         
 
         return(
+            // The section before the table itself, for the table properties
             <div className='dashboard_content'>
                 <Accordion allowZeroExpanded={true} className='acc' onChange={this.changeIcon}>
                     <AccordionItem>
@@ -102,18 +107,13 @@ import { CSVLink } from "react-csv";
                 </Accordion>
                 <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(action_url)}</span>
                 <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> {this.state.copyText}</button></p>
-
-                {/* <div class="alert alert-success alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Success!</strong> Copied to clipboard.
-                </div> */}
-                
-                {/* <Reactooltip place="right" id="copytool" type="success" event="click" effect="solid" delayHide={1000}><span>Copied to clipboard!</span> </Reactooltip> */}
                 </div>
-               {/* The table data */}
+
+               {/* The table data  */}
                 <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> {/*Table to display static file form*/}
-                <div className='table_details'>
-                    {/* target="_blank" headers={Object.keys(this.state.dashboard.table[0].db_values)} */}
+                
+                 {/* If there is table data, it displays all the table options */}
+                <div className='table_details'> 
                     {(this.state.dashboard.table[0])?  <div>
                         <CSVLink  data={(JSON.stringify(this.state.dashboard.table[0]))} filename={this.state.dashboard.data[0].Tablename+".csv"} className="btn export" >
                                 <span className='glyphicon glyphicon-export'></span>
@@ -129,14 +129,13 @@ import { CSVLink } from "react-csv";
                             </button> </div>: ''}
                        
                 </div>
-                {/* <div class="alert alert-success alert-dismissible fade in">
-                <a href='#' class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Success!</strong> Indicates a successful or positive action.
-                </div> */}
+              
             </div>
         );
      }
 
+     //function (tableDelete) function to delete a row in the table
+     //@param (val) the id of the row to delete
      //Functions for child element Table.js
      tableDelete = async (val) =>{
          
@@ -154,7 +153,7 @@ import { CSVLink } from "react-csv";
         // Note that add effect of delete button loading when delete is pressed
         this.loadDatabase();
     }
-
+     //function (signedout) returns the signed out view  
      signedout = () =>{
         return(
             <div className='signedout'>
@@ -162,6 +161,7 @@ import { CSVLink } from "react-csv";
             </div>
         )
      }
+      //function (loading) returns the loading animation with a text of waiting
      loading = () =>{
          return(
             <div>
@@ -170,6 +170,7 @@ import { CSVLink } from "react-csv";
             </div>
          )
      }
+     //function (serverError) returns an error by the server 
      serverError = () =>{
          return(
              <div>
@@ -178,6 +179,7 @@ import { CSVLink } from "react-csv";
          )
      }
 
+     //function (renderContent) Switch for all the views of the dashboard
      renderContent(){
         // console.log('Status Server '+this.state.dashboard.status);
          switch(this.state.dashboard.status){
@@ -188,6 +190,7 @@ import { CSVLink } from "react-csv";
                  case 500: return this.serverError();
          }
      }
+    //function (render) Renders the views
       render() {
         return (
             <div className='dashboard'>

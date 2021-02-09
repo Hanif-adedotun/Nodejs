@@ -6,12 +6,19 @@ import './profile.css';
 
 //Loader
 import Load from '../objects/loading';
-var gsign = (name, signin) =>{
+
+//function (gsign) Google button both for sign in and sign out
+//@param {name} The text the will show in the button
+//@param {github} Default is false, but if true the github button settings will be activated
+var gsign = (name, github=false) =>{
+var googlelogo = 'https://img.icons8.com/color/40/000000/google-logo.png';
+var gitlogo = "https://img.icons8.com/windows/40/000000/github.png";
+
     return(
-        <div className='g-sign-in-button' {...(signin) ? 'signin': ''}>
+        <div className=  {(github) ? 'github-sign-in sign-in': 'g-sign-in-button sign-in'}>
             <div className='content-wrapper'>
                 <span className='logo-wrapper'>
-                    <img alt='Google logo' src="https://img.icons8.com/color/40/000000/google-logo.png"></img>
+                    <img alt='Google logo' src={(github) ? gitlogo : googlelogo}></img>
                 </span>
                 <span className='text-container'> {name} </span>
             </div>
@@ -24,7 +31,8 @@ class Profile extends React.Component{
         super();
         this.state = {
             user: [],
-            authenticate: false
+            authenticate: false,
+            notice: 'Github Sign in coming Soon.....'
         };
     }
 
@@ -36,11 +44,15 @@ class Profile extends React.Component{
     };
     
    
+   //function (handleusersignin) to sign a user in using fetch api to the backend, then reload the page
+   //@param {e} is the default event 
    handleusersignin = (e) =>{
     e.preventDefault();
     window.open('http://localhost:8080/api/auth/signin', '_self');
    }
 
+   //function (handlesignout) to sign a user out  using fetch api to the backend, then reload the page
+   //@param {e} is the default event 
    handlesignout  = (e) =>{
        e.preventDefault();
     //    alert('Sign out');
@@ -53,7 +65,7 @@ class Profile extends React.Component{
         window.location.reload();
    }
 
-
+//function (userprofile) the view for the user when signed in
     userprofile = () =>{
         return(
             <div>
@@ -71,6 +83,7 @@ class Profile extends React.Component{
         );
     }
 
+    //function (handlesignout) view when an account is not signed in
     notsignedin = () =>{
         return(
             <div>
@@ -78,10 +91,17 @@ class Profile extends React.Component{
                 <div className='gsign' onClick={this.handleusersignin}>
                  {gsign('Sign in With Google')}
                 </div>
+                
+                <div className='gsign' >
+                 {gsign('Sign in With Github', true)}
+                </div>
+                <span>{this.state.notice}</span>
             </div>
         );
     }
 
+    //function (renderuser) the switch button to change between views
+    // Views Loading icon, signed in profile and not signed in profile
     renderuser(){
         // console.log(String(this.state.authenticate));
         
@@ -91,7 +111,8 @@ class Profile extends React.Component{
                 case 'true': return this.userprofile();
         }
     }
-
+    
+    //Render the Views on the screen
     render(){
         return(
             <div className='Profile'>
