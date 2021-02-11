@@ -10,9 +10,11 @@ import Popup from 'reactjs-popup';
 
 //Void SVG Logo
 import VoidLogo from '../images/empty_green.svg';
-//loader
-// import Loader from '../objects/loading';
 
+//function (delete_button) The component for the delete button
+//@param {i} index of the row to be deleted
+//@param {val} the Object Id of the row, to be sent to the server
+//@param {del}  A function called from the dashboard.js to communicate with the server
 var delete_button = (i, val, del) =>{
         return(
             <Popup className='popup' trigger={<button className='btn btn-primary bold' > Delete </button>} modal>
@@ -33,12 +35,18 @@ var delete_button = (i, val, del) =>{
         );
         
 }
+//The propety type of the function (delete_button)
 delete_button.propTypes = {
         i: PropTypes.number.isRequired,
         val: PropTypes.string.isRequired
 }
 
-
+//function (Table) The component for the user table
+//@param {tableName} The name of the user's table 
+//@param {table} The full table details of all the data
+//@param {delval} The function to delete the table row
+//@param {delText} *IN CONSTRUCTION* The text to display while deleting value
+//@param {loadDatabase} The function to refresh the table data from the server
 const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
     
     if(!table[0]){
@@ -52,6 +60,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
             </div>
         )
     }
+    //To get the the keys of the data
     var head = Object.keys(table[0].db_values);
 
         return(
@@ -91,10 +100,13 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
         );
 }
 
+//Property of the function (Table)
 Table.propTypes = {
     tableName: PropTypes.string.isRequired,
     table: PropTypes.array.isRequired,
-    delval: PropTypes.func.isRequired
+    delval: PropTypes.func.isRequired,
+    delText: PropTypes.string,
+    loadDatabase: PropTypes.func.isRequired
 }
 
 export default Table;

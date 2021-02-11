@@ -17,14 +17,18 @@ class Emptydash extends React.Component{
             configuredatabase: []
         };
     }
+    
     // Section to handle form inputs
-
-    openConfigDB = (event) => {//function to open form to 
+    //function (openConfigDB) This funtion is to change the state of the dashboard to open the form view
+    //@param {event} inbuilt event emmitter variable
+    openConfigDB = (event) => {
         event.preventDefault();
        this.setState({configuredatabase : 'showForm'})
     }
 
-    // Handle the url input, check it if its a valid url on the frontend
+    
+    //function (handleurl) This funtion is to handle the url input, check it if its a valid url on the frontend
+    //@param {event} inbuilt event emmitter variable
     handleurl = (event) =>{//sets the state to input value
         let url = event.target.value;
         this.setState({htmlUrl: url})
@@ -36,14 +40,17 @@ class Emptydash extends React.Component{
         }
      }
 
+     //function (handledbname) This funtion is to handle the name input, check it if its a valid name 
+     //@param {event} inbuilt event emmitter variable
     handledbname = (event) =>{
         let dbname = event.target.value;
         this.setState({dbname: dbname})
      };
 
-     //End of handle all inputs
 
-    //  Form button controls
+    //function (generateID) this function is to tell the server to generate a unique 8letter string 
+    //@param {event} inbuilt event emmitter variable
+    //{return} then returns the value
     generateID = (event) =>{
         event.preventDefault();
         // console.log('Generating Unique ID')
@@ -62,7 +69,9 @@ class Emptydash extends React.Component{
         });
     }
     
-
+    //function (uploadValues) this function is to tell the server to upload the form 
+    //@param {event} inbuilt event emmitter variable
+    //{return} set the state
     uploadValues = (event) =>{
         event.preventDefault();
         console.log('Submitting form to server');
@@ -88,6 +97,9 @@ class Emptydash extends React.Component{
 
      }
 
+        //function (serverResponse) this function checks if the server gives out any error after the form has been submitted
+        //If there are no errors, it shows a good message
+        //{return} sets the state
         serverResponse = () =>{
             if(this.state.serverRes){
                 // console.log(this.state.serverRes);
@@ -113,8 +125,8 @@ class Emptydash extends React.Component{
 
         } 
     
-
-    configureDatabase = () =>{//form to collect info to set up database
+    //function (configureDatabase) this function renders a view of the form and associate every property with their corresponding functions
+    configureDatabase = () =>{
         return(
            <form action='/submit' onSubmit={this.uploadValues} className='configForm' method='post'>
                <span className='formHead'>Configure database</span>
@@ -137,6 +149,7 @@ class Emptydash extends React.Component{
        );
     }
 
+    //The swith to controll all the views
     renderContent(){
         switch(this.state.configuredatabase){
             default:
@@ -148,7 +161,7 @@ class Emptydash extends React.Component{
         }
     }
 
-
+//Renders the switch onto the view
     render(){
         return(
             <div className='emptyDash'>
@@ -157,8 +170,7 @@ class Emptydash extends React.Component{
         );
     }
 }
-// Emptydash.proptype = {
 
-// }
+
 
 export default Emptydash;

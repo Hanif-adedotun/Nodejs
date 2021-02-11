@@ -96,7 +96,6 @@ class Home extends React.Component{
         clearInterval(this.interval);
       }
 
-     
 
       render(){
           return(
@@ -112,32 +111,40 @@ class Home extends React.Component{
             <div className='container-fluid'>
               <div className='row '>
                 <div className="col-md-12  hm" >
-                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={chat} alt="chat" /></span>
-                <h5 className='col-sm-6 hmText'>Simple and realiable back end provider</h5>
+                <span className='col-sm-6 hmIcon'><img className='hmicon' src={chat} alt="chat" /></span>
+               
+                <h5 className='col-sm-6 hmHead'>Simple and realiable back end provider</h5>
+                <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                
                 </div>
                 </div>
                 {/* col-md-offset-2 to space them */}
                 <div className='row '>
                 <div className="col-md-12   hm ">
-                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={Advertise} alt="chat" /></span>
-                  <h5 className='col-sm-6 hmText'>Column </h5>
-                 
+                  <span className='col-sm-6 hmIcon'><img className='hmicon' src={Advertise} alt="chat" /></span>
+                  
+                    <h5 className=' col-sm-6 hmHead'>Column  </h5>
+                    <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                
                 </div>
               </div>
               <div className='row '>
                 <div className=" col-md-12 hm " >
-                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={Analyse} alt="chat" /></span>
-                <h5 className='col-sm-6 hmText'>Just one step click to integrate</h5>
+                <span className='col-sm-6 hmIcon'><img className='hmicon' src={Analyse} alt="chat" /></span>
+          
+                  <h5 className='col-sm-6 hmHead'>Just one step click to integrate</h5>
+                  <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                
                 </div>
               </div>
                 {/* col-md-offset-2 to space them */}
               <div className='row '>
                 <div className="col-md-12   hm">
-                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={Startup} alt="chat" /></span>
-                <h5 className='col-sm-6 hmText'>Secure and safe software</h5>
+                <span className='col-sm-6 hmIcon'><img className='hmicon' src={Startup} alt="chat" /></span>
                
+                  <h5 className='col-sm-6 hmHead'>Secure and safe software</h5>
+                  <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                
                 </div>
               </div>
             </div>

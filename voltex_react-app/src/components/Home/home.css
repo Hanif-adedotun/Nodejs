@@ -57,6 +57,7 @@
     margin: 1.5em .5em;
 }
 .hm {
+
     border-radius: 10px;
     margin: 2em auto;
     background: white;
@@ -70,13 +71,24 @@
     font-weight: bold;
     font-size: large;
 }
-.hmIcon{
-    /* text-align: left; */
-    float: left;
+/* .hmIcon{
+    text-align: left;
+    
+} */
+.hmicon{
+    height: 40%;
+    width: 40%;   
+}
+.hmHead{
+    float: right;
+    margin: .5em auto;
+    text-align: center;
 }
 .hmText{
     /* text-align: right; */
-    float: right;
+   font-size: medium;
+   font-weight:normal;
+   font-family: Monteserrat, Arial, Helvetica, sans-serif;
 }
 .large{
     font-size: 500%;

@@ -5,7 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background: url(./components/images/background.png) repeat; */
-background-color: #282c34;
+  scroll-behavior: smooth;
   text-align: center;
 }
 *{

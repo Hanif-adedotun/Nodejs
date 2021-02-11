@@ -110,7 +110,14 @@ import { CSVLink } from "react-csv";
                 </div>
 
                {/* The table data  */}
-                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> {/*Table to display static file form*/}
+               {/*
+                @param {tableName} The name of the user's table 
+                @param {table} The full table details of all the data
+                @param {delval} The function to delete the table row
+                @param {delText} *IN CONSTRUCTION* The text to display while deleting value
+                @param {loadDatabase} The function to refresh the table data from the server
+               */}
+                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> 
                 
                  {/* If there is table data, it displays all the table options */}
                 <div className='table_details'> 

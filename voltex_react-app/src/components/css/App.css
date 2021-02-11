@@ -1,7 +1,8 @@
 .App{
-max-width: 100%;
-min-height: 77vh;
-background: url(../images//background.png) repeat;
+  max-width: 100%;
+  min-height: 77vh;
+  background: url(../images//background.png) repeat;
+  scroll-behavior: smooth;
 /* background: #282c34; */
 }
 .links{
