@@ -2,7 +2,11 @@ import React from 'react';
 import './home.css';
 import '../css/bootstrap.min.css';
 
-
+//All the illustrations going to be used
+import chat from '../images/illustrations/Chat.svg';
+import Advertise from '../images/illustrations/Advertise.svg';
+import Analyse from '../images/illustrations/Data analyse.svg';
+import Startup from '../images/illustrations/Startup.svg';
 
 //This function is to show the time, and it updates itself after every 15 seconds 
 function showTime() {
@@ -98,8 +102,8 @@ class Home extends React.Component{
           return(
             <div className='Home'>
 
-            <header className='headGlass'>
-                  <h1 className='headGlass-head'>Voltex Middlwear</h1>
+            <header className='  headGlass'>
+                  <h1 className='color headGlass-head'>Voltex Middlwear</h1>
                   <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
                   {this.offlineText()}    
@@ -107,25 +111,33 @@ class Home extends React.Component{
 
             <div className='container-fluid'>
               <div className='row '>
-                <div className="col-md-6  hm" >
-                <h5>Simple and realiable back end provider</h5>
-                <p><span className='large color glyphicon glyphicon-cloud '></span></p>
+                <div className="col-md-12  hm" >
+                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={chat} alt="chat" /></span>
+                <h5 className='col-sm-6 hmText'>Simple and realiable back end provider</h5>
+               
+                </div>
                 </div>
                 {/* col-md-offset-2 to space them */}
-                <div className="col-md-6   hm ">
-                  <h5>Column </h5>
-                  <p><span className='large color glyphicon glyphicon-tasks'></span></p>
+                <div className='row '>
+                <div className="col-md-12   hm ">
+                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={Advertise} alt="chat" /></span>
+                  <h5 className='col-sm-6 hmText'>Column </h5>
+                 
                 </div>
               </div>
               <div className='row '>
-                <div className=" col-md-6 hm " >
-                <h5>Just one step click to integrate</h5>
-                <p><span className='large color glyphicon glyphicon-globe'></span></p>
+                <div className=" col-md-12 hm " >
+                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={Analyse} alt="chat" /></span>
+                <h5 className='col-sm-6 hmText'>Just one step click to integrate</h5>
+               
                 </div>
+              </div>
                 {/* col-md-offset-2 to space them */}
-                <div className="col-md-6   hm">
-                  <h5>Secure and safe software</h5>
-                  <p><span className='large color glyphicon glyphicon-lock'></span></p>
+              <div className='row '>
+                <div className="col-md-12   hm">
+                <span className='col-sm-6 hmIcon'><img id='empty_logo' src={Startup} alt="chat" /></span>
+                <h5 className='col-sm-6 hmText'>Secure and safe software</h5>
+               
                 </div>
               </div>
             </div>

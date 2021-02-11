@@ -1,6 +1,8 @@
 /* To import style links to use */
 @import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
-
+:root{
+    --primary: rgb(54, 123, 252);
+}
 .Home{
     margin: auto;
     font-size: medium;
@@ -28,7 +30,7 @@
 .headGlass-head{
     font-size: xx-large;
     font-weight: bold;
-    color: cornflowerblue;
+    /* color: cornflowerblue; */
 }
 /* .tagline{
     font-family:  Montserrat, 'Italianno', cursive;
@@ -40,7 +42,7 @@
     /* text-shadow: 2px 2px 4px #000000; */
 }
 .time{
-    color: rgb(54, 123, 252);
+    color: var(--primary);
     font-weight: bold;
 }
 .isContainer{
@@ -61,15 +63,24 @@
     /* -webkit-box-shadow: 3px 3px 5px 6px #ccc;  
     -moz-box-shadow: 3px 3px 5px 6px #ccc;  */
     /* box-shadow: 1px 3px 5px 1px rgb(128, 166, 238);  */
-    box-shadow:  4px 8px 0 rgba(128, 166, 238, 0.2), 0 6px 20px 0 rgba(128, 166, 238, 0.1)
+    box-shadow:  4px 8px 0 rgba(128, 166, 238, 0.2), 0 6px 20px 0 rgba(128, 166, 238, 0.1);
+    /* max-width: fit-content; */
 }
 .hm h5{
     font-weight: bold;
     font-size: large;
 }
+.hmIcon{
+    /* text-align: left; */
+    float: left;
+}
+.hmText{
+    /* text-align: right; */
+    float: right;
+}
 .large{
     font-size: 500%;
 }
 .color{
-    color: rgb(70, 123, 223);
+    color: var(--primary);
 }

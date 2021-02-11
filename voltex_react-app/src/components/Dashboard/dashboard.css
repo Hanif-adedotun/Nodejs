@@ -1,6 +1,9 @@
+/* Primary color for vm */
+:root{
+    --primary: rgb(54, 123, 252);
+}
 *{
-    text-align: center;
-    
+    text-align: center; 
 }
 .bold{
     font-weight: bold;

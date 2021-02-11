@@ -1,6 +1,9 @@
-
+/* Primary color of vm */
+:root{
+     --primary: rgb(54, 123, 252);
+}
 .header{
-     border-bottom: 2px solid cornflowerblue;
+     border-bottom: 2px solid var(--primary);
      text-shadow: .5px .5px 1px #000000de;
 }
 
@@ -19,9 +22,9 @@
      
 }
 .code-tab h4{
-     color: cornflowerblue;
+     color: var(--primary);
      text-shadow: .1px .1px 1px #000000de;
-     border-bottom: 2px solid cornflowerblue;
+     /* border-bottom: 2px solid var(--primary); */
 }
 .code-tab .code-explained{
      display: flex;
@@ -40,9 +43,9 @@
      box-shadow:         1px 1px 10px 0px rgba(50, 50, 50, 0.65); */
 
      background: rgba( 255, 255, 255, 0.25 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 1.0px );
--webkit-backdrop-filter: blur( 1.0px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
+     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+     backdrop-filter: blur( 1.0px );
+     -webkit-backdrop-filter: blur( 1.0px );
+     border-radius: 10px;
+     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
