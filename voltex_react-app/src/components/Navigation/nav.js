@@ -28,27 +28,30 @@ class navigation extends React.Component{
         //     this.getImage();
         //   }, 20000);//then check every minute 8 seconds for 
     }
+
     //function (getImage) get the user image from the database
     //Using fetch api to the database
         getImage = () =>{
-        
             fetch('/api/auth/login/success')//fetch the data from our express server running on localhost:8080
             .then(res => res.json())//parse the data in json format
             .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, () => {console.log('User Image updated'+JSON.stringify(response.user)); this.rendercontent();}))
             .catch((error) =>{console.error('Unable to get user image' + error);});
         }
 
-
+        //function (defaultimage) puts the default glyphicon image if no user is connected
         defaultimage = () =>{
             return(
                 <span className="glyphicon glyphicon-user"></span>
             );
         }
+        //function (userImage) component for the user image sent by the server
+        //@param {imgsrc} the url of the user icon sent by Google 
         userImage = (imgsrc) =>{
             return(
                 <img src={imgsrc} alt='User icon' className='nav-img-circle' ></img>
             );
         }
+        //function (rendercontent) the switch for the views
         rendercontent(){
             switch(this.state.imageUrl){
                 case null: return this.defaultimage();
@@ -56,6 +59,7 @@ class navigation extends React.Component{
             }
         }
 
+    //function (render) Renders the views to the user
     render(){
         return(
             <Router>

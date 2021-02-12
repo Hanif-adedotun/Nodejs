@@ -8,6 +8,7 @@ import Advertise from '../images/illustrations/Advertise.svg';
 import Analyse from '../images/illustrations/Data analyse.svg';
 import Startup from '../images/illustrations/Startup.svg';
 
+//function (showTime) To get the current time and returns it in string format
 //This function is to show the time, and it updates itself after every 15 seconds 
 function showTime() {
     var currentDate = new Date();
@@ -28,16 +29,17 @@ function showTime() {
     //console.log(currentMinute);
   
     if (currentMinute < 10) { //if the seconds is less than 10, it adds 0 at the begining of the minute value
-        currentMinute = '0' + currentMinute;//addition of 0, check for error later 
-  
+        currentMinute = '0' + currentMinute;//addition of 0 
     }
+    
     var Totaltime = currentHour + ' : ' + currentMinute + ' ' + meridian;
     String(Totaltime); //Converts the time to a String
    
     // console.log(Totaltime);
     return Totaltime;
   }
- 
+
+//function (tim) returns whether the user is online or offline
 function tim () {
   // console.log('online: '+navigator.onLine);
   return String(navigator.onLine);
@@ -81,6 +83,8 @@ class Home extends React.Component{
         
       }
     
+      //function (offlineText) checks if there is internet connection in the state 
+      //{returns} The text that warns the user
       offlineText = () =>{
         if(this.state.internet === 'false'){
           return(
@@ -100,39 +104,38 @@ class Home extends React.Component{
       render(){
           return(
             <div className='Home'>
-
             <header className='  headGlass'>
                   <h1 className='color headGlass-head'>Voltex Middlwear</h1>
                   <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
+                  <p className='cryptoPrice'><marquee behavior="scroll" direction="right" scrollamount='7'>Crypto Price Placeholder, Coming Soon.... </marquee></p>
                   {this.offlineText()}    
             </header>
 
             <div className='container-fluid'>
               <div className='row '>
                 <div className="col-md-12  hm" >
-                <span className='col-sm-6 hmIcon'><img className='hmicon' src={chat} alt="chat" /></span>
+                <span className='col-sm-7 hmIcon'><img className='hmicon' src={chat} alt="chat" /></span>
                
-                <h5 className='col-sm-6 hmHead'>Simple and realiable back end provider</h5>
+                <h5 className='col-sm-5 hmHead'>Simple and realiable back end provider</h5> 
                 <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-               
                 </div>
                 </div>
                 {/* col-md-offset-2 to space them */}
                 <div className='row '>
                 <div className="col-md-12   hm ">
-                  <span className='col-sm-6 hmIcon'><img className='hmicon' src={Advertise} alt="chat" /></span>
+                  <span className='col-sm-7 hmIcon'><img className='hmicon' src={Advertise} alt="chat" /></span>
                   
-                    <h5 className=' col-sm-6 hmHead'>Column  </h5>
+                    <h5 className=' col-sm-5 hmHead'>Unlimited memory to add  </h5>
                     <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 
                 </div>
               </div>
               <div className='row '>
                 <div className=" col-md-12 hm " >
-                <span className='col-sm-6 hmIcon'><img className='hmicon' src={Analyse} alt="chat" /></span>
+                <span className='col-sm-7 hmIcon'><img className='hmicon' src={Analyse} alt="chat" /></span>
           
-                  <h5 className='col-sm-6 hmHead'>Just one step click to integrate</h5>
+                  <h5 className='col-sm-5 hmHead'>Just one step click to integrate</h5>
                   <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                
                 </div>
@@ -140,9 +143,9 @@ class Home extends React.Component{
                 {/* col-md-offset-2 to space them */}
               <div className='row '>
                 <div className="col-md-12   hm">
-                <span className='col-sm-6 hmIcon'><img className='hmicon' src={Startup} alt="chat" /></span>
+                <span className='col-sm-7 hmIcon'><img className='hmicon' src={Startup} alt="chat" /></span>
                
-                  <h5 className='col-sm-6 hmHead'>Secure and safe software</h5>
+                  <h5 className='col-sm-5 hmHead'>Secure and safe software</h5>
                   <p className='hmText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 
                 </div>

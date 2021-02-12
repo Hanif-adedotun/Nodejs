@@ -6,7 +6,9 @@ import Footer from './components/Footer/footer';
 import * as serviceWorker from './serviceWorker';
 
 
+// Index Page of the App
 
+// Main Page of the App
 ReactDOM.render(
   <React.StrictMode>
     <App />
@@ -14,6 +16,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// Footer Page of the App
 ReactDOM.render(
   <React.StrictMode>
     <Footer />
