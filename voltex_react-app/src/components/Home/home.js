@@ -72,10 +72,13 @@ class Home extends React.Component{
             time: showTime(),
             user: [],
             internet: tim(),
+            //Crpto price
+            prices: []
         };
       }
 
       componentDidMount(){
+        this.cryptoPrice();
         this.interval = setInterval(() => {
           this.setState({time: showTime()});
           this.setState({internet: tim()});
@@ -96,19 +99,28 @@ class Home extends React.Component{
         }
       }
 
+      //function (cryptoPrice), gets the current prices of crypto
+      cryptoPrice = () =>{
+        fetch('https://api.coindesk.com/v1/bpi/currentprice/NGN.json')//fetch the data from our express server running on localhost:8080
+            .then(res => res.json())//parse the data in json format
+            .then(prices => this.setState({prices: prices}))
+            .catch((error) =>{console.error('Unable to get prices' + error);});
+      }
+
       componentWillUnmount(){
         clearInterval(this.interval);
       }
 
 
       render(){
+        // console.log('Crypto prices: NGN '+JSON.stringify(this.state.prices.bpi.NGN));
           return(
             <div className='Home'>
             <header className='  headGlass'>
                   <h1 className='color headGlass-head'>Voltex Middlwear</h1>
                   <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
-                  <p className='cryptoPrice'><marquee behavior="scroll" direction="right" scrollamount='7'>Crypto Price Placeholder, Coming Soon.... </marquee></p>
+                  <p className='cryptoPrice'><marquee behavior="scroll" direction="left" scrollamount='7'>Crypto Price Placeholder, Coming Soon....   </marquee></p>
                   {this.offlineText()}    
             </header>
 

@@ -1,6 +1,7 @@
 /* Primary color for vm */
 :root{
     --primary: rgb(54, 123, 252);
+    --secondary: #61dafb;
 }
 *{
     text-align: center; 
@@ -129,6 +130,13 @@
 }
 .small{
     font-size: small;
+}
+.dEdit{
+    margin: auto .2em;
+    color: var(--secondary);
+}
+.dEdit:hover{
+    color: #22697c;
 }
 /* Style for the unique url button */
 .url{

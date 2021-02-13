@@ -25,7 +25,9 @@ import { CSVLink } from "react-csv";
              copyText: 'copy',
              //Table.js 
              delres: false,
-             delText: null
+             delText: null,
+             //Edit url
+             editUrl: false
          };
          
      }
@@ -86,6 +88,12 @@ import { CSVLink } from "react-csv";
                icon.className = icon_down;
             }
         }
+
+        //function (editUrl) Used to edit the url of the front end page
+        this.editUrl = () =>{
+            console.log(this.state.editUrl);
+            this.setState({editUrl: true});
+        }
         
 
         return(
@@ -100,7 +108,8 @@ import { CSVLink } from "react-csv";
                         </AccordionItemHeading>
                         <AccordionItemPanel className='acc-body'>
                             <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a></p>
+                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a> <span onclick={this.editUrl} className='glyphicon glyphicon-pencil dEdit'></span></p>
+                            {(this.state.editUrl) ? <p><span className='acc-body-label'><input type='text' placeholder='Type in new url'/></span> <button className='btn btn-unique'>Edit</button></p>: ''}
                             <p><span className='acc-body-label'>Key:</span> {options.id}</p>
                         </AccordionItemPanel>
                     </AccordionItem>
