@@ -52,6 +52,8 @@
     color:  #282c34;
     font-size: medium;
     font-weight: bold;
+    padding: auto;
+    margin: auto 1em;
 }
 .btn-unique:hover{
     border: 2px solid #61dafb;
@@ -118,6 +120,7 @@
     font-weight: bold;
     color: #1ea5ca;
 }
+
 .acc-body p a{
     text-decoration: none;
     color: #1ea5ca;
@@ -131,12 +134,25 @@
 .small{
     font-size: small;
 }
+/* Edit icon */
 .dEdit{
     margin: auto .2em;
-    color: var(--secondary);
+    color: var(--primary);
+    background: none;
+    text-shadow: 1px 1px 5px var(--primary);
 }
 .dEdit:hover{
     color: #22697c;
+}
+/* Button element of dEdit */
+#dEdit-button{
+    background: none;
+    border: none;
+}
+/* Input feild for editing */
+.inputEdit{
+    border: 2px solid var(--secondary);
+    border-radius: 7px;
 }
 /* Style for the unique url button */
 .url{

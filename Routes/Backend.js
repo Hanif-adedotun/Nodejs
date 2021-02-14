@@ -57,9 +57,9 @@ var dummyTable = {
 //@params(key) is the unique 8 character key given to the user
 router.route('/:dbname/:key').get((req, res) =>{
     res.status(401).send(compileView({
-        pageTitle: 'Unauthorized access',
+        pageTitle: '401-Unauthorized access',
         error: true,
-        text: 'Check your method used to send data',
+        text: 'Invalid header, Check the method used to send data',
       }))
 }).post((req, res) =>{
     req.setMaxListeners(10);//This sets the maximum api requests at once to 10 requests

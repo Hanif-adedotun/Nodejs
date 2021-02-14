@@ -24,7 +24,7 @@ import { CSVLink } from "react-csv";
              activeDashboard: '',
              copyText: 'copy',
              //Table.js 
-             delres: false,
+             delres: '',
              delText: null,
              //Edit url
              editUrl: false
@@ -108,11 +108,12 @@ import { CSVLink } from "react-csv";
                         </AccordionItemHeading>
                         <AccordionItemPanel className='acc-body'>
                             <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a> <span onclick={this.editUrl} className='glyphicon glyphicon-pencil dEdit'></span></p>
-                            {(this.state.editUrl) ? <p><span className='acc-body-label'><input type='text' placeholder='Type in new url'/></span> <button className='btn btn-unique'>Edit</button></p>: ''}
+                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
+                            {(this.state.editUrl == true) ? <p><span className='acc-body-label'><input className='inputEdit' type='text' placeholder='Type in new url'/></span> <button className='btn btn-unique'>Edit</button><button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</button></p>: ''}
                             <p><span className='acc-body-label'>Key:</span> {options.id}</p>
                         </AccordionItemPanel>
                     </AccordionItem>
+                    {/* {(this.state.editUrl) ? */}
                 </Accordion>
                 <div className='Faction'>Your form action should be <span className='unique url' id='copyurl'>{String(action_url)}</span>
                 <p><button className='btn export' data-tip data-for='copytool'  id='copyT' onClick={()=> this.copyUrl(action_url)}><span className='glyphicon glyphicon-copy'></span> {this.state.copyText}</button></p>
@@ -208,6 +209,7 @@ import { CSVLink } from "react-csv";
      }
     //function (render) Renders the views
       render() {
+          console.log(this.state.editUrl);
         return (
             <div className='dashboard'>
             <h2>Dashboard</h2>

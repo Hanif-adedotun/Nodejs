@@ -94,8 +94,8 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
                             }
                             
                         </tbody>
+                        </table>
                         <p className='Tunique'>{(delText) ? delText: ''}</p>
-                    </table>
                 </div>
         );
 }
