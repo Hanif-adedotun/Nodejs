@@ -27,7 +27,9 @@ import { CSVLink } from "react-csv";
              delres: '',
              delText: null,
              //Edit url
-             editUrl: false
+             inputUrl: '',
+             editUrl: false,
+             serverRes: []
          };
          
      }
@@ -61,6 +63,60 @@ import { CSVLink } from "react-csv";
         // document.getElementById('custom_email').disabled = true;
     }
      
+
+    //function (uploadEditVal) To upload the text of the user to the databas
+    //@param {event} the inbuilt event parameter of js
+    //Sent edit url to server
+    uploadEditVal = (event) =>{
+        event.preventDefault();
+        console.log('Submitting Editing value');
+
+        const data = {
+            urlVal: this.state.inputUrl
+        };
+
+        fetch('/api/users/editVal' , {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+            .then((result) => result.json())
+            .then((response) => {this.setState({serverRes: response.errors}) })
+            .catch((error) =>{console.error('Unable to validate error ' + error);});
+        
+    }
+
+   
+    //function (serverResponse) this function checks if the server gives out any error after the form has been submitted
+    //If there are no errors, it shows a good message
+    //{return} sets the state
+    serverResponse = () =>{
+        if(this.state.serverRes){
+            // console.log(this.state.serverRes);
+            return(
+                <span >
+                    <ul className='form-error'>
+                {this.state.serverRes.map(error =>(
+                    <li className='error-li' key={error.id}> {error.msg}</li>
+                ))}
+                    </ul>
+                </span>
+            );
+        }else{
+            // window.location.reload();
+            return(
+                <div className='form-good'>
+                    <p className='good'>All inputs are good!</p>
+                </div>
+            );
+        }
+            
+    }   
+    
+
+
     //function (dashboard_content) to render the dashboard view to the user, with different components
      dashboard_content = () => {
        
@@ -109,7 +165,14 @@ import { CSVLink } from "react-csv";
                         <AccordionItemPanel className='acc-body'>
                             <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
                             <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
-                            {(this.state.editUrl == true) ? <p><span className='acc-body-label'><input className='inputEdit' type='text' placeholder='Type in new url'/></span> <button className='btn btn-unique'>Edit</button><button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</button></p>: ''}
+                            {(this.state.editUrl == true) ? 
+                            <p>
+                                <span className='acc-body-label'>
+                                <input name='inputUrl' className='inputEdit' type='text' placeholder='Type in new url' value={this.state.inputUrl} onChange={(event)=>{this.setState({inputUrl: event.target.value})}}/>
+                                </span> 
+                                <button className='btn btn-unique' onClick={this.uploadEditVal}>Edit</button>
+                                <button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</button>
+                                <p>{this.serverResponse()}</p></p>: ''}
                             <p><span className='acc-body-label'>Key:</span> {options.id}</p>
                         </AccordionItemPanel>
                     </AccordionItem>

@@ -180,6 +180,33 @@ router.route('/createDB')
         }
 });
 
+//Router (POST method) {/api/users/createDB}
+router.route('/editVal').post(
+[
+  body('inputUrl', 'Invalid Url value').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false})
+
+], async function(req, res){
+  const errors = validationResult(req);
+        
+        if (!errors.isEmpty()) {  
+          
+          var idnum = new Array();
+           for (let i = 1; i <=  errors.array().length; i++) {
+            idnum.push(i);
+          }
+          
+          return res.status(400).json({ errors: errors.array() , id: idnum});
+        }else{
+          try{
+              //Code to tell Mysql to edit value
+              return res.status(200).json({errors: null});
+
+          }catch(error){
+            console.log('Error editing value:'+error);
+            return res.status(500).json(null);
+          }
+        }
+});
   
 
 module.exports = router;
