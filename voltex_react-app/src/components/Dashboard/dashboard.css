@@ -136,18 +136,19 @@
 }
 /* Edit icon */
 .dEdit{
-    margin: auto .2em;
-    color: var(--primary);
+    margin: .2em auto;
+    color: white;
     background: none;
-    text-shadow: 1px 1px 5px var(--primary);
+    /* text-shadow: 1px 1px 5px var(--primary); */
 }
 .dEdit:hover{
     color: #22697c;
 }
 /* Button element of dEdit */
 #dEdit-button{
-    background: none;
+    background-color: var(--secondary);
     border: none;
+    border-radius: 5px;
 }
 /* Input feild for editing */
 .inputEdit{

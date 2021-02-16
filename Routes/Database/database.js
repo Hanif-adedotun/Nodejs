@@ -146,12 +146,49 @@ var getfromtable = (dbname, table, params) =>{
     })
 
 }
+//function (updateTable) to add a new user to the table with its important details_
+// @param {dbname} name of the database
+/// @param {userId} the id of the user, used to identify the unique field to edit 
+// @param {urlValue} the new url value to replace with the old url value
+var updateTable = (dbname, userId, urlValue) =>{
+    return new Promise(function(resolve, reject){
+        var con = mysql.createConnection({
+            host: DBdetails.host,
+            user: DBdetails.username,
+            password: DBdetails.password,
+            database: dbname
+        });
+        con.connect(function(err, results){
+            if (err){
+                console.error(err);
+                reject(con);
+                return false ;
+            } 
+            console.log('Mysql: Connected');
+        
+            var sql = `UPDATE ${Table.tablename} SET ${Table.url}=${String(urlValue)} WHERE ${Table.userid}=${userId}`;
+
+            con.query(sql, function(err, result){
+                if (err) {
+                    console.error(err);
+                    reject(con);
+                    return false;
+                };
+                console.log('Updated Url value!');
+                resolve('Updated Url');
+                return true;
+            });
+        });
+    })
+}
+
 //An object to export the functions 
 var Datadase = {
     createDatabse: createDatabse,
     createUserTable: createUserTable,
     addToUserTable: addToUserTable,
-    getfromtable: getfromtable
+    getfromtable: getfromtable,
+    editfield: updateTable
 };
 
  module.exports = Datadase; 

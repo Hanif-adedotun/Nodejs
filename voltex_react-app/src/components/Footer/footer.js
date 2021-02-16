@@ -17,24 +17,24 @@ class footer extends React.Component{
                 <div className='col-md-4 foot' id='contactLinks'>
                     <label>Contact US</label>
                     <ul>
-                        <li><a >Github</a></li>
-                        <li><a >twitter</a></li>
-                        <li><a >Instagram</a></li>
-                        <li><a >E-mail</a></li>
+                        <li><a href='https://github.com/Voltex-designs' >Github</a></li>
+                        <li><a href='#' >twitter</a></li>
+                        <li><a href='#' >Instagram</a></li>
+                        <li><a href='#'>E-mail</a></li>
                     </ul>
                 </div>
                 <div className='col-md-4 foot' id='policies'>
                 <label>Policies</label>
                     <ul>
-                        <li><a>Private policies</a></li>
-                        <li><a>Lincense</a></li>
+                        <li><a href='#'>Private policies</a></li>
+                        <li><a href='#'>Lincense</a></li>
                     </ul>
                 </div>
                 <div className='col-md-4 foot' id='site'>
                 <label>Links</label>
                     <ul>
-                        <li><a>Sitemap</a></li>
-                        <li><a>Report problem</a></li>
+                        <li><a href='#'>Sitemap</a></li>
+                        <li><a href='#'>Report problem</a></li>
                     </ul>
                 </div>
                 </div>

@@ -2,6 +2,7 @@ const express = require('express');
 let router = express.Router();
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
+//Mysql
 var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
 const { json } = require('body-parser');
@@ -180,7 +181,10 @@ router.route('/createDB')
         }
 });
 
-//Router (POST method) {/api/users/createDB}
+//Router (POST method) {/api/users/editVal}
+//This api contacte mysql to edit the url value of the user page
+//First of all validates the string with the body-validate package, if any errors, returns an error to the user
+//Uses a promise based request to the database, the returns a confirmation string to indicate if the url has been edited
 router.route('/editVal').post(
 [
   body('inputUrl', 'Invalid Url value').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false})
@@ -188,6 +192,14 @@ router.route('/editVal').post(
 ], async function(req, res){
   const errors = validationResult(req);
         
+  //(usekey) gets the current user details
+  //Get the id to identify the row to edit in the database
+    var usekey = await ncon.readFile();
+    var userID =  (usekey) ? usekey.id : null;
+
+    console.log('Current user id: '+ userID);
+    console.log(req.body.inputUrl);
+    
         if (!errors.isEmpty()) {  
           
           var idnum = new Array();
@@ -197,14 +209,22 @@ router.route('/editVal').post(
           
           return res.status(400).json({ errors: errors.array() , id: idnum});
         }else{
-          try{
-              //Code to tell Mysql to edit value
-              return res.status(200).json({errors: null});
 
-          }catch(error){
+          usersDB.editfield({dbname: keys.mysql.database, userId: userID, urlValue: req.body.inputUrl}).then(function(reply){
+            
+            if(reply){
+              return res.status(200).json({errors: null, edited: true});
+            }else{
+              return res.status(400).json({errors: {msg: 'Unable to Update value'}, edited: false});
+            }
+            //Code to tell Mysql to edit value
+            
+         
+          }).catch(function(err){
             console.log('Error editing value:'+error);
             return res.status(500).json(null);
-          }
+          })
+
         }
 });
   

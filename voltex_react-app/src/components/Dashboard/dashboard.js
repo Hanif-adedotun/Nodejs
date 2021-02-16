@@ -29,7 +29,8 @@ import { CSVLink } from "react-csv";
              //Edit url
              inputUrl: '',
              editUrl: false,
-             serverRes: []
+             serverRes: [],
+             Urledited: false
          };
          
      }
@@ -69,7 +70,7 @@ import { CSVLink } from "react-csv";
     //Sent edit url to server
     uploadEditVal = (event) =>{
         event.preventDefault();
-        console.log('Submitting Editing value');
+        console.log('Submitting new Url value');
 
         const data = {
             urlVal: this.state.inputUrl
@@ -83,8 +84,8 @@ import { CSVLink } from "react-csv";
             body: JSON.stringify(data)
             })
             .then((result) => result.json())
-            .then((response) => {this.setState({serverRes: response.errors}) })
-            .catch((error) =>{console.error('Unable to validate error ' + error);});
+            .then((response) => {this.setState({serverRes: response.errors, Urledited: response.edited})})
+            .catch((error) =>{console.error('Frontend: Unable to edit value ' + error);});
         
     }
 
@@ -172,7 +173,9 @@ import { CSVLink } from "react-csv";
                                 </span> 
                                 <button className='btn btn-unique' onClick={this.uploadEditVal}>Edit</button>
                                 <button className='btn btn-danger' onClick={() => this.setState({editUrl: false})}>Cancel</button>
-                                <p>{this.serverResponse()}</p></p>: ''}
+                                <p>{this.serverResponse()}</p>
+                                {/* {(this.state.Urledited) ? <p><span className="glyphicon glyphicon-warning-danger">Unable to edit value</span></p> : ''} */}
+                                </p>: ''}
                             <p><span className='acc-body-label'>Key:</span> {options.id}</p>
                         </AccordionItemPanel>
                     </AccordionItem>
