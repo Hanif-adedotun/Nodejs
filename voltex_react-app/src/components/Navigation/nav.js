@@ -34,14 +34,14 @@ class navigation extends React.Component{
         getImage = () =>{
             fetch('/api/auth/login/success')//fetch the data from our express server running on localhost:8080
             .then(res => res.json())//parse the data in json format
-            .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, () => {console.log('User Image updated'+JSON.stringify(response.user)); this.rendercontent();}))
+            .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, () => {console.log('User Image updated'+JSON.stringify(response.user.imageUrl)); this.renderImage();}))
             .catch((error) =>{console.error('Unable to get user image' + error);});
         }
 
         //function (defaultimage) puts the default glyphicon image if no user is connected
         defaultimage = () =>{
             return(
-                <span className="glyphicon glyphicon-user"></span>
+                <span className="glyphicon glyphicon-user g-nav"></span>
             );
         }
         //function (userImage) component for the user image sent by the server
@@ -51,8 +51,8 @@ class navigation extends React.Component{
                 <img src={imgsrc} alt='User icon' className='nav-img-circle' ></img>
             );
         }
-        //function (rendercontent) the switch for the views
-        rendercontent(){
+        //function (renderImage) the switch for the views
+        renderImage(){
             switch(this.state.imageUrl){
                 case null: return this.defaultimage();
                 default: return this.userImage(this.state.imageUrl);
@@ -71,11 +71,11 @@ class navigation extends React.Component{
                              <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></Nav.Link></Nav.Item>
                             <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></Nav.Link></Nav.Item>
                             <Nav.Item><Nav.Link className='Navlin'><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></Nav.Link></Nav.Item>
-                             <Nav.Item><Nav.Link className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.rendercontent()}</NavLink></Nav.Link></Nav.Item>
+                             <Nav.Item><Nav.Link className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.renderImage()}</NavLink></Nav.Link></Nav.Item>
                         </Nav>
                      </Navbar.Collapse> 
                  </Navbar>  */}
-              
+              {/* navbar-fixed-top to make the navbar fixed at the top */}
                 <div className='nav'>
                     <nav className="navbar navbar-default " data-spy="affix" data-offset-top="197">
                     {/* <div className="navbar-header">
@@ -92,12 +92,12 @@ class navigation extends React.Component{
                             <li className='Navlin' ><NavLink activeClassName='NavActive' exact to='/'>Home</NavLink></li>
                             <li className='Navlin' ><NavLink activeClassName='NavActive' to='/docs'>Documentation</NavLink></li>
                             <li className='Navlin' ><NavLink activeClassName='NavActive' to='/dashboard'>Dashboard</NavLink></li>
-                            <li  className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.rendercontent()}</NavLink></li>
+                            <li  className='Navlin' id='nav-profile'><NavLink activeClassName='NavActive' to='/profile'>{this.renderImage()}</NavLink></li>
                         </ul>
                     {/* </div> */}
                     </nav>
                 </div>
-                <Switch>
+                <Switch >
                     <Route path='/' exact component={Home}/>
                     <Route path='/dashboard' exact component={Dashboard}/>
                     <Route path='/profile' exact component={Profile}/>

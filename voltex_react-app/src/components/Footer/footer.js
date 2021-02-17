@@ -38,7 +38,7 @@ class footer extends React.Component{
                     </ul>
                 </div>
                 </div>
-                <p className='footext'>&copy; Copyright Voltex Designs {year}</p>
+                <p className='footext'>&copy; Copyright <a href='https://github.com/Voltex-designs'>Voltex Designs</a> {year}</p>
             
             </div>
         )

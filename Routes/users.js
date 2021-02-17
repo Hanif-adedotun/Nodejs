@@ -35,6 +35,7 @@ router.get('/login/dashboard', async (req, res) => {
   var serverRes, usekey;
   //get dashboard from its database
     usekey = await ncon.readFile();
+    
 
     const dummyTable = {
       databse: (usekey) ? usekey.id : null,

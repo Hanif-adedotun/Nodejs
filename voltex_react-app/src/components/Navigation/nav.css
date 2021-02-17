@@ -2,11 +2,12 @@
 :root{
   --primary: rgb(54, 123, 252);
 }
+
 .nav{
     max-width: 100%;
     font-size: medium;
     font-weight: bold;
-    margin: 0 auto;
+    margin: auto ;
     /* font-family:   -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
 }
 .Navlin{
@@ -46,19 +47,23 @@
 }
 .nav-img-circle{
     border-radius: 50%;
-    height: 30%;
-    width: 30%;
+    height: 35%;
+    width: 35%;
     border: 2.5px solid var(--primary);
 }
 
-.glyphicon-user{
+/* .glyphicon-user{
   color: var(--primary);
+} */
+.g-nav{
+  color: var(--primary);
+  font-size: large;
 }
 
 /* Logo  */
 .logo{
   width: 35%;
-  max-height:25%;
+  max-height:35%;
   padding: 0;
   margin:  auto;
   /* animation: logo-spin infinite 20s linear; */

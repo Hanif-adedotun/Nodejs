@@ -166,7 +166,7 @@ import { CSVLink } from "react-csv";
                         <AccordionItemPanel className='acc-body'>
                             <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
                             <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
-                            {(this.state.editUrl == true) ? 
+                            {(this.state.editUrl === true) ? 
                             <p>
                                 <span className='acc-body-label'>
                                 <input name='inputUrl' className='inputEdit' type='text' placeholder='Type in new url' value={this.state.inputUrl} onChange={(event)=>{this.setState({inputUrl: event.target.value})}}/>

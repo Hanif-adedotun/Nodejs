@@ -7,18 +7,24 @@ import './profile.css';
 //Loader
 import Load from '../objects/loading';
 
+
+//Import Login Logos
+import Gicon from '../images/icon/google.svg'
+import Giticon from '../images/icon/github.svg'
+
+
 //function (gsign) Google button both for sign in and sign out
 //@param {name} The text the will show in the button
 //@param {github} Default is false, but if true the github button settings will be activated
 var gsign = (name, github=false) =>{
-var googlelogo = 'https://img.icons8.com/color/40/000000/google-logo.png';
-var gitlogo = "https://img.icons8.com/windows/40/000000/github.png";
+// var googlelogo = 'https://img.icons8.com/color/40/000000/google-logo.png';
+// var gitlogo = "https://img.icons8.com/windows/40/000000/github.png";
 
     return(
         <div className=  {(github) ? 'github-sign-in sign-in': 'g-sign-in-button sign-in'}>
             <div className='content-wrapper'>
                 <span className='logo-wrapper'>
-                    <img alt='Google logo' src={(github) ? gitlogo : googlelogo}></img>
+                    <img alt='Google logo' src={(github) ? Giticon : Gicon}></img>
                 </span>
                 <span className='text-container'> {name} </span>
             </div>
@@ -103,12 +109,12 @@ class Profile extends React.Component{
     //function (renderuser) the switch button to change between views
     // Views Loading icon, signed in profile and not signed in profile
     renderuser(){
-        // console.log(String(this.state.authenticate));
+        console.log('The user profile '+String(this.state.authenticate));
         
-        switch(String(this.state.authenticate)){
-            default: return <Load/>
-                case 'false': return this.notsignedin();
-                case 'true': return this.userprofile();
+        switch(this.state.authenticate){
+            default: return <Load color='#61dafb' type='bubbles'/>
+                case false: return this.notsignedin();
+                case true: return this.userprofile();
         }
     }
     
