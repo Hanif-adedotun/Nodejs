@@ -150,7 +150,7 @@ var getfromtable = (dbname, table, params) =>{
 // @param {dbname} name of the database
 /// @param {userId} the id of the user, used to identify the unique field to edit 
 // @param {urlValue} the new url value to replace with the old url value
-var updateTable = (dbname, userId, urlValue) =>{
+var updateTable = ({dbname, userId, urlValue}) =>{
     return new Promise(function(resolve, reject){
         var con = mysql.createConnection({
             host: DBdetails.host,
@@ -166,7 +166,7 @@ var updateTable = (dbname, userId, urlValue) =>{
             } 
             console.log('Mysql: Connected');
         
-            var sql = `UPDATE ${Table.tablename} SET ${Table.url}=${String(urlValue)} WHERE ${Table.userid}=${userId}`;
+            var sql = `UPDATE ${Table.tablename} SET ${Table.url} = '${urlValue}' WHERE ${Table.userid}=${userId}`;
 
             con.query(sql, function(err, result){
                 if (err) {

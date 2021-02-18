@@ -83,8 +83,13 @@ router.get('/login/failure', (req, res)=>{
 
 //(api/auth/login/logout)
 //This api is called to logout the user and delete the user file from the req.user
+//In v2, to logout can be used differently as session.destroy 
+// req.session.destroy(function (err) {
+//   res.redirect('/'); //Inside a callback… bulletproof!
+// });
 router.get('/logout', (req, res) =>{
-    req.logout();
+    // req.logout(); this stopped working after some use
+    req.logOut();//Used the alias to check, and it worked
     ncon.refresh(); //delete the user profile
     res.status(400).json({authenticate: false});
 });

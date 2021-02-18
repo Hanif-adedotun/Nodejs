@@ -26,6 +26,7 @@ import { CSVLink } from "react-csv";
              //Table.js 
              delres: '',
              delText: null,
+             rotate: false,
              //Edit url
              inputUrl: '',
              editUrl: false,
@@ -36,9 +37,10 @@ import { CSVLink } from "react-csv";
      }
      //Load the database values from the MongoDB
      loadDatabase = () => {
+         this.setState({rotate: true});
         fetch('/api/users/login/dashboard')//fetch the data from our express server running on localhost:8080
          .then(res => res.json())//parse the data in json format
-         .then(dashboard => this.setState({dashboard}, () => console.log('Dashboard updated'+JSON.stringify(dashboard))))
+         .then(dashboard => this.setState({dashboard}, () => console.log('Dashboard updated'+JSON.stringify(dashboard)), this.setState({rotate: false})))
          .catch((error) =>{console.error('Unable to get data from database' + error);});
      }
 
@@ -73,7 +75,7 @@ import { CSVLink } from "react-csv";
         console.log('Submitting new Url value');
 
         const data = {
-            urlVal: this.state.inputUrl
+            inputUrl: this.state.inputUrl
         };
 
         fetch('/api/users/editVal' , {
@@ -106,7 +108,7 @@ import { CSVLink } from "react-csv";
                 </span>
             );
         }else{
-            // window.location.reload();
+            window.location.reload();
             return(
                 <div className='form-good'>
                     <p className='good'>All inputs are good!</p>
@@ -193,7 +195,12 @@ import { CSVLink } from "react-csv";
                 @param {delText} *IN CONSTRUCTION* The text to display while deleting value
                 @param {loadDatabase} The function to refresh the table data from the server
                */}
-                <Table tableName={this.state.dashboard.data[0].Tablename} table={this.state.dashboard.table} delval={this.tableDelete} delText={this.state.delres} loadDatabase={this.loadDatabase}/> 
+                <Table 
+                tableName={this.state.dashboard.data[0].Tablename} 
+                table={this.state.dashboard.table} 
+                delval={this.tableDelete} delText={this.state.delres} 
+                loadDatabase={this.loadDatabase}
+                rotate={this.state.rotate}/> 
                 
                  {/* If there is table data, it displays all the table options */}
                 <div className='table_details'> 

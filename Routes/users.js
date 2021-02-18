@@ -188,7 +188,7 @@ router.route('/createDB')
 //Uses a promise based request to the database, the returns a confirmation string to indicate if the url has been edited
 router.route('/editVal').post(
 [
-  body('inputUrl', 'Invalid Url value').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: true, require_port: false, require_protocol: false})
+  body('inputUrl', 'Invalid Url value').isURL({ protocols: ['http','https'] , allow_protocol_relative_urls: true, require_host: false, allow_underscores: true, require_valid_protocol: false, require_port: false, require_protocol: false})
 
 ], async function(req, res){
   const errors = validationResult(req);
@@ -198,8 +198,8 @@ router.route('/editVal').post(
     var usekey = await ncon.readFile();
     var userID =  (usekey) ? usekey.id : null;
 
-    console.log('Current user id: '+ userID);
-    console.log(req.body.inputUrl);
+    // console.log('Current user id: '+ userID);
+    // console.log(req.body.inputUrl);
     
         if (!errors.isEmpty()) {  
           
@@ -216,14 +216,14 @@ router.route('/editVal').post(
             if(reply){
               return res.status(200).json({errors: null, edited: true});
             }else{
-              return res.status(400).json({errors: {msg: 'Unable to Update value'}, edited: false});
+              return res.status(400).json({errors: [{msg: 'Server Error: Unable to Update value'}], edited: false});
             }
             //Code to tell Mysql to edit value
             
          
           }).catch(function(err){
-            console.log('Error editing value:'+error);
-            return res.status(500).json(null);
+            // throw err;
+            return res.status(500).json({errors: [{msg: 'Server Error: Unable to Update value'}], edited: false});
           })
 
         }

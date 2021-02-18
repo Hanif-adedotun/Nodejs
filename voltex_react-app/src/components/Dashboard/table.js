@@ -47,7 +47,8 @@ delete_button.propTypes = {
 //@param {delval} The function to delete the table row
 //@param {delText} *IN CONSTRUCTION* The text to display while deleting value
 //@param {loadDatabase} The function to refresh the table data from the server
-const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
+//@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
+const Table = ({tableName, table, delval, delText, loadDatabase, rotate}) =>{
     
     if(!table[0]){
         return(
@@ -74,7 +75,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase}) =>{
                                  <th key={index}>{key.toUpperCase()}</th>
                             )
                             }
-                            <th><button className='btn btn-primary medium' onClick={loadDatabase}><span className='glyphicon glyphicon-refresh '></span></button></th> {/* for the delete row*/}
+                            <th><button id='table-refresh' className='btn btn-primary medium' onClick={loadDatabase}><span className={(rotate) ? 'glyphicon glyphicon-refresh rotate':'glyphicon glyphicon-refresh'}></span></button></th> {/* for the delete row*/}
                         </tr>
                         </thead>
                         <tbody>
@@ -106,7 +107,8 @@ Table.propTypes = {
     table: PropTypes.array.isRequired,
     delval: PropTypes.func.isRequired,
     delText: PropTypes.string,
-    loadDatabase: PropTypes.func.isRequired
+    loadDatabase: PropTypes.func.isRequired,
+    rotate: PropTypes.bool.isRequired
 }
 
 export default Table;

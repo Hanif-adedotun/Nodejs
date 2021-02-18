@@ -170,7 +170,7 @@ router.route('/:dbname/:key').get((req, res) =>{
                     pageTitle: '404-Not found',
                     error: true,
                     four: '404',
-                    text: 'You are not authorized to view this page, please check your parameters and try again.'
+                    text: 'You are not authorized to view this page, please check your form parameters and try again.'
                 }));
             }
 

@@ -37,7 +37,7 @@ class Profile extends React.Component{
         super();
         this.state = {
             user: [],
-            authenticate: false,
+            authenticate: [],
             notice: 'Github Sign in coming Soon.....'
         };
     }
@@ -112,7 +112,7 @@ class Profile extends React.Component{
         console.log('The user profile '+String(this.state.authenticate));
         
         switch(this.state.authenticate){
-            default: return <Load color='#61dafb' type='bubbles'/>
+            default: return <Load color='rgb(54, 123, 252)' type='bubbles'/>
                 case false: return this.notsignedin();
                 case true: return this.userprofile();
         }

@@ -250,6 +250,25 @@ color: red;
     text-shadow: 2px 2px 4px #000000;
     /* box-shadow:  4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) */
 }
+
+/* Table refresh button */
+#table-refresh{
+    text-align: center;
+    margin: auto 28%;
+}
+
+.rotate{
+    animation: logo-spin infinite 2s linear; 
+}
+
+@keyframes logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 /* End of popup */
 
 
