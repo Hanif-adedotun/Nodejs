@@ -62,7 +62,7 @@ async function refreshfile(){
       return;
     }
   });
-  console.log('Deleted the file: No User signed in');
+  console.log('Empty data: No User signed in');
 }
 
 var ncon ={

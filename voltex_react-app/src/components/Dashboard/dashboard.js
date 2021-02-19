@@ -12,7 +12,6 @@ import {Link } from "react-router-dom";
 import Load from '../objects/loading';
 
 
-
 //Export to CSV 
 import { CSVLink } from "react-csv";
  class Dashboard extends React.Component {
@@ -31,7 +30,9 @@ import { CSVLink } from "react-csv";
              inputUrl: '',
              editUrl: false,
              serverRes: [],
-             Urledited: false
+             Urledited: false,
+             //Sendmail
+             sent: []
          };
          
      }
@@ -209,7 +210,8 @@ import { CSVLink } from "react-csv";
                                 <span className='glyphicon glyphicon-export'></span>
                                 <span> Export table</span>
                         </CSVLink>
-                            <button className='btn btn-success disabled ' id='custom_email' disabled>
+                        {/* disabled */}
+                            <button className='btn btn-success  ' id='custom_email' onClick={this.sendmail}>
                                 <span className='glyphicon glyphicon-envelope'></span>
                                 <span> Send Cutom email</span>
                             </button>
@@ -267,6 +269,25 @@ import { CSVLink } from "react-csv";
                  <p className='serverErr'>There is either a connection error or Server Error, Check your internet connection and refresh!</p>
              </div>
          )
+     }
+     
+     sendmail = () =>{
+        const data = {
+            to: 'hanif.adedotun@gmail.com',
+            subject: 'Welcome to Vm Mailing Service',
+            html: `<p>Welcome Hanif to voltex middlewear mail service </p>`
+        };
+
+        fetch('/api/users/sendmail' , {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+            .then((result) => result.json())
+            .then((response) => {this.setState({sent: response.deleted})})
+            .catch((error) =>{console.error('Frontend: Unable to send mail'+ error);});
      }
 
      //function (renderContent) Switch for all the views of the dashboard

@@ -22,7 +22,6 @@ module.exports = {
     },
     google:{
         clientID: "135774644582-1etfavodc0ic3a8nqhj919o29gco6utj.apps.googleusercontent.com",
-       
         clientSecret: "SuVfzF7J2bK2LwNX4FdwB_nv"
    
     },
@@ -42,6 +41,7 @@ module.exports = {
         path: 'http://localhost:8080/api/middlewear/data'
     },
     email:{
-        //comming soon v2
+        user: 'voltex.designs@outlook.com',
+        password: 'voltex-4104'
     }
 };

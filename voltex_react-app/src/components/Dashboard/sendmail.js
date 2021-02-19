@@ -1,1 +1,0 @@
-//This file will be used in v2 to send mails from the server

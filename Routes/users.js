@@ -229,5 +229,41 @@ router.route('/editVal').post(
         }
 });
   
+//Router (POST method) {/api/users/sendmail}
+router.route('/sendmail').post((req, res) => {
+
+  var nodemailer = require('nodemailer');
+ 
+    var transporter = nodemailer.createTransport({
+        host: "smtp-mail.outlook.com", // hostname
+        secureConnection: false, // TLS requires secureConnection to be false
+        port: 587, // port for secure SMTP
+        tls: {
+          ciphers:'SSLv3'
+        },
+         auth: {
+           user: keys.email.user,
+           pass: keys.email.password
+         }
+    });
+
+    var mailOptions = {
+         from: keys.email.user,
+         to: req.body.to,
+         subject: req.body.subject,
+         html: req.body.html
+    }
+
+    transporter.sendMail(mailOptions, function(error, info){
+         if (error) {
+           console.log(error);
+           return res.status(500).json({sent: false});
+         } else {
+           console.log('Email sent by nodemailer: ' + info.response);
+           return res.status(200).json({sent: true});
+         }
+       });
+
+})
 
 module.exports = router;

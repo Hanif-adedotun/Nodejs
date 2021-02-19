@@ -6,6 +6,8 @@ import '../css/bootstrap.min.css';
 //popup
 import Popup from 'reactjs-popup';
 
+//Popup unknown if beign used in other Programs
+//Pendng deleting for now
 
 const popoup = ({primary, buttonName, message})=>{
      return(
