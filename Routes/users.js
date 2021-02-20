@@ -2,6 +2,8 @@ const express = require('express');
 let router = express.Router();
 const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
+const path = require('path');
+
 //Mysql
 var usersDB = require('./Database/database');
 const keys = require('../Routes/config/keys');
@@ -23,7 +25,9 @@ router.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
 router.use(bodyParser.urlencoded({ extended: true }));
 
-
+//Pug view for html
+const pug = require('pug');
+const emailhtml = pug.compileFile(path.join(__dirname+'/config/emailbody.pug'));
 // @params {Address} is /api/users
 
 //create empty variables for the users options
@@ -251,7 +255,9 @@ router.route('/sendmail').post((req, res) => {
          from: keys.email.user,
          to: req.body.to,
          subject: req.body.subject,
-         html: req.body.html
+         html: emailhtml({
+          body: `This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... `
+        })
     }
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -265,5 +271,15 @@ router.route('/sendmail').post((req, res) => {
        });
 
 })
+
+//Router (POST method) {/api/users/test-v1/email}
+// Test api to ensure design of email is accuaretly done
+router.route('/test-v1/email').get((req, res) => {
+return res.status(200).send(emailhtml({
+  body: `This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... `
+}));
+})
+
+
 
 module.exports = router;

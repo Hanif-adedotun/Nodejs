@@ -274,7 +274,7 @@ import { CSVLink } from "react-csv";
      sendmail = () =>{
         const data = {
             to: 'hanif.adedotun@gmail.com',
-            subject: 'Welcome to Vm Mailing Service',
+            subject: 'Welcome to Voltex Family',
             html: `<p>Welcome Hanif to voltex middlewear mail service </p>`
         };
 
