@@ -32,7 +32,7 @@ import { CSVLink } from "react-csv";
              serverRes: [],
              Urledited: false,
              //Sendmail
-             sent: []
+             sent: false
          };
          
      }
@@ -139,8 +139,8 @@ import { CSVLink } from "react-csv";
         //Changes the icons to up and down when needed
         this.changeIcon = () =>{
             var icon = document.getElementById('acc-arrow');
-            var icon_down = 'glyphicon glyphicon-chevron-down small';
-            var icon_up = 'glyphicon glyphicon-chevron-up small';
+            var icon_down = 'glyphicon glyphicon-chevron-up small';
+            var icon_up = 'glyphicon glyphicon-chevron-down small';
 
             if(icon.className === icon_down){
                 icon.className = icon_up;
@@ -221,7 +221,7 @@ import { CSVLink } from "react-csv";
                             </button> </div>: ''}
                        
                 </div>
-              
+              <span className='unique'>{(this.state.sent) ? 'E-mail has been sent successfully!': ''}</span>
             </div>
         );
      }
@@ -286,8 +286,13 @@ import { CSVLink } from "react-csv";
             body: JSON.stringify(data)
             })
             .then((result) => result.json())
-            .then((response) => {this.setState({sent: response.deleted})})
-            .catch((error) =>{console.error('Frontend: Unable to send mail'+ error);});
+            .then((response) => {this.setState({sent: Boolean(response.sent)})})
+            .catch((error) =>{console.error('Frontend: Unable to send mail'+ error);
+        });
+        this.interval = setInterval(() => {
+            this.setState({sent: false});
+            console.log(this.state.sent);
+          }, 9000);
      }
 
      //function (renderContent) Switch for all the views of the dashboard
