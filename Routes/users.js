@@ -285,9 +285,23 @@ router.route('/sendmail').post((req, res) => {
 
 })
 
+//Testing new method of storing value to the memory-cache
+var cache = require('./config/cache');
+var user = {
+  id: 'profile.id',
+  email: 'profile.emails',
+  name: 'profile.name',
+  username: 'profile.displayName',
+  imageUrl: 'profile.photos[0].value'
+ };
+cache.write({key:'user', data: user});
 //Router (POST method) {/api/users/test-v1/email}
 // Test api to ensure design of email is accuaretly done
 router.route('/test-v1/email').get((req, res) => {
+
+console.log(cache.read('user'));
+cache.clear('user');
+console.log((cache.read('user')));
 return res.status(200).send(emailhtml({
   body: `This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... `
 }));
