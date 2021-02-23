@@ -11,6 +11,9 @@ import Popup from 'reactjs-popup';
 //Void SVG Logo
 import VoidLogo from '../images/empty_green.svg';
 
+//Export to CSV 
+import { CSVLink } from "react-csv";
+
 //function (delete_button) The component for the delete button
 //@param {i} index of the row to be deleted
 //@param {val} the Object Id of the row, to be sent to the server
@@ -48,7 +51,7 @@ delete_button.propTypes = {
 //@param {delText} *IN CONSTRUCTION* The text to display while deleting value
 //@param {loadDatabase} The function to refresh the table data from the server
 //@param {rotate} Boolean when the button is clicked to make it rotate, to show the loading effect
-const Table = ({tableName, table, delval, delText, loadDatabase, rotate}) =>{
+const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmail}) =>{
     
     if(!table[0]){
         return(
@@ -63,8 +66,13 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate}) =>{
     }
     //To get the the keys of the data
     var head = Object.keys(table[0].db_values);
+    var csv_head = head.map((key, index) => String(key).toUpperCase()) ;
+    var csv_body = table.map((item, index) =>
+        Object.values(item.db_values).map((val, ind)=> val)
+    );
 
         return(
+            <div>
             <div className='formTable'>
                     <h3>{(tableName) ? tableName+' Table': 'Table'}</h3>
                     <table className='table table-responsive table-bodered'>
@@ -98,7 +106,27 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate}) =>{
                         </table>
                         <p className='Tunique'>{(delText) ? delText: ''}</p>
                 </div>
+                {/* If there is table data, it displays all the table options */}
+                <div className='table_details'> 
+                    {(table[0])?  <div>
+                        <CSVLink headers={Object(csv_head)} data={Object(csv_body)} filename={tableName+".csv"} className="btn export" >
+                                <span className='glyphicon glyphicon-export'></span>
+                                <span> Export table</span>
+                        </CSVLink>
+                        {/* disabled */}
+                            <button className='btn btn-success  ' id='custom_email' onClick={sendmail}>
+                                <span className='glyphicon glyphicon-envelope'></span>
+                                <span> Send Cutom email</span>
+                            </button>
+                            <button className='btn btn-danger' >
+                                <span className='glyphicon glyphicon-remove'></span>
+                                <span> Drop table</span>
+                            </button> </div>: ''}
+                       
+                </div>
+            </div>
         );
+    
 }
 
 //Property of the function (Table)
@@ -108,7 +136,8 @@ Table.propTypes = {
     delval: PropTypes.func.isRequired,
     delText: PropTypes.string,
     loadDatabase: PropTypes.func.isRequired,
-    rotate: PropTypes.bool.isRequired
+    rotate: PropTypes.bool.isRequired,
+    sendmail: PropTypes.func.isRequired
 }
 
 export default Table;

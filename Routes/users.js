@@ -15,6 +15,9 @@ const mongo = require('./Database/mongodb')
 //Test save to config
 const ncon = require('./config/nconfig');
 
+//In-memory-cache
+const cache = require('./config/cache');
+
 //Random number generator
 //Using the cryptocurrence hashing method
 const crypto = require('crypto');
@@ -33,13 +36,27 @@ const emailhtml = pug.compileFile(path.join(__dirname+'/config/emailbody.pug'));
 //create empty variables for the users options
 // var users = null, userImage = null, dbname = null;
 
+//Router (GET method) {/api/users/login/profile}
+//(api/auth/login/success)
+//if the user is signed in, give the user properties to 
+router.get('/login/profile', async (req, res)=>{
+  // console.log(JSON.stringify(req.user));
+  var user = usekey = await ncon.readFile();
+  if(user){   
+    res.status(200).json({authenticate: true, user:user});
+  }else{
+    ncon.refresh();
+    res.status(404).json({authenticate: false,user: null});
+  }
+});
+
+
 //Router (GET method) {/api/users/login/dashboard}
 // To get both the current user details and the user stored form in the mongodb if any
 router.get('/login/dashboard', async (req, res) => {
   var serverRes, usekey;
   //get dashboard from its database
     usekey = await ncon.readFile();
-    
 
     const dummyTable = {
       databse: (usekey) ? usekey.id : null,
@@ -52,7 +69,8 @@ router.get('/login/dashboard', async (req, res) => {
         status: 400,
         data: 'Log into databse'
       }
-      res.status(404).json(serverRes)
+      res.status(404).json(serverRes);
+      return;
     }
 
  
@@ -60,7 +78,7 @@ router.get('/login/dashboard', async (req, res) => {
       
       var tableresult = await Object(dbResult);
       
-      console.log('Test table '+JSON.stringify(tableresult));
+      // console.log('Test table '+JSON.stringify(tableresult));
 
       if(!tableresult[0]){
         console.error('User file not available');
@@ -70,7 +88,7 @@ router.get('/login/dashboard', async (req, res) => {
           data: 'Empty database'
         }
         res.status(404).json(serverRes);
-      return;
+        return;
       }
 
       const uniqueid = tableresult[0].uniqueid;
@@ -88,22 +106,24 @@ router.get('/login/dashboard', async (req, res) => {
           table: db_res
         }
         res.status(200).json(serverRes);
+        return;
     });          
 
     }).catch(function(err){
-      console.log('Fetch retrieval error ' + err);
+      console.log('Fetch retrieval error '+ err);
 
       serverRes = {
         status: 500,
         data: 'Server Error'
       }
       res.status(500).json(serverRes);
+      return;
     });    
     
 });
 
 //Router (GET method) {/api/users/delete/:id}
-//:id is the id of the file to delete form mongodb
+//(:id) is the id of the file to delete form mongodb
 // To delete a field from the table in Mongodb 
 router.route('/delete/:id').delete( async (req, res) =>{
 
@@ -168,6 +188,7 @@ router.route('/createDB')
           try {
 
             var usekey = await ncon.readFile();
+          
             const Table = {
               databse: (usekey) ? usekey.id : null
             }
@@ -201,6 +222,7 @@ router.route('/editVal').post(
   //(usekey) gets the current user details
   //Get the id to identify the row to edit in the database
     var usekey = await ncon.readFile();
+
     var userID =  (usekey) ? usekey.id : null;
 
     // console.log('Current user id: '+ userID);
@@ -269,8 +291,6 @@ router.route('/sendmail').post((req, res) => {
           
           Curabitur laoreet lobortis dolor quis accumsan. Cras imperdiet, nulla ac molestie iaculis, mauris elit viverra felis, ac consequat dui magna a velit. Pellentesque iaculis pharetra sem, malesuada malesuada turpis laoreet et. Aenean et faucibus est, in sollicitudin mi. Praesent elementum sagittis felis, id eleifend ligula vulputate at. Curabitur dapibus est in diam ornare feugiat. Pellentesque dictum elit sed metus commodo, sed pretium risus egestas. Morbi congue eleifend vulputate. Mauris lorem tortor, iaculis in erat et, aliquet ultrices nisl. Suspendisse ac erat nisl. Nam nisi metus, cursus vel ipsum vel, sodales mollis ex.`
         })
-
-
     }
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -286,22 +306,24 @@ router.route('/sendmail').post((req, res) => {
 })
 
 //Testing new method of storing value to the memory-cache
-var cache = require('./config/cache');
-var user = {
-  id: 'profile.id',
-  email: 'profile.emails',
-  name: 'profile.name',
-  username: 'profile.displayName',
-  imageUrl: 'profile.photos[0].value'
- };
-cache.write({key:'user', data: user});
+
 //Router (POST method) {/api/users/test-v1/email}
 // Test api to ensure design of email is accuaretly done
 router.route('/test-v1/email').get((req, res) => {
 
-console.log(cache.read('user'));
-cache.clear('user');
-console.log((cache.read('user')));
+  var cache = require('./config/cache');
+// var user = {
+//   id: 'profile.id',
+//   email: 'profile.emails',
+//   name: 'profile.name',
+//   username: 'profile.displayName',
+//   imageUrl: 'profile.photos[0].value'
+//  };
+// cache.write({key:'user', data: user});
+// console.log(cache.read('user'));
+// cache.clear('user');
+// console.log((cache.read('user')));
+
 return res.status(200).send(emailhtml({
   body: `This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... `
 }));

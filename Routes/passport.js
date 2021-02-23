@@ -10,6 +10,7 @@ const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
 //nconf
 const ncon = require('./config/nconfig');
 
+
 //Default Google User details
 // {
 //   [0]   id: 'xxxxxxxxxxxxxxxxx',
@@ -42,7 +43,7 @@ passport.use(new GoogleStrategy({
    keys.User.fulldetails = user;
    
    await ncon.writeFile(user);
-
+  
     return done(null, user);
   }));
   router.use(cookieSession({

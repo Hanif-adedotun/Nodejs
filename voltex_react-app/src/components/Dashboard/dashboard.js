@@ -12,8 +12,7 @@ import {Link } from "react-router-dom";
 import Load from '../objects/loading';
 
 
-//Export to CSV 
-import { CSVLink } from "react-csv";
+
  class Dashboard extends React.Component {
      constructor(){
          super();
@@ -201,26 +200,10 @@ import { CSVLink } from "react-csv";
                 table={this.state.dashboard.table} 
                 delval={this.tableDelete} delText={this.state.delres} 
                 loadDatabase={this.loadDatabase}
-                rotate={this.state.rotate}/> 
+                rotate={this.state.rotate}
+                sendmail={this.sendmail}/> 
                 
-                 {/* If there is table data, it displays all the table options */}
-                <div className='table_details'> 
-                    {(this.state.dashboard.table[0])?  <div>
-                        <CSVLink  data={(JSON.stringify(this.state.dashboard.table[0]))} filename={this.state.dashboard.data[0].Tablename+".csv"} className="btn export" >
-                                <span className='glyphicon glyphicon-export'></span>
-                                <span> Export table</span>
-                        </CSVLink>
-                        {/* disabled */}
-                            <button className='btn btn-success  ' id='custom_email' onClick={this.sendmail}>
-                                <span className='glyphicon glyphicon-envelope'></span>
-                                <span> Send Cutom email</span>
-                            </button>
-                            <button className='btn btn-danger' >
-                                <span className='glyphicon glyphicon-remove'></span>
-                                <span> Drop table</span>
-                            </button> </div>: ''}
-                       
-                </div>
+                 
               <span className='unique'>{(this.state.sent) ? 'E-mail has been sent successfully!': ''}</span>
             </div>
         );
@@ -271,6 +254,8 @@ import { CSVLink } from "react-csv";
          )
      }
      
+     //function (sendmail) This function is used to send an automatic email
+     //nodemailer only works on the server side, so we have to semd a request to the server, then it sends the email automatically
      sendmail = () =>{
         const data = {
             to: 'hanif.adedotun@gmail.com',

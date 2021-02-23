@@ -43,5 +43,8 @@ module.exports = {
     email:{
         user: 'voltex.designs@outlook.com',
         password: 'voltex-4104'
+    },
+    cache:{
+        key: 'user'
     }
 };

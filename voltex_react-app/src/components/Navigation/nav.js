@@ -32,7 +32,7 @@ class navigation extends React.Component{
     //function (getImage) get the user image from the database
     //Using fetch api to the database
         getImage = () =>{
-            fetch('/api/auth/login/success')//fetch the data from our express server running on localhost:8080
+            fetch('/api/users/login/profile')//fetch the data from our express server running on localhost:8080
             .then(res => res.json())//parse the data in json format
             .then(response => this.setState({imageUrl: response.user.imageUrl, user: response.user}, () => {console.log('User Image updated'+JSON.stringify(response.user.imageUrl)); this.renderImage();}))
             .catch((error) =>{console.error('Unable to get user image' + error);});
