@@ -202,8 +202,7 @@ import Load from '../objects/loading';
                 loadDatabase={this.loadDatabase}
                 rotate={this.state.rotate}
                 sendmail={this.sendmail}/> 
-                
-                 
+            
               <span className='unique'>{(this.state.sent) ? 'E-mail has been sent successfully!': ''}</span>
             </div>
         );

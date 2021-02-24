@@ -2,6 +2,8 @@ const express = require('express');
 let router = express.Router();
 const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
+
+// Keys for all needed keys
 const keys = require('./config/keys');
 
 const cookieSession = require('cookie-session');
@@ -21,7 +23,7 @@ const ncon = require('./config/nconfig');
 //   [0] }
 
 // @params {Address} is /api/auth
-
+//Using Google to sign in
 passport.use(new GoogleStrategy({
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret,
@@ -54,7 +56,18 @@ passport.use(new GoogleStrategy({
 
   router.use(passport.initialize());
   router.use(passport.session());
-  
+
+//   passport.use(new GitHubStrategy({
+//     clientID: GITHUB_CLIENT_ID,
+//     clientSecret: GITHUB_CLIENT_SECRET,
+//     callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+//   },
+//   function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   }
+// ));
 //(api/auth/redirect) Google api will query this url to get the success redirect link or failure link
 router.get('/redirect', passport.authenticate('google', {
   successRedirect: CLIENT_PROFILE_URL,
@@ -104,6 +117,7 @@ router.get('/logout', (req, res) =>{
   passport.deserializeUser(function(user, done) {
     done(null, user);
   });
+
 
  
 module.exports = router;

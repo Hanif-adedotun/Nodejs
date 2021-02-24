@@ -45,9 +45,54 @@
     font-weight: bold;
 }
 .cryptoPrice{
+    display: inline-block;
     color: var(--primary);
+    
+    /* Imitationg marqee element */
+        /* Starting position */
+    /* -moz-transform:translateX(100%);
+    -webkit-transform:translateX(100%);	
+    transform:translateX(100%); */
+    /* Apply animation to this element */	
+    /* -moz-animation: marquee 15s linear infinite;
+    -webkit-animation: marquee 15s linear infinite;
+    animation: marquee 15s linear infinite; */
 }
+/* Move it (define the animation) */
+@-moz-keyframes marquee {
+    0%   { -moz-transform: translateX(100%); }
+    100% { -moz-transform: translateX(-100%); }
+   }
+   @-webkit-keyframes marquee {
+    0%   { -webkit-transform: translateX(100%); }
+    100% { -webkit-transform: translateX(-100%); }
+   }
+   @keyframes marquee {
+    0%   { 
+    -moz-transform: translateX(100%); /* Firefox bug fix */
+    -webkit-transform: translateX(100%); /* Firefox bug fix */
+    transform: translateX(100%); 		
+    }
+    100% { 
+    -moz-transform: translateX(-100%); /* Firefox bug fix */
+    -webkit-transform: translateX(-100%); /* Firefox bug fix */
+    transform: translateX(-100%); 
+    }
+   }
 
+.crypto_container {
+    display: inline;
+    margin-right: 2em;
+}
+.crypto_logo{
+    height: 2.5%;
+    width: 2.5%;
+}
+/* #cryptoChange{
+
+} */
+.green{color:green}
+.red{color:red}
 .isContainer{
     height: fit-content;
     width: fit-content;

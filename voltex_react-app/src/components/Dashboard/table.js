@@ -111,7 +111,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
                     {(table[0])?  <div>
                         <CSVLink headers={Object(csv_head)} data={Object(csv_body)} filename={tableName+".csv"} className="btn export" >
                                 <span className='glyphicon glyphicon-export'></span>
-                                <span> Export table</span>
+                                <span> Export table to csv</span>
                         </CSVLink>
                         {/* disabled */}
                             <button className='btn btn-success  ' id='custom_email' onClick={sendmail}>

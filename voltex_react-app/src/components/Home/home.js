@@ -83,7 +83,9 @@ class Home extends React.Component{
           this.setState({time: showTime()});
           this.setState({internet: tim()});
         }, 1500);
-        
+        this.interval = setInterval(() => {
+          this.cryptoPrice();
+        }, 6000);
       }
     
       //function (offlineText) checks if there is internet connection in the state 
@@ -101,7 +103,7 @@ class Home extends React.Component{
 
       //function (cryptoPrice), gets the current prices of crypto
       cryptoPrice = () =>{
-        fetch('https://api.coindesk.com/v1/bpi/currentprice/NGN.json')//fetch the data from our express server running on localhost:8080
+        fetch('https://api.nomics.com/v1/currencies/ticker?key=5100e2897b3012f64449c1302a5c90c2&ids=BTC,ETH&interval=1d,30d&convert=NGN&per-page=100&page=1')//fetch the data from our express server running on localhost:8080
             .then(res => res.json())//parse the data in json format
             .then(prices => this.setState({prices: prices}))
             .catch((error) =>{console.error('Unable to get prices' + error);});
@@ -111,16 +113,32 @@ class Home extends React.Component{
         clearInterval(this.interval);
       }
 
+// price = () =>{
+//   var btc_id, btc_name, btc_logo, btc_price, btc_price_change;
+//   var crryptodata
+//   for (var value in  Object.values(this.state.prices)){
 
+//   }
+//    var name = Object.values(this.state.prices).map((value, index) => value.name);
+//   console.log('Crypto prices:  '+ name);
+// }
       render(){
-        // console.log('Crypto prices: NGN '+JSON.stringify(this.state.prices.bpi.NGN));
+        // this.price();
           return(
             <div className='Home'>
             <header className='  headGlass'>
                   <h1 className='color headGlass-head'>Voltex Middlwear</h1>
                   <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
-                  <p className='cryptoPrice'><marquee behavior="scroll" direction="left" scrollamount='7'>Crypto Price Placeholder, Coming Soon....   </marquee></p>
+                  <p className='cryptoPrice'>{/* <marquee behavior="scroll" direction="left" scrollamount='7'> */}
+                    {(this.state.prices) ? 
+                    Object.values(this.state.prices).map((value, index) => 
+                    <div className="crypto_container">
+                      <span><img src={value.logo_url} className='crypto_logo'></img></span> <span >{value.name}</span> <span><b>₦</b>{Math.round(value.price)}</span>  <span id='cryptoChange'>{(Number(value['1d'].volume_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red"></span>: <span className="glyphicon glyphicon-chevron-up green"></span>}{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>
+                    </div>
+                    )
+                    : 'Crypto Price Placeholder, Coming Soon....   '}
+                    {/* </marquee>*/}</p> 
                   {this.offlineText()}    
             </header>
 
