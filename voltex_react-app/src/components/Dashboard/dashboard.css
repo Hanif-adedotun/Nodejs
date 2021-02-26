@@ -2,6 +2,7 @@
 :root{
     --primary: rgb(54, 123, 252);
     --secondary: #61dafb;
+    --dark: #282c34;
 }
 *{
     text-align: center; 
@@ -128,6 +129,15 @@
 .acc-body p a:hover{
     opacity: .7;
 }
+
+/* Form action */
+.Faction{
+    margin: 1em auto;
+    font-size: auto;
+    overflow:auto;
+   
+}
+    /* End of form action */
 .medium{
     font-size: medium;
 }
@@ -173,12 +183,10 @@
     text-align: center;
 }
 .formTable{
-    display: inline-block;
     margin:  1em auto ;
     text-align: center;
-    width: fit-content;
+    overflow:auto;
     max-width: fit-content;
-    overflow: visible;
 }
 .table-dropdown{
     width: auto;
@@ -272,12 +280,6 @@ color: red;
 /* End of popup */
 
 
-/* Form action */
-.Faction{
-margin: 1em auto;
-font-size: auto;
-}
-/* End of form action */
 
 /* Export button */
 .table_details .btn{

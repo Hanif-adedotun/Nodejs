@@ -85,7 +85,7 @@ class Home extends React.Component{
         }, 1500);
         this.interval = setInterval(() => {
           this.cryptoPrice();
-        }, 6000);
+        }, 50000);
       }
     
       //function (offlineText) checks if there is internet connection in the state 
@@ -96,7 +96,6 @@ class Home extends React.Component{
             <div className='isContainer'>
               <p className='internet_status'><span className='glyphicon glyphicon-warning-sign'></span> Seems you are not connected to the internet</p>
             </div>
-            
           )
         }
       }
@@ -113,15 +112,6 @@ class Home extends React.Component{
         clearInterval(this.interval);
       }
 
-// price = () =>{
-//   var btc_id, btc_name, btc_logo, btc_price, btc_price_change;
-//   var crryptodata
-//   for (var value in  Object.values(this.state.prices)){
-
-//   }
-//    var name = Object.values(this.state.prices).map((value, index) => value.name);
-//   console.log('Crypto prices:  '+ name);
-// }
       render(){
         // this.price();
           return(
@@ -130,15 +120,15 @@ class Home extends React.Component{
                   <h1 className='color headGlass-head'>Voltex Middlwear</h1>
                   <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
-                  <p className='cryptoPrice'>{/* <marquee behavior="scroll" direction="left" scrollamount='7'> */}
+                  <div className='cryptoPrice'>{/* <marquee behavior="scroll" direction="left" scrollamount='7'> */}
                     {(this.state.prices) ? 
                     Object.values(this.state.prices).map((value, index) => 
                     <div className="crypto_container">
-                      <span><img src={value.logo_url} className='crypto_logo'></img></span> <span >{value.name}</span> <span><b>₦</b>{Math.round(value.price)}</span>  <span id='cryptoChange'>{(Number(value['1d'].volume_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red"></span>: <span className="glyphicon glyphicon-chevron-up green"></span>}{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>
+                      <span><img src={value.logo_url} className='crypto_logo'></img></span> <span id='crypto_name'>{value.name}</span> <span><b>₦</b>{Math.round(value.price)}</span>  <span id='cryptoChange'>{(Number(value['1d'].price_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red"></span>: <span className="glyphicon glyphicon-chevron-up green"></span>}{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>
                     </div>
                     )
                     : 'Crypto Price Placeholder, Coming Soon....   '}
-                    {/* </marquee>*/}</p> 
+                    {/* </marquee>*/}</div> 
                   {this.offlineText()}    
             </header>
 

@@ -25,6 +25,10 @@ module.exports = {
         clientSecret: "SuVfzF7J2bK2LwNX4FdwB_nv"
    
     },
+    github:{
+        clientID: 'ce503e9a5ff04df9218a',
+        clientSecret: 'c5e7dfb86a29dffd266188023cd9af29545975e0'
+    },
     mongodb:{
         username: 'vm_admin',
         password: '3gPHRTsfrHtnwkE',

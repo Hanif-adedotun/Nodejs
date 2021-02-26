@@ -6,8 +6,8 @@
 /* The user profile style*/
 .img-circle {
     /* border-radius: 50%; */
-    height: auto;
-    width: auto;
+    height: 15%;
+    width: 15%;
     /* border: 2px solid cornflowerblue; */
     box-shadow: 1px 1px 7px #000000de;
 }

@@ -1,13 +1,16 @@
 const express = require('express');
 let router = express.Router();
 const passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth2').Strategy;
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
 
 // Keys for all needed keys
 const keys = require('./config/keys');
 
+// Cookies session and home url
 const cookieSession = require('cookie-session');
 const CLIENT_PROFILE_URL = 'http://localhost:3000/profile';
+
 
 //nconf
 const ncon = require('./config/nconfig');
@@ -27,25 +30,19 @@ const ncon = require('./config/nconfig');
 passport.use(new GoogleStrategy({
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret,
-    callbackURL: '/api/auth/redirect',
+    callbackURL: 'http://localhost:8080/api/auth/redirect',
     passReqToCallback: true
   }, async function(request, accessToken, refreshToken, profile, done){
     // var User = usersDB.createTable(profile.id);
     var user = {
-    id: profile.id,
-    email: profile.emails,
-    name: profile.name,
-    username: profile.displayName,
-    imageUrl: profile.photos[0].value
+      id: profile.id,
+      email: profile.email,
+      name: profile.displayName,
+      imageUrl: profile.photos[0].value
    };
   
-
-  //  Solve the error here!!
-   keys.User.dbname = user.id;
-   keys.User.fulldetails = user;
-   
    await ncon.writeFile(user);
-  
+  // console.log(profile);
     return done(null, user);
   }));
   router.use(cookieSession({
@@ -54,21 +51,49 @@ passport.use(new GoogleStrategy({
     sameSite: 'strict'
 }));
 
-  router.use(passport.initialize());
-  router.use(passport.session());
 
-//   passport.use(new GitHubStrategy({
-//     clientID: GITHUB_CLIENT_ID,
-//     clientSecret: GITHUB_CLIENT_SECRET,
-//     callbackURL: "http://127.0.0.1:3000/auth/github/callback"
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
-//       return cb(err, user);
-//     });
-//   }
-// ));
-//(api/auth/redirect) Google api will query this url to get the success redirect link or failure link
+
+  // Github Strategy to login
+  passport.use(new GitHubStrategy({
+    clientID: keys.github.clientID,
+    clientSecret: keys.github.clientSecret,
+    callbackURL: 'http://localhost:8080/api/auth/github/callback'
+  },
+  async function(accessToken, refreshToken, profile, done) {
+
+    var user = {
+      id: profile.id,
+      email: profile.profileUrl,
+      name: profile.displayName,
+      imageUrl: profile.photos[0].value
+   };
+
+
+  await ncon.writeFile(user);
+  // console.log(user);
+      return done(null, user);
+    }));
+    router.use(cookieSession({
+      maxAge: 24*60*60*1000,
+      keys:[keys.session.cookieKey],
+      sameSite: 'strict'
+}));
+
+router.use(passport.initialize());
+router.use(passport.session());
+
+
+//To save the user properties, to the req.session.user 
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+//To retreive the user properties, to the req.session.user 
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+//(api/auth/(method)/redirect) Google api will query this url to get the success redirect link or failure link
 router.get('/redirect', passport.authenticate('google', {
   successRedirect: CLIENT_PROFILE_URL,
   failureRedirect: 'api/auth/login/failure'
@@ -77,12 +102,26 @@ router.get('/redirect', passport.authenticate('google', {
 //(api/auth/signin) is called by the front-end to use google api to sign in
 router.get('/signin', passport.authenticate('google', {scope: ['profile', 'email']}));
 
+//(api/auth/github)
+//http://localhost:8080/api/auth/github
+router.get('/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+//(api/auth/github/callback)
+router.get('/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/api/auth/login/failure'}),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect(CLIENT_PROFILE_URL);
+});
+
 //(api/auth/login/success)
 //if the user is signed in, give the user properties to 
-router.get('/login/success', (req, res)=>{
+router.get('/login/success', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
-  if(req.user){   
-    res.status(200).json({authenticate: true, user: req.user});
+  var user = await ncon.readFile();
+  console.log(user);
+  if(user){   
+    res.status(200).json({authenticate: true, user: user});
   }else{
     ncon.refresh();
     res.status(404).json({authenticate: false,user: null});
@@ -95,7 +134,7 @@ router.get('/login/failure', (req, res)=>{
   res.status(500).send('Failed to authenticate, try again');
 })
 
-//(api/auth/login/logout)
+//(api/auth/logout)
 //This api is called to logout the user and delete the user file from the req.user
 //In v2, to logout can be used differently as session.destroy 
 // req.session.destroy(function (err) {
@@ -107,16 +146,9 @@ router.get('/logout', (req, res) =>{
     ncon.refresh(); //delete the user profile
     res.status(400).json({authenticate: false});
 });
-  
-//To save the user properties, to the req.session.user 
-  passport.serializeUser(function(user, done) {
-    done(null, user);
-  });
-  
-//To retreive the user properties, to the req.session.user 
-  passport.deserializeUser(function(user, done) {
-    done(null, user);
-  });
+
+
+
 
 
  

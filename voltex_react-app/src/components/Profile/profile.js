@@ -38,7 +38,7 @@ class Profile extends React.Component{
         this.state = {
             user: [],
             authenticate: [],
-            notice: 'Github Sign in coming Soon.....'
+            notice: ''
         };
     }
 
@@ -57,29 +57,34 @@ class Profile extends React.Component{
     window.open('http://localhost:8080/api/auth/signin', '_self');
    }
 
+   handlegithubsignin = (e) =>{
+    e.preventDefault();
+    window.open('http://localhost:8080/api/auth/github', '_self');
+   }
+
    //function (handlesignout) to sign a user out  using fetch api to the backend, then reload the page
    //@param {e} is the default event 
    handlesignout  = (e) =>{
        e.preventDefault();
     //    alert('Sign out');
-
        fetch('/api/auth/logout')//fetch the data from our express server running on localhost:8080
         .then(res => res.json())//parse the data in json format
         .then(response => this.setState({authenticate: response.authenticate}, () => {console.log('User Signed out'); this.renderuser(); }))
         .catch((error) =>{console.error('Unable to sign out' + error);});
 
         window.location.reload();
+    
    }
 
 //function (userprofile) the view for the user when signed in
     userprofile = () =>{
         return(
             <div>
-                <h1>Hello {this.state.user.name.givenName}</h1>
+                <h1>Hello {this.state.user.name}</h1>
                 <div className='user'>
                     <p><img src={this.state.user.imageUrl} alt='User icon' className='img-circle'></img></p>
-                    <p>Welcome {this.state.user.username}</p>
-                    <p>E-mail: {this.state.user.email[0].value}</p>
+                    <p>Welcome {this.state.user.name}</p>
+                    <p>E-mail: {this.state.user.email}</p>
                     <p>Go to dashboard to access your tables</p>
                 </div>
                 <div className='gsign' onClick={this.handlesignout}>
@@ -98,10 +103,9 @@ class Profile extends React.Component{
                  {gsign('Sign in With Google')}
                 </div>
                 
-                <div className='gsign' >
+                <div className='gsign' onClick={this.handlegithubsignin}>
                  {gsign('Sign in With Github', true)}
                 </div>
-                <span>{this.state.notice}</span>
             </div>
         );
     }

@@ -44,6 +44,10 @@
     color: var(--primary);
     font-weight: bold;
 }
+/* Crypto div and each text showing */
+#crypto_name{
+    color: #282c34;
+}
 .cryptoPrice{
     display: inline-block;
     color: var(--primary);
@@ -91,7 +95,7 @@
 /* #cryptoChange{
 
 } */
-.green{color:green}
+.green{color:rgb(6, 212, 6)}
 .red{color:red}
 .isContainer{
     height: fit-content;

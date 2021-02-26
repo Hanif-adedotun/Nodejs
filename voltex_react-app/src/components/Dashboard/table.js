@@ -72,7 +72,6 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
     );
 
         return(
-            <div>
             <div className='formTable'>
                     <h3>{(tableName) ? tableName+' Table': 'Table'}</h3>
                     <table className='table table-responsive table-bodered'>
@@ -105,7 +104,6 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
                         </tbody>
                         </table>
                         <p className='Tunique'>{(delText) ? delText: ''}</p>
-                </div>
                 {/* If there is table data, it displays all the table options */}
                 <div className='table_details'> 
                     {(table[0])?  <div>
@@ -124,7 +122,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
                             </button> </div>: ''}
                        
                 </div>
-            </div>
+             </div>            
         );
     
 }
