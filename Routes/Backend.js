@@ -14,17 +14,17 @@ const formidableMiddleware = require('express-formidable');
 //To parse images
 const mul = require('multer');
 // const helpers = require('./helpers');
-const storage = mul.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, 'uploads/');
-        //uploads url can bring an error, confirm it
-    },
-    filename: function(req, file, cb){
-        cb(null, file.filename+'-'+Date.now()+ path.extname(file.originalname));
+// const storage = mul.diskStorage({
+//     destination: function(req, file, cb){
+//         cb(null, 'uploads/');
+//         //uploads url can bring an error, confirm it
+//     },
+//     filename: function(req, file, cb){
+//         cb(null, file.filename+'-'+Date.now()+ path.extname(file.originalname));
 
-    }
+//     }
 
-})
+// })
 //mongodb
 const mongo = require('./Database/mongodb');
 
@@ -51,7 +51,7 @@ var dummyTable = {
 }
 
 
-//Router (POST method) {/api/middlewear/data/}
+//Router (POST method) {/api/middlewear/data/:dbname/:key}
 //To post the results to the database from the users form backend_page
 //@params(dbname) is the name of the user id from Google
 //@params(key) is the unique 8 character key given to the user
@@ -127,8 +127,12 @@ router.route('/:dbname/:key').get((req, res) =>{
                             var forbidden = ['done', 'user-url', 'submit', 'send' ];
                             //To avoid sending a send button value to the database
                             if(!forbidden.includes(field)){
-                            tablres.db_values[field] = data[field];
-
+                                if(!str || data[field] === ''){
+                                    console.log('Empty field: '+data[field]);
+                                    tablres.db_values[field] = 'null';
+                                }else{
+                                    tablres.db_values[field] = data[field];
+                                }
                             }              
                         }
                         

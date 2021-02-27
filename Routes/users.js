@@ -15,9 +15,6 @@ const mongo = require('./Database/mongodb')
 //Test save to config
 const ncon = require('./config/nconfig');
 
-//In-memory-cache
-const cache = require('./config/cache');
-
 //Random number generator
 //Using the cryptocurrence hashing method
 const crypto = require('crypto');
@@ -37,7 +34,6 @@ const emailhtml = pug.compileFile(path.join(__dirname+'/config/emailbody.pug'));
 // var users = null, userImage = null, dbname = null;
 
 //Router (GET method) {/api/users/login/profile}
-//(api/auth/login/success)
 //if the user is signed in, give the user properties to 
 router.get('/login/profile', async (req, res)=>{
   // console.log(JSON.stringify(req.user));
@@ -307,22 +303,9 @@ router.route('/sendmail').post((req, res) => {
 
 //Testing new method of storing value to the memory-cache
 
-//Router (POST method) {/api/users/test-v1/email}
+//Router (POST method) {/api/users/test-v1}
 // Test api to ensure design of email is accuaretly done
-router.route('/test-v1/email').get((req, res) => {
-
-  var cache = require('./config/cache');
-// var user = {
-//   id: 'profile.id',
-//   email: 'profile.emails',
-//   name: 'profile.name',
-//   username: 'profile.displayName',
-//   imageUrl: 'profile.photos[0].value'
-//  };
-// cache.write({key:'user', data: user});
-// console.log(cache.read('user'));
-// cache.clear('user');
-// console.log((cache.read('user')));
+router.route('/test-v1').get((req, res) => {
 
 return res.status(200).send(emailhtml({
   body: `This is the dynamic view rendered from server, version 1 of our email, expect more from us in the nearest future.... `

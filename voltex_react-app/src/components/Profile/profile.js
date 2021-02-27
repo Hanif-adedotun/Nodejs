@@ -24,7 +24,7 @@ var gsign = (name, github=false) =>{
         <div className=  {(github) ? 'github-sign-in sign-in': 'g-sign-in-button sign-in'}>
             <div className='content-wrapper'>
                 <span className='logo-wrapper'>
-                    <img alt='Google logo' src={(github) ? Giticon : Gicon}></img>
+                    <img id='logo' alt='Google logo' src={(github) ? Giticon : Gicon}></img>
                 </span>
                 <span className='text-container'> {name} </span>
             </div>

@@ -93,7 +93,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
                                     {/* <th>{item._id}</th> */}
                                     {/* <th>{item.key}</th> */}
                                     {Object.values(item.db_values).map((val, ind)=>
-                                        <th key={ind}>{val}</th>
+                                        <th key={ind}>{(val) ? val:' '}</th>
                                     )
                                     }                                    
                                     <th id={index}>{delete_button(index, item._id, delval)}</th>

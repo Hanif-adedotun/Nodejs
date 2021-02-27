@@ -108,6 +108,19 @@ class Home extends React.Component{
             .catch((error) =>{console.error('Unable to get prices' + error);});
       }
 
+      currency = (number) =>{
+        var num = Number(number);
+        var formatter = new Intl.NumberFormat('en-NG', {
+          style: 'currency',
+          currency: 'NGN',
+        
+          // These options are needed to round to whole numbers if that's what you want.
+          //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+          //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+        return formatter.format(num);
+      }
+
       componentWillUnmount(){
         clearInterval(this.interval);
       }
@@ -120,15 +133,15 @@ class Home extends React.Component{
                   <h1 className='color headGlass-head'>Voltex Middlwear</h1>
                   <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
-                  <div className='cryptoPrice'>{/* <marquee behavior="scroll" direction="left" scrollamount='7'> */}
+                  <div className='crypto'>
                     {(this.state.prices) ? 
                     Object.values(this.state.prices).map((value, index) => 
                     <div className="crypto_container">
-                      <span><img src={value.logo_url} className='crypto_logo'></img></span> <span id='crypto_name'>{value.name}</span> <span><b>₦</b>{Math.round(value.price)}</span>  <span id='cryptoChange'>{(Number(value['1d'].price_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red"></span>: <span className="glyphicon glyphicon-chevron-up green"></span>}{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>
+                      <span><img src={value.logo_url} className='crypto_logo'></img></span> <span id='crypto_name'>{value.name}</span> <span id='crypto_price'>{this.currency(value.price)}</span>  <span id='cryptoChange'>{(Number(value['1d'].price_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red"></span>: <span className="glyphicon glyphicon-chevron-up green"></span>}{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>
                     </div>
                     )
                     : 'Crypto Price Placeholder, Coming Soon....   '}
-                    {/* </marquee>*/}</div> 
+                    </div> 
                   {this.offlineText()}    
             </header>
 

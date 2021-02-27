@@ -167,7 +167,7 @@ import Load from '../objects/loading';
                         </AccordionItemHeading>
                         <AccordionItemPanel className='acc-body'>
                             <p><span className='acc-body-label'>Table name:</span> {options.name}</p>
-                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}> {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
+                            <p><span className='acc-body-label'>Static page:</span><a href={options.url}  target='_blank' > {options.url}</a> <button id='dEdit-button' onClick={this.editUrl}><span  className='glyphicon glyphicon-pencil dEdit'></span></button></p>
                             {(this.state.editUrl === true) ? 
                             <p>
                                 <span className='acc-body-label'>

@@ -48,10 +48,14 @@
 #crypto_name{
     color: #282c34;
 }
-.cryptoPrice{
+#crypto_price{ 
+    font-weight: bold;
+    
+}
+.crypto{
     display: inline-block;
     color: var(--primary);
-    
+   
     /* Imitationg marqee element */
         /* Starting position */
     /* -moz-transform:translateX(100%);
@@ -86,7 +90,12 @@
 
 .crypto_container {
     display: inline;
-    margin-right: 2em;
+    margin-right: 2em; 
+    font-size: medium;
+}
+.crypto_container  :not(.glyphicon) {
+    font-family: Montserrat, Verdana, sans-serif;
+    font-weight: bold;
 }
 .crypto_logo{
     height: 2.5%;

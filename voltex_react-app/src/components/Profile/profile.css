@@ -23,8 +23,14 @@
     margin: 2em auto; 
     cursor: pointer;
     width: max-content;
-    padding: .2em;
-   font-weight: bold;
+    font-weight: bold;
+}
+#logo{ 
+    background-color: white;
+    border-radius: 20px;
+}
+.content-wrapper{
+    margin: .2em;
 }
 /* Google specific sign in */
 .g-sign-in-button {
@@ -34,6 +40,7 @@
 .g-sign-in-button:hover{
     background-color: rgb(70, 123, 223);
     color: white;
+    font-size: medium;
 }
 /* Github specific sign in */
 .github-sign-in{
@@ -41,6 +48,7 @@
     background-color: white;
 }
 .github-sign-in:hover{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: black;
     color: white;
+    font-size: medium;
 }
