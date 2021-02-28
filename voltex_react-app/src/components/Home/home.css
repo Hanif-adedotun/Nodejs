@@ -89,17 +89,21 @@
    }
 
 .crypto_container {
-    display: inline;
-    margin-right: 2em; 
+    display: inline-block;
+    margin: .7em auto; 
     font-size: medium;
 }
-.crypto_container  :not(.glyphicon) {
-    font-family: Montserrat, Verdana, sans-serif;
+.crypto_container span{
+    margin: auto .2em;
     font-weight: bold;
 }
+.crypto_container :not(.glyphicon) {
+    font-family: Montserrat, Verdana, sans-serif;
+}
+
 .crypto_logo{
-    height: 2.5%;
-    width: 2.5%;
+    height: 5%;
+    width: 5%;
 }
 /* #cryptoChange{
 

@@ -50,7 +50,6 @@ var dummyTable = {
     url: keys.mysql.Table.url
 }
 
-
 //Router (POST method) {/api/middlewear/data/:dbname/:key}
 //To post the results to the database from the users form backend_page
 //@params(dbname) is the name of the user id from Google

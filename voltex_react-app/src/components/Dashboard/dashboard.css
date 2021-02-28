@@ -185,7 +185,7 @@
 .formTable{
     margin:  1em auto ;
     text-align: center;
-    overflow:auto;
+    
     max-width: fit-content;
 }
 .table-dropdown{

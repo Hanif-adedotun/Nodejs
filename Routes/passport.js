@@ -93,7 +93,7 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-//(api/auth/(method)/redirect) Google api will query this url to get the success redirect link or failure link
+//(api/auth/redirect) Google api will query this url to get the success redirect link or failure link
 router.get('/redirect', passport.authenticate('google', {
   successRedirect: CLIENT_PROFILE_URL,
   failureRedirect: 'api/auth/login/failure'

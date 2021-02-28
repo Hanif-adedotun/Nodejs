@@ -136,8 +136,11 @@ class Home extends React.Component{
                   <div className='crypto'>
                     {(this.state.prices) ? 
                     Object.values(this.state.prices).map((value, index) => 
-                    <div className="crypto_container">
-                      <span><img src={value.logo_url} className='crypto_logo'></img></span> <span id='crypto_name'>{value.name}</span> <span id='crypto_price'>{this.currency(value.price)}</span>  <span id='cryptoChange'>{(Number(value['1d'].price_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red"></span>: <span className="glyphicon glyphicon-chevron-up green"></span>}{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>
+                    <div key={index} className="crypto_container">
+                      <span ><img src={value.logo_url} className='crypto_logo'></img></span> 
+                      <span  id='crypto_name'>{value.name}</span> 
+                      <span  id='crypto_price'>{this.currency(value.price)}</span>  
+                      <span  id='cryptoChange'>{(Number(value['1d'].price_change_pct) < 0) ? <span className="glyphicon glyphicon-chevron-down red">{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>: <span className="glyphicon glyphicon-chevron-up green">{Number(value['1d'].price_change_pct *100).toFixed(2)}%</span>}</span>
                     </div>
                     )
                     : 'Crypto Price Placeholder, Coming Soon....   '}

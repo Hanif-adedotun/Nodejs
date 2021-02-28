@@ -27,14 +27,15 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: var(--dark);
+  /* background: var(--dark); */
+  background: transparent;
   /* background: #f1f1f1; */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  /* background: #888; */
-  background: var(--secondary);
+  /* background: var(--secondary); */
+  background: var(--dark);
   border-radius: 5px;
 }
 /* The arrows at the beginning and end*/

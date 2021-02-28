@@ -13,13 +13,13 @@
      border: none;
      border-radius: 30px;
      /* background-color: cadetblue; */
-     width: max-content;
+     max-width: max-content;
 }
 /* Each code wrapper to give uniqness to eeach code container */
 .code-tab{
      margin: 1em auto;
      margin-top: 3em;
-     
+     overflow: auto;
 }
 .code-tab h4{
      color: var(--primary);

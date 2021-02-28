@@ -30,12 +30,20 @@ Url: localhost:8080
 -- '/api/users/test-v1' A test url for new features or updates befor interating it eith the front end
 
 || Authentication ||
+>> Node js/passport.js
+-- '/api/auth/redirect' Google redirect if succesfull redirects to home page, if not throws error
+-- '/api/auth/signin' Authenticates the user using google passport startegy
+-- '/api/auth/github' Authenticates the user using Github passport startegy
+-- '/api/auth/github/callback Redirection for Github, success, profile, failure throws error view
+-- '/api/auth/login/success Return the user currently in the session
+-- '/api/auth/login/failure' Server Error: Sends an error to the front end
+-- 'api/auth/logout' Logs the user out of the session, then deletes the user stored in the file
 
 || Backend ||
 >> Node js/Backend.js
 -- 'api/middlewear/data/:dbname/:key' Get, returns an authorized 401 page
 -- 'api/middlewear/data/:dbname/:key' Post the results to the mongo db database from the users form backend page
    /:dbname is the login unique number of the user, to identify the user
-   /:key is  the unique url of the user
+   /:key is  the unique url of the user, used to authorize and validate the user
 
 

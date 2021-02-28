@@ -1,9 +1,0 @@
-The documentation page for the Backend of Voltex Middlwear
-Created by Hanif Adedotun 2021 @lil_h_b
-Under Voltex Designs
-
---> The request coming to the folder (Routes)
---> The server is middlwear_server In the parent folder
-
-
---> 
