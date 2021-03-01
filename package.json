@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "babel src –presets react –out-dir static",
     "watch": "babel src –presets react –out-dir static –watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node middlewear_server.js",
     "server": "nodemon middlewear_server.js",
     "client": "npm start --prefix voltex_react-app",
@@ -53,6 +53,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-react": "^6.24.1",
+    "jest": "^26.6.3",
     "nodemon": "^2.0.4"
   }
 }

@@ -56,7 +56,7 @@ const Table = ({tableName, table, delval, delText, loadDatabase, rotate, sendmai
     if(!table[0]){
         return(
             <div>
-                <p className="App">
+                <p>
                 <img id='empty_logo' src={VoidLogo} alt="Void Logo" />
                 </p>
                 <p>No user has used your form yet, paste your unique link and start using, thank you</p>

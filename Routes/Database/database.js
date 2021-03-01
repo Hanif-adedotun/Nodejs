@@ -102,13 +102,11 @@ var addToUserTable = (dbname, url, name, id, userid) =>{
       });
 }
 
-//function (addToUserTable) to add a new user to the table with its important details_
+//function (getfromtable) gets either the whole table or a specified row using params
 // @param {dbname} name of the database
-// @param {url} url of the client's static page
-// @param {name} table name of the user table
-// @param {id} 16 letters unique id used to identify and secure a table
-// @param {userid} user id used to register, e.x google id
-var getfromtable = (dbname, table, params) =>{
+// @param {table} table name of the user table
+// @param {params} parameters for specified retreival
+var getfromtable = (dbname, table, params=false) =>{
     var dbResults;
     return new Promise(function(resolve, reject){
         var con = mysql.createConnection({
@@ -146,7 +144,7 @@ var getfromtable = (dbname, table, params) =>{
     })
 
 }
-//function (updateTable) to add a new user to the table with its important details_
+//function (updateTable) to add a new user to the table with its important details
 // @param {dbname} name of the database
 /// @param {userId} the id of the user, used to identify the unique field to edit 
 // @param {urlValue} the new url value to replace with the old url value
@@ -183,7 +181,7 @@ var updateTable = ({dbname, userId, urlValue}) =>{
 }
 
 //An object to export the functions 
-var Datadase = {
+var database = {
     createDatabse: createDatabse,
     createUserTable: createUserTable,
     addToUserTable: addToUserTable,
@@ -191,4 +189,4 @@ var Datadase = {
     editfield: updateTable
 };
 
- module.exports = Datadase; 
+ module.exports = database; 

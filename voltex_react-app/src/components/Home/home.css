@@ -114,13 +114,12 @@
     height: fit-content;
     width: fit-content;
     margin: 0 auto;
-    background-color: rgb(187, 187, 51);
+    background-color: rgb(185, 185, 29);
     border-radius: 10px;
 }
 .internet_status{
     color: white;
-    margin: 2em 1em;
-   
+    margin: 3em 1em; 
 }
 /* End of headGlass */
 /* The home icons and text */
