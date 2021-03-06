@@ -26,10 +26,12 @@
     border-radius: 10px;
 }
 
+
 .headGlass-head{
-    font-size: xx-large;
+    font-size: 3em;
     font-weight: bold;
-    /* color: cornflowerblue; */
+    -webkit-text-stroke: 2px var(--primary);
+    -webkit-text-fill-color: transparent;
 }
 /* .tagline{
     font-family:  Montserrat, 'Italianno', cursive;

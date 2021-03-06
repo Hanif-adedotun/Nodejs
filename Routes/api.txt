@@ -43,7 +43,7 @@ Url: localhost:8080
 >> Node js/Backend.js
 -- 'api/middlewear/data/:dbname/:key' Get, returns an authorized 401 page
 -- 'api/middlewear/data/:dbname/:key' Post the results to the mongo db database from the users form backend page
-   /:dbname is the login unique number of the user, to identify the user
-   /:key is  the unique url of the user, used to authorize and validate the user
+   (/:dbname) is the login unique number of the user, to identify the user
+   (/:key) is  the unique url of the user, used to authorize and validate the user
 
 

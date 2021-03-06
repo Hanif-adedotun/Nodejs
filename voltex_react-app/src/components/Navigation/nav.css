@@ -80,3 +80,8 @@
 
 
 /* End of logo */
+
+/* Content after the navbar */
+.content{
+  margin-top: 10%;
+}

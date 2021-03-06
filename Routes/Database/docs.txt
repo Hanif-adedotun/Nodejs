@@ -25,5 +25,5 @@ Properties
 -- (this.createUserTable) create user table to store the name and other related values to the database for easy retreival
 -- (this.addToUserTable) to add a new user to the table with its table details
 -- (this.getfromtable) gets either the whole table or a specified row using params
--- (this.updateTable) to add a new user to the table with its important details
+-- (this.editfield) to add a new user to the table with its important details
  

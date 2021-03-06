@@ -129,8 +129,8 @@ class Home extends React.Component{
         // this.price();
           return(
             <div className='Home'>
-            <header className='  headGlass'>
-                  <h1 className='color headGlass-head'>Voltex Middlwear</h1>
+            <header className='headGlass'>
+                  <h1 className='headGlass-head'>Voltex Middlwear</h1>
                   <p className='tagline'>Quickly integrate a back-end with your frontend with just a click</p>
                   <p>Time is <span className='time'>{this.state.time}</span></p>
                   <div className='crypto'>

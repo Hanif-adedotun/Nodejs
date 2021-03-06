@@ -50,6 +50,7 @@ var dummyTable = {
     url: keys.mysql.Table.url
 }
 
+
 //Router (POST method) {/api/middlewear/data/:dbname/:key}
 //To post the results to the database from the users form backend_page
 //@params(dbname) is the name of the user id from Google
@@ -60,6 +61,8 @@ router.route('/:dbname/:key').get((req, res) =>{
         error: true,
         text: 'Invalid header, Check the method used to send data',
       }))
+   
+
 }).post((req, res) =>{
     req.setMaxListeners(10);//This sets the maximum api requests at once to 10 requests
 
@@ -175,6 +178,7 @@ router.route('/:dbname/:key').get((req, res) =>{
                     four: '404',
                     text: 'You are not authorized to view this page, please check your form parameters and try again.'
                 }));
+                //res.sendFile(path.join(__dirname +'/config/404page.html'));
             }
 
     }).catch(function(err){

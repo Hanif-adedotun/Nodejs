@@ -301,6 +301,13 @@ router.route('/sendmail').post((req, res) => {
 
 })
 
+//Router (POST method) {/api/users/internet}
+// Test google.com as well as amazon.com to check for internet connection
+router.route('/internet').get((req, res) => {
+
+})
+
+
 //Testing new method of storing value to the memory-cache
 
 //Router (POST method) {/api/users/test-v1}
